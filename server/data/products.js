@@ -19,6 +19,8 @@ const products = [
     priceWeekly: "90",
     image: "https://unsplash.com/photos/RRcYcdGY630",
     isAvailable: false,
+    OwnerId: 1039
+
   },
   {
     id: 2003,
@@ -29,6 +31,8 @@ const products = [
     priceWeekly: "160",
     image: "https://unsplash.com/photos/B-Z8Exf-6U0",
     isAvailable: true,
+    OwnerId: 1040
+
   },
   {
     id: 2004,
@@ -40,6 +44,8 @@ const products = [
     priceWeekly: "150",
     image: "https://unsplash.com/photos/Bmpu6_0NJPY",
     isAvailable: true,
+    OwnerId: 1041
+
   },
   {
     id: 2005,
@@ -51,6 +57,8 @@ const products = [
     priceWeekly: "250",
     image: "https://unsplash.com/photos/7KiIwh5kOvM",
     isAvailable: true,
+    OwnerId: 1042
+
   },
   {
     id: 2006,
@@ -63,6 +71,8 @@ const products = [
     priceWeekly: "200",
     image: "https://unsplash.com/photos/gDElF4RMYbY",
     isAvailable: true,
+    OwnerId: 1043
+
   },
   {
     id: 2007,
@@ -74,6 +84,8 @@ const products = [
     priceWeekly: "350",
     image: "https://unsplash.com/photos/EP4VrAn-WaY",
     isAvailable: false,
+    OwnerId: 1044
+
   },
   {
     id: 2008,
@@ -85,6 +97,8 @@ const products = [
     priceWeekly: "100",
     image: "https://unsplash.com/photos/MzTTVl_trFw",
     isAvailable: true,
+    OwnerId: 1045
+
   },
   {
     id: 2009,
@@ -96,6 +110,8 @@ const products = [
     priceWeekly: "70",
     image: "https://unsplash.com/photos/7e-VK6U-3Fs",
     isAvailable: true,
+    OwnerId: 1046
+
   },
 ];
 

@@ -15,8 +15,8 @@ const batchImport = async () => {
     await client.connect();
     const db = client.db("RentOutdoorGears");
     console.log("connected");
-    // await db.collection("products").insertMany(products);
-    // console.log("database created with success");
+    await db.collection("products").insertMany(products);
+    console.log("database created with success");
   } catch {
     console.log(err.stack);
     console.log("it's a fail");
