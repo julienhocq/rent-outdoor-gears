@@ -16,15 +16,14 @@ express()
     res.send("helllo Robertoo");
   })
 
-  //Get all items
+  //Get all items - by query
   .get("/api/items", getAllItems)
 
   //Get a specific Item
   // .get("api/item/:itemById", getItemById)
 
   //Get All item by category
-  .get("/api/:itemsByCategory", getItemsByCategory)
-
+  .get("/api/items/:category", getItemsByCategory)
 
 
   

@@ -8,19 +8,19 @@ const options = {
 };
 
 const getItemsByCategory = async (req, res) => {
-  const category = req.params.itemsByCategory;
+  const category = req.params.category;
   const client = new MongoClient(MONGO_URI, options);
   try {
     await client.connect();
     const db = client.db("RentOutdoorGears");
 
-    const result = await db.collection("products").find().toArray();
-    const findByCategory = result.filter((e) => {
-      return e.category === category;
-    });
+    const result = await db.collection("products").find({category}).toArray();
+    // const findByCategory = result.filter((e) => {
+    //   return e.category === category;
+    // });
     return res.status(201).json({
       status: 201,
-      data: findByCategory,
+      data: result,
       message: "This is all the items by category",
     });
   } catch (err) {

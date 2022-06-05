@@ -9,13 +9,18 @@ const options = {
 
 
 const getAllItems = async (req, res) => {
+    const {category, city} = req.query;
+    const query = {}
+    if (category) query.category = category
+    if (city) query.city = city
+
     const client = new MongoClient(MONGO_URI, options);
     try {
         await client.connect();
         const db = client.db("RentOutdoorGears");
-        const result = await db.collection("products").find().toArray();
-        return res.status(201).json({
-            status: 201,
+        const result = await db.collection("products").find(query).toArray();
+        return res.status(200).json({
+            status: 200,
             data: result,
             message: "This is all the items"
         })

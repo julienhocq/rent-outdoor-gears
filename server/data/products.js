@@ -9,6 +9,9 @@ const products = [
     image: "https://unsplash.com/photos/OZh_OBP_fao",
     isAvailable: true,
     OwnerId: 1038,
+    city: "Montreal",
+    latitude: 45.463839,
+    longitude: -73.577551,
   },
   {
     id: 2002,
@@ -20,6 +23,9 @@ const products = [
     image: "https://unsplash.com/photos/RRcYcdGY630",
     isAvailable: false,
     OwnerId: 1039,
+    city: "Montreal",
+    latitude: 45.483806,
+    longitude: -73.572467,
   },
   {
     id: 2003,
@@ -31,6 +37,9 @@ const products = [
     image: "https://unsplash.com/photos/B-Z8Exf-6U0",
     isAvailable: true,
     OwnerId: 1040,
+    city: "Montreal",
+    latitude: 45.517287,
+    longitude: 73.5712097,
   },
   {
     id: 2004,
@@ -43,6 +52,9 @@ const products = [
     image: "https://unsplash.com/photos/Bmpu6_0NJPY",
     isAvailable: true,
     OwnerId: 1041,
+    city: "Montreal",
+    latitude: 45.468904,
+    longitude: -73.633109,
   },
   {
     id: 2005,
@@ -55,6 +67,8 @@ const products = [
     image: "https://unsplash.com/photos/7KiIwh5kOvM",
     isAvailable: true,
     OwnerId: 1042,
+    city: "Toronto",
+
   },
   {
     id: 2006,
@@ -68,6 +82,8 @@ const products = [
     image: "https://unsplash.com/photos/gDElF4RMYbY",
     isAvailable: true,
     OwnerId: 1043,
+    city: "Toronto",
+
   },
   {
     id: 2007,
@@ -92,6 +108,8 @@ const products = [
     image: "https://unsplash.com/photos/MzTTVl_trFw",
     isAvailable: true,
     OwnerId: 1045,
+    city: "Toronto",
+
   },
   {
     id: 2009,
