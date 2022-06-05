@@ -5,8 +5,9 @@ const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/"></Route>
+        <Route exact path="/">
         <Map />
+        </Route>
         <Route exact path=""></Route>
       </Switch>
     </BrowserRouter>

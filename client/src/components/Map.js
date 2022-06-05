@@ -1,9 +1,8 @@
 
 
-const Map = () =>{
+const Map = () => {
+  console.log("it is working");
+  return <div>Whaat's up??</div>;
+};
 
-    return 
-
-}
-
-export default Map
+export default Map;
