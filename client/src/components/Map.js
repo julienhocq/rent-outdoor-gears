@@ -1,57 +1,76 @@
-// eslint-disable-next-line
-import React, { useRef, useEffect, useState } from "react";
-import mapboxgl, { Marker } from "mapbox-gl";
-import styled from "styled-components";
-// const path = require("path");
+import React, { useState, useEffect } from "react";
+// import ReactMapGL, { Marker, Popup } from "react-map-gl";
 
-mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
-console.log('process.env.REACT_APP_MAPBOX_TOKEN',process.env.REACT_APP_MAPBOX_TOKEN);
+import { render } from "react-dom";
+import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import 'mapbox-gl/dist/mapbox-gl.css';
 
+const Map = () => {
+  const [viewport, setViewport] = useState({
+    latitude: 45.463839,
+    longitude: -73.577551,
+    // width: "100vw",
+    // height: "100vh",
+    zoom: 14
+  });
+  const [items, setItems] = useState()
 
-function Map() {
-  const mapContainer = useRef(null);
-  const map = useRef(null);
-  const [lng, setLng] = useState(-73.561668);
-  const [lat, setLat] = useState(45.508888);
-  const [zoom, setZoom] = useState(9);
-  const [items, setItems] = useState([])
-
-  // Initialize the Map
-  useEffect(() => {
-    if (map.current) return; // initialize map only once
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: "mapbox://styles/mapbox/streets-v11",
-      center: [lng, lat],
-      zoom: zoom,
-    });
-  }, []);
 
   useEffect(() => {
 
     fetch("/api/items?" + new URLSearchParams({
       category: "",
-      // city: ""
+      city: ""
     }) )
       .then((res) => res.json())
+      .then((data) => {
+        setItems(data.data)
+      })
       .catch((err) => console.log(err));
-  }, []);
+    }, []);
 
+    // useEffect(() => {
+    //   items.map((item) =>
+    //   new mapboxgl.Marker().setLngLat(item.coordinates).addTo(map))
 
+    // }, [])
 
+    console.log('items', items);
+
+  // useEffect(() => {
+  //   const listener = e => {
+  //     if (e.key === "Escape") {
+  //       setSelectedPark(null);
+  //     }
+  //   };
+  //   window.addEventListener("keydown", listener);
+
+  //   return () => {
+  //     window.removeEventListener("keydown", listener);
+  //   };
+  // }, []);
+
+  
 
   return (
-    <div> heoo
-      <MapContainer ref={mapContainer}
-    />
-    <p>Bike</p>
-    </div>
-  );
-}
+    <ReactMapGL
+      initialViewState={{
+        latitude: 45.463839,
+        longitude: -73.577551,
+        zoom: 10,
+      }}
+      style={{ width: 600, height: 400 }}
+      mapStyle="mapbox://styles/mapbox/streets-v9"
+      mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+    >
 
-const MapContainer = styled.div`
-  width: 50vw;
-  height: 50vh;
-`;
+      {items?.map((item) => (
+        <Marker
+         latitude={item.latitude}
+         longitude={item.longitude}  color="red" />
+      ))}
+    </ReactMapGL>
+  );
+};
 
 export default Map;

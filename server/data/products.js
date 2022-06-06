@@ -10,6 +10,7 @@ const products = [
     isAvailable: true,
     OwnerId: 1038,
     city: "Montreal",
+    coordinates: [-73.577551, 45.463839],
     latitude: 45.463839,
     longitude: -73.577551,
   },
@@ -24,6 +25,7 @@ const products = [
     isAvailable: false,
     OwnerId: 1039,
     city: "Montreal",
+    coordinates: [-73.572467, 45.483806],
     latitude: 45.483806,
     longitude: -73.572467,
   },
@@ -38,8 +40,9 @@ const products = [
     isAvailable: true,
     OwnerId: 1040,
     city: "Montreal",
+    coordinates: [-73.5712097, 45.517287],
     latitude: 45.517287,
-    longitude: 73.5712097,
+    longitude: -73.5712097,
   },
   {
     id: 2004,
@@ -53,6 +56,7 @@ const products = [
     isAvailable: true,
     OwnerId: 1041,
     city: "Montreal",
+    coordinates: [-73.633109, 45.468904],
     latitude: 45.468904,
     longitude: -73.633109,
   },
@@ -68,7 +72,9 @@ const products = [
     isAvailable: true,
     OwnerId: 1042,
     city: "Toronto",
-
+    coordinates: [-73.633109, 45.468904],
+    latitude: 45.468904,
+    longitude: -73.633109,
   },
   {
     id: 2006,
@@ -83,7 +89,9 @@ const products = [
     isAvailable: true,
     OwnerId: 1043,
     city: "Toronto",
-
+    coordinates: [-73.633109, 45.468904],
+    latitude: 45.468904,
+    longitude: -73.633109,
   },
   {
     id: 2007,
@@ -96,6 +104,9 @@ const products = [
     image: "https://unsplash.com/photos/EP4VrAn-WaY",
     isAvailable: false,
     OwnerId: 1044,
+    coordinates: [-73.633109, 45.468904],
+    latitude: 45.468904,
+    longitude: -73.633109,
   },
   {
     id: 2008,
@@ -109,7 +120,9 @@ const products = [
     isAvailable: true,
     OwnerId: 1045,
     city: "Toronto",
-
+    coordinates: [-73.633109, 45.468904],
+    latitude: 45.468904,
+    longitude: -73.633109,
   },
   {
     id: 2009,
@@ -122,6 +135,9 @@ const products = [
     image: "https://unsplash.com/photos/7e-VK6U-3Fs",
     isAvailable: true,
     OwnerId: 1046,
+    coordinates: [-73.633109, 45.468904],
+    latitude: 45.468904,
+    longitude: -73.633109,
   },
 ];
 
