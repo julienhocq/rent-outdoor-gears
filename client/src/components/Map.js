@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import ReactMapGL, { Marker, Popup } from "react-map-gl";
 
-import { render } from "react-dom";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import styled from "styled-components";
@@ -12,10 +10,9 @@ const Map = () => {
   const [viewport, setViewport] = useState({
     latitude: 45.463839,
     longitude: -73.577551,
-    // width: "100vw",
-    // height: "100vh",
-    zoom: 14,
+    zoom: 10,
   });
+
   const [items, setItems] = useState();
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -34,11 +31,6 @@ const Map = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  // useEffect(() => {
-  //   items.map((item) =>
-  //   new mapboxgl.Marker().setLngLat(item.coordinates).addTo(map))
-
-  // }, [])
 
   console.log("items", items);
 
@@ -55,17 +47,17 @@ const Map = () => {
     };
   }, []);
 
+
   return (
     <>
       <ReactMapGL
-        initialViewState={{
-          latitude: 45.463839,
-          longitude: -73.577551,
-          zoom: 10,
-        }}
-        style={{ width: 600, height: 400 }}
-        mapStyle="mapbox://styles/mapbox/streets-v9"
+        {...viewport}
+        style={{ width: 800, height: 400 }}
         mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+        mapStyle="mapbox://styles/mapbox/streets-v9"
+        onViewportChange={viewport => {
+          setViewport(viewport);
+        }}
       >
         {items?.map((item) => (
           <Marker
@@ -79,9 +71,13 @@ const Map = () => {
                 e.preventDefault();
                 // console.log('im cliked');
                 setSelectedItem(item);
+                console.log('item', item);
               }}
             >
-              <Img />
+             
+                      <Img src={imgIconMap} />
+              
+              
             </Button>
           </Marker>
         ))}
@@ -99,6 +95,34 @@ const Map = () => {
           </Popup>
         ) : null}
       </ReactMapGL>
+      <FilterSection>
+        <div>Filter Section</div>
+        <form>
+          <label>
+            <input
+            type="radio"
+            name="filterGroup"
+            onChange={() => {
+              items.filter((item) => {
+                console.log('', item.category);
+                return item.category === "bike"
+              })
+            }}>
+            </input>
+            <span>Bike</span>
+          </label>
+          <label>
+            <input
+            type="radio"
+            name="filterGroup"
+            // onChange={(e)=> setItems()}
+            >
+            </input>
+            <span>Camping</span>
+          </label>
+
+        </form>
+      </FilterSection>
     </>
   );
 };
@@ -108,12 +132,16 @@ const Button = styled.button`
 `;
 
 const Img = styled.img`
-  background-image: url(${imgIconMap});
+  /* background-image: url(${imgIconMap}); */
   background-size: cover;
   min-width: 50px;
   height: 50px;
   /* border-radius: 50%; */
   /* width: 80px; */
 `;
+
+const FilterSection = styled.div`
+padding-top: 20px;
+`
 
 export default Map;
