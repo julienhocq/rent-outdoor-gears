@@ -12,9 +12,9 @@ express()
   // Any requests for static files will go into the public folder
   .use(express.static("public"))
 
-  // .get("/", (req, res) => {
-  //   res.send("helllo Robertoo");
-  // })
+  .get("/", (req, res) => {
+    res.send("helllo Robertoo");
+  })
 
   //Get all items - by query
   .get("/api/items", getAllItems)
