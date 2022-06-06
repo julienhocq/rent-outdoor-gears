@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -90,7 +91,9 @@ const Map = () => {
             }}
           >
             <div>
+              <Link to={`/item/${selectedItem.id}`}>
               <h2>{selectedItem.name}</h2>
+              </Link>
             </div>
           </Popup>
         ) : null}
