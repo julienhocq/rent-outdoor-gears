@@ -4,6 +4,8 @@ const morgan = require("morgan");
 const { getAllItems } = require("./handlers/getAllItems");
 const { getItemsByCategory } = require("./handlers/ItemsByCategory");
 const { getItemById } = require("./handlers/singleItem");
+const { login } = require("./handlers/login");
+
 
 express()
   // This will give us will log more info to the console. see https://www.npmjs.com/package/morgan
@@ -25,6 +27,10 @@ express()
 
   //Get All item by category
   .get("/api/items/:category", getItemsByCategory)
+
+// user - login
+.post("/api/owner/login", login)
+
 
   // this is our catch all endpoint.
   .get("*", (req, res) => {
