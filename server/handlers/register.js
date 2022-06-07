@@ -45,7 +45,7 @@ const register = async (req, res) => {
     } else {
       // password encryption and adding new owner
       const owner = {
-        username: req.body.userName,
+        username: req.body.username,
         email: req.body.email,
         password: CryptoJs.AES.encrypt(
           req.body.password,
