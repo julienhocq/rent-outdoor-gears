@@ -11,9 +11,9 @@ const options = {
 
 // a post req for sign up
 const register = async (req, res) => {
-  const { userName, email, password, secondPassword } = req.body;
+  const { username, email, password, secondPassword } = req.body;
 
-  if (!userName || !email || !password || !secondPassword) {
+  if (!username || !email || !password || !secondPassword) {
     return res.status(400).json({
       status: 400,
       message: "Please provide your information!",
@@ -32,28 +32,30 @@ const register = async (req, res) => {
     });
   }
   try {
-    // check if the user already exist or not
+    // check if the owner already exist or not
     const client = new MongoClient(MONGO_URI, options);
     await client.connect();
     const db = client.db("RentOutdoorGears");
     const result = await db.collection("owners").findOne({ email });
+    console.log('result', result);
     if (result) {
       res
         .status(400)
         .json({ status: 400, message: "This email already exist!" });
     } else {
-      // password encryption and adding new user
-      const user = {
+      // password encryption and adding new owner
+      const owner = {
+        username: req.body.userName,
         email: req.body.email,
-        userName: req.body.userName,
         password: CryptoJs.AES.encrypt(
           req.body.password,
           process.env.PASS_SEC
         ).toString(),
       };
-      const NewUser = Object.assign({ _id: uuidv4() }, user);
-      await db.collection("owners").insertOne(NewUser);
-      res.status(201).json({ status: 201, message: "New user added!" });
+      console.log('owner', owner);
+      const NewOwner = Object.assign({ _id: uuidv4() }, owner);
+      await db.collection("owners").insertOne(NewOwner);
+      res.status(201).json({ status: 201, message: "New owner added!" });
       client.close();
     }
   } catch (err) {

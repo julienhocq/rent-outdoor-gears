@@ -23,10 +23,11 @@ const login = async (req, res) => {
     const owner = await db
       .collection("owners")
       .findOne({ email: req.body.email });
+      console.log('owner', owner);
     if (!owner)
       return res.status(401).json({
         status: 401,
-        message: "The owner doesn't exist!",
+        message: "The user doesn't exist!",
       });
     const password = CryptoJs.AES.decrypt(
       owner.password,
