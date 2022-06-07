@@ -1,17 +1,17 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
-// import { UserContext } from "../context/Context";
 import { useHistory } from "react-router-dom";
+import { OwnerContext } from "./context/Context";
 
 const SignUp = () => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
-  const [userName, setUserName] = useState(null);
+  const [username, setUsername] = useState(null);
   const [signUpMessage, setSignUpMessage] = useState(null);
   const [secondPassword, setSecondPassword] = useState(null);
 
-//   const { setUser } = useContext(UserContext);
+  const { setOwner } = useContext(OwnerContext);
 
   const history = useHistory();
 
@@ -27,14 +27,14 @@ const SignUp = () => {
         },
         body: JSON.stringify({
           email: email,
-          userName: userName,
+          username: username,
           password: password,
           secondPassword: secondPassword,
         }),
       });
       const json = await data.json();
       setSignUpMessage(json.message);
-      // setUser(userName);
+      setOwner(username);
       if (json.status === 201) {
         history.push("/");
       }
@@ -47,8 +47,8 @@ const SignUp = () => {
     setEmail(e.target.value);
   };
 
-  const handleUserName = (e) => {
-    setUserName(e.target.value);
+  const handleUsername = (e) => {
+    setUsername(e.target.value);
   };
 
   const handlePassword = (e) => {
@@ -65,7 +65,7 @@ const SignUp = () => {
         <input
           type="text"
           placeholder="Username"
-          onChange={(e) => handleUserName(e)}
+          onChange={(e) => handleUsername(e)}
           required
         />
         <input
