@@ -17,7 +17,22 @@ const OwnerHome = () => {
 
   console.log("owner is", owner);
 
-  return <div>Hey</div>;
+  return (
+<>
+    <Img src={owner.image} />
+    <p>{owner.username}</p>
+<p>Your items: </p>
+
+<p>Add new item</p>
+
+    </>
+
+  )
 };
+
+const Img = styled.img`
+max-width: 80px;
+`
+
 
 export default OwnerHome;
