@@ -5,12 +5,12 @@ import Header from "./Header";
 import ItemDetails from "./ItemDetails";
 import Login from "./Login";
 import Map from "./Map";
-
+import SignUp from "./SignUp";
 
 const App = () => {
   return (
     <BrowserRouter>
-    <Header />
+      <Header />
       <Switch>
         <Route exact path="/">
           <Map />
@@ -24,7 +24,9 @@ const App = () => {
         <Route exact path="/login">
           <Login />
         </Route>
-
+        <Route exact path="/sign-up">
+          <SignUp />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
