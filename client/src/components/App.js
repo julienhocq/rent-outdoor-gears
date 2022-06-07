@@ -5,7 +5,10 @@ import Header from "./Header";
 import ItemDetails from "./ItemDetails";
 import Login from "./Login";
 import Map from "./Map";
+import OwnerHome from "./OwnerHome";
 import SignUp from "./SignUp";
+
+
 
 const App = () => {
   return (
@@ -27,6 +30,10 @@ const App = () => {
         <Route exact path="/sign-up">
           <SignUp />
         </Route>
+        <Route exact path="/profile/:profileById">
+        <OwnerHome />
+        </Route>
+
       </Switch>
     </BrowserRouter>
   );
