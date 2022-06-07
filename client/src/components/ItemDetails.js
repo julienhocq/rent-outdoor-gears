@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 
 import styled from "styled-components";
+import { ItemContext } from "./context/Context";
 
 
 const ItemDetails = () => {
@@ -9,11 +10,14 @@ const ItemDetails = () => {
 
     const {itemById} = useParams()
 
+    const {selectedItem, setSelectedItem} = useContext(ItemContext)
+    console.log('selectedItem IS', selectedItem);
 
   // fetching product info by itemId
 useEffect(() =>{
     const fetchProduct = async () => {
         const data = await fetch (`/api/item/${itemById}`)
+        console.log('data',data);
         const json = await data.json()
         setItem(json.data);
 
@@ -21,7 +25,7 @@ useEffect(() =>{
     fetchProduct()
 }, [itemById])
 
-console.log('', item);
+console.log('item IS', item);
 
 
     return (
@@ -30,7 +34,9 @@ console.log('', item);
         <p>{item.name}</p>
         <p>{item.description}</p>
         <p>$ {item.priceDaily}</p>
-
+        <Link to="/checkout">
+        <button>BOOK THIS ITEM</button>
+        </Link>
         </>
     )
 }
