@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import { FaUserLock } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <HeaderSection>
+        <Link to="/">
       <LogoHeader>Rent Adventure</LogoHeader>
+      </Link>
 
       <FaUserLock size={30} color={"blue"} />
     </HeaderSection>
