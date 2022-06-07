@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
@@ -6,6 +6,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import styled from "styled-components";
 import imgIcon from "../assets/bike-icon-bis.jpg";
 import imgIconMap from "../assets/mapbox-icon.png";
+import { ItemContext } from "./context/Context";
 
 const Map = () => {
   const [viewport, setViewport] = useState({
@@ -15,7 +16,10 @@ const Map = () => {
   });
 
   const [items, setItems] = useState();
-  const [selectedItem, setSelectedItem] = useState(null);
+  const {selectedItem, setSelectedItem} = useContext(ItemContext)
+  // const [selectedItem, setSelectedItem] = useState()
+// console.log('sele', selectedItem);
+
 
   useEffect(() => {
     fetch(
@@ -33,7 +37,7 @@ const Map = () => {
   }, []);
 
 
-  console.log("items", items);
+  // console.log("items", items);
 
   useEffect(() => {
     const listener = e => {
@@ -46,7 +50,7 @@ const Map = () => {
     return () => {
       window.removeEventListener("keydown", listener);
     };
-  }, []);
+  }, [setSelectedItem]);
 
 
   return (
@@ -72,7 +76,7 @@ const Map = () => {
                 e.preventDefault();
                 // console.log('im cliked');
                 setSelectedItem(item);
-                console.log('item', item);
+                // console.log('item', item);
               }}
             >
              
