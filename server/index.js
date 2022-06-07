@@ -4,6 +4,8 @@ const morgan = require("morgan");
 const { getAllItems } = require("./handlers/getAllItems");
 const { getItemsByCategory } = require("./handlers/ItemsByCategory");
 const { getItemById } = require("./handlers/singleItem");
+const { register } = require("./handlers/register");
+
 const { login } = require("./handlers/login");
 
 
@@ -28,6 +30,8 @@ express()
   //Get All item by category
   .get("/api/items/:category", getItemsByCategory)
 
+    // user - register
+    .post("/api/owner/register", register)
 // user - login
 .post("/api/owner/login", login)
 
