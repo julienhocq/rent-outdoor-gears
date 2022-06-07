@@ -133,7 +133,7 @@ const SignupForm = styled.form`
     font-size: 1.2rem;
     border: none;
     color: white;
-    background-color: #1a1a1a;
+    background-color: blue;
   }
   a {
     color: #32cd32;
