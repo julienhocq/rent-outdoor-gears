@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { useState, useContext } from "react";
+import { OwnerContext } from "./context/Context";
 // import { UserContext } from "../context/Context";
 
 
@@ -13,17 +14,17 @@ const Login = () => {
     const [loginMessage, setLoginMessage] = useState(null);
   
     //for authentication purposes
-    // const { user, setUser } = useContext(UserContext);
+    const { owner, setOwner } = useContext(OwnerContext);
   
     const history = useHistory();
   
-    //when user submits login info, we make a fetch request to authenticate info
+    //when owner submits login info, we make a fetch request to authenticate info
     //we get back authentication and set their username in state/context
     const handleSubmit = async (e) => {
       e.preventDefault();
   
       try {
-        const data = await fetch("/api/user/login", {
+        const data = await fetch("/api/owner/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -32,8 +33,10 @@ const Login = () => {
           body: JSON.stringify({ email: email, password: password }),
         });
         const json = await data.json();
+        console.log('json', json);
         setLoginMessage(json.message);
-        // setUser(json.data.userName);
+        setOwner(json.data.username);
+        console.log('owner', owner);
         history.push("/");
       } catch (error) {
         console.log("ERROR:", error.message);
@@ -48,8 +51,6 @@ const Login = () => {
       setPassword(e.target.value);
     };
   
-
-
 
 
     return (
