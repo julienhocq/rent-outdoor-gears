@@ -1,8 +1,8 @@
 const owners = [
   {
     id: 1038,
-    firstname: "Jarrod",
-    lastname: "Schmidt",
+    username: "Jarrod",
+    password: "Schmidt",
     email: "zulauf.emmet@yahoo.com",
     address: {
       streetNumber: "4034",
@@ -18,8 +18,8 @@ const owners = [
   },
   {
     id: 1039,
-    firstname: "Freddie",
-    lastname: "Jones",
+    username: "Freddie",
+    password: "Jonesrrrr",
     email: "FreddieTJones@jourrapide.com",
     address: {
       streetNumber: "233",
@@ -36,8 +36,8 @@ const owners = [
 
   {
     id: 1040,
-    firstname: "Barbara",
-    lastname: "Rodriguez",
+    username: "Barbara",
+    password: "Rodriguez",
     email: "BarbaraJRodriquez@rhyta.com",
     address: {
       streetNumber: "3645",
@@ -53,8 +53,8 @@ const owners = [
   },
   {
     id: 1041,
-    firstname: "Marie ",
-    lastname: "Mohr",
+    username: "Marie ",
+    password: "Mohrererer",
     email: "MarieTMohr@teleworm.us",
     address: {
       streetNumber: "6307",
