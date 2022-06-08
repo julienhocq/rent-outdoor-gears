@@ -1,4 +1,5 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import AddItem from "./AddItem";
 import Checkout from "./Checkout";
 import Header from "./Header";
 // import { ItemState } from "./context/Context";
@@ -7,8 +8,6 @@ import Login from "./Login";
 import Map from "./Map";
 import OwnerHome from "./OwnerHome";
 import SignUp from "./SignUp";
-
-
 
 const App = () => {
   return (
@@ -30,10 +29,14 @@ const App = () => {
         <Route exact path="/sign-up">
           <SignUp />
         </Route>
+
         <Route exact path="/profile/:profileById">
-        <OwnerHome />
+          <OwnerHome />
         </Route>
 
+        <Route exact path="/add-item">
+          <AddItem />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
