@@ -1,7 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const multer  = require('multer')
-// const upload = multer({ dest: 'uploads/' })
+const upload = multer({ dest: 'uploads/' })
 
 const { getAllItems } = require("./handlers/getAllItems");
 const { getItemsByCategory } = require("./handlers/ItemsByCategory");
@@ -9,10 +9,12 @@ const { getItemById } = require("./handlers/singleItem");
 const { register } = require("./handlers/register");
 const {getOwnerById} = require("./handlers/singleOwner")
 const {postItem} = require("./handlers/postItem")
+const {newItem} = require ("./handlers/newItem")
 
 const cloudinary = require('./middlewares/cloudinary')
 const fs = require('fs')
-const upload = require('./middlewares/multer')
+// const upload = require('./middlewares/multer')
+// const {multerUploads } = require('./middlewares/multer')
 // const {postImages} = require('./handlers/postImages')
 
 const { login } = require("./handlers/login");
@@ -48,30 +50,28 @@ express()
 
   .post("/api/item", postItem)
 
-  // .use("/upload-images", upload.array("image"), async (req, res) => {
+  
+//   .post("/api/upload", async (req, res) => {
+//     try {
+//         const image = req.body.data;
+//         console.log('image', image);
+//         const uploadResponse = await cloudinary.uploader.upload(image, {
+//             upload_preset: 'rent-adventures',
+//         });
+//         console.log(uploadResponse);
+//         res.json({ msg: 'File uploaded sucessfully' });
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).json({ err: 'Something went wrong' });
+//     }
+// })
 
-  //   const uploader = async (path) => await cloudinary.uploads(path, 'Images')
 
-  //   if(req.method === 'POST') {
-  //     const urls = []
-  //     const files = req.files;
-  //       for(const file of files) {
-  //           const {path} = file;
-  //           const newPath = await uploader(path)
-  //           urls.push(newPath)
-  //           fs.unlinkSync(path)
-  //       }
-     
-  //   res.status(200).json({
-  //       message: 'Success! images are uploaded',
-  //       data: urls
-  //   })
-  //   } else {
-  //       res.status(400).json({
-  //           err: `${req.method} method not allowed`
-  //       })
-  //   }
-  // })
+
+.post('/upload', upload.single('image'), newItem)
+
+
+
 
   // this is our catch all endpoint.
   .get("*", (req, res) => {
