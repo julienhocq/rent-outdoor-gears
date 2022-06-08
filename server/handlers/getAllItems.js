@@ -9,7 +9,6 @@ const options = {
 
 
 const getAllItems = async (req, res) => {
-    console.log('HHHHHOOLLLLLLAa');
     const {category, city} = req.query;
     const query = {}
     if (category) query.category = category
