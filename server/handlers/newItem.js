@@ -51,9 +51,9 @@ const newItem = async (req, res) => {
   }
   //   console.log("its an image and with the right size");
 
+  const client = new MongoClient(MONGO_URI, options);
   try {
     // MongoDb connection
-    const client = new MongoClient(MONGO_URI, options);
     await client.connect();
     console.log("Connected!");
     const db = client.db("RentOutdoorGears");
