@@ -1,17 +1,36 @@
 const cloudinary = require("../middlewares/cloudinary");
-
+const { MongoClient } = require("mongodb");
+require("dotenv").config();
+const { MONGO_URI } = process.env;
+const { v4: uuidv4 } = require("uuid");
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
 const newItem = async (req, res) => {
-  // req.body will hold the text fields, if there were any
+  // req.body hold the text fields
+  const {
+    category,
+    name,
+    description,
+    priceDaily,
+    priceWeekly,
+    city,
+    longitude,
+    latitude,
+    image,
+  } = req.body;
+  //   console.log("req.body is", req.body);
 
   //req.file is the image file. Path is its path
   console.log("req.file IS", req.file);
   const { path } = req.file;
-  console.log("path image is", path);
+  //   console.log("path image is", path);
   const extension = req.file.mimetype;
   const size = req.file.size;
-  console.log("extension file is:", extension);
+  //   console.log("extension file is:", extension);
 
-  // Validations - has to be an image with size < 1.2 Mo
+  // Image validations - has to be an image with size < 1.2 Mo
   if (
     extension === "image/jpeg" ||
     extension === "image/jpg" ||
@@ -19,36 +38,64 @@ const newItem = async (req, res) => {
   ) {
   } else {
     console.log("not an IMAGE. Sorry no upload");
-    return res
-      .status(401)
-      .json({
-        status: 401,
-        message: "unsupported file format, only JPG or PNG",
-      });
+    return res.status(401).json({
+      status: 401,
+      message: "unsupported file format, only JPG or PNG",
+    });
   }
   if (size > 1200000) {
-    console.log("image size too big");
+    // console.log("image size too big");
     return res
       .status(401)
-      .json({ status: 401, message: "Max image size is 1200 Mo" });
+      .json({ status: 401, message: "Max image size should be < 1200 Mo" });
   }
-  console.log("its an image and with the right size");
+  //   console.log("its an image and with the right size");
 
   try {
-    await cloudinary.uploader.upload(
+    // MongoDb connection
+    const client = new MongoClient(MONGO_URI, options);
+    await client.connect();
+    console.log("Connected!");
+    const db = client.db("RentOutdoorGears");
+
+    //Upload the image to the Cloudinary service
+    const uploadedImage = await cloudinary.uploader.upload(
       path,
       { upload_preset: "rent-adventures" },
-      (error, result) => {
-        console.log(result, error);
+      (error, uploadedImage) => {
+        console.log(uploadedImage, error);
       }
     );
-
-    console.log("image uploaded on Cloudinary");
-    return res
-      .status(200)
-      .json({ status: 200, data: req.file, message: "image uploaded" });
+    console.log("image is uploaded on Cloudinary");
+    // console.log("url IS", uploadedImage.url);
+    // If the image is uploaded, let's create a new item in MongoDb
+    if (uploadedImage) {
+      const item = {
+        category,
+        name,
+        description,
+        priceDaily,
+        priceWeekly,
+        image: uploadedImage.url,
+        isAvailable: true,
+        city,
+        latitude,
+        longitude,
+      };
+      console.log("item is", item);
+      const newItem = Object.assign({ _id: uuidv4() }, item);
+      await db.collection("products").insertOne(newItem);
+      res.status(200).json({
+        status: 200,
+        data: newItem,
+        message: "Success! New Item created",
+      });
+    }
   } catch (err) {
     res.status(500).json({ status: 500, message: err.message });
+  } finally {
+    client.close();
+    console.log("disconnected!");
   }
 };
 
