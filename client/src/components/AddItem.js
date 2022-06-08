@@ -22,7 +22,8 @@ const AddItem = () => {
       const data = await fetch("/upload", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
+
           Accept: "application/json",
         },
         body: JSON.stringify({
@@ -31,7 +32,7 @@ const AddItem = () => {
           description: description,
           priceDaily: dailyPrice,
           priceWeekly: weeklyPrice,
-        //   image: uploadImage
+          image: uploadImage
         }),
       });
       const json = await data.json();
@@ -67,12 +68,12 @@ const AddItem = () => {
     setWeeklyPrice(e.target.value);
   };
   const handleImageUpload = (e) => {
-    setUploadImage(e.target.value);
+    setUploadImage(e.target.files[0]);
   };
 
 
 console.log('weeklyPrice', weeklyPrice);
-// console.log('uploadImage', uploadImage);
+console.log('uploadImage', uploadImage);
 
 
   return (
@@ -121,7 +122,6 @@ console.log('weeklyPrice', weeklyPrice);
         />
         <input
           type="file"
-          //   class="form-control-file"
           name="image"
           onChange={(e) => handleImageUpload(e)}
         ></input>
