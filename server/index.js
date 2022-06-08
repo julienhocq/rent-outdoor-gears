@@ -1,23 +1,29 @@
 const express = require("express");
 const morgan = require("morgan");
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+const multer = require("multer");
+// const upload = multer({ dest: 'uploads/' })
 
 const { getAllItems } = require("./handlers/getAllItems");
 const { getItemsByCategory } = require("./handlers/ItemsByCategory");
 const { getItemById } = require("./handlers/singleItem");
 const { register } = require("./handlers/register");
-const {getOwnerById} = require("./handlers/singleOwner")
-const {postItem} = require("./handlers/postItem")
-const {newItem} = require ("./handlers/newItem")
+const { getOwnerById } = require("./handlers/singleOwner");
+const { postItem } = require("./handlers/postItem");
+const { newItem } = require("./handlers/newItem");
 
-const cloudinary = require('./middlewares/cloudinary')
-const fs = require('fs')
-// const upload = require('./middlewares/multer')
-// const {multerUploads } = require('./middlewares/multer')
-// const {postImages} = require('./handlers/postImages')
+const cloudinary = require("./middlewares/cloudinary");
 
 const { login } = require("./handlers/login");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads");
+  },
+});
+
+const upload = multer({
+  storage: storage,
+});
 
 express()
   // This will give us will log more info to the console. see https://www.npmjs.com/package/morgan
@@ -50,28 +56,8 @@ express()
 
   .post("/api/item", postItem)
 
-  
-//   .post("/api/upload", async (req, res) => {
-//     try {
-//         const image = req.body.data;
-//         console.log('image', image);
-//         const uploadResponse = await cloudinary.uploader.upload(image, {
-//             upload_preset: 'rent-adventures',
-//         });
-//         console.log(uploadResponse);
-//         res.json({ msg: 'File uploaded sucessfully' });
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).json({ err: 'Something went wrong' });
-//     }
-// })
-
-
-
-.post('/upload', upload.single('image'), newItem)
-
-
-
+  //POST an image
+  .post("/upload", upload.single("image"), newItem)
 
   // this is our catch all endpoint.
   .get("*", (req, res) => {
