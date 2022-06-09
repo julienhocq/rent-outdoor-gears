@@ -9,7 +9,7 @@ import MainMap from "./Map";
 import OwnerHome from "./OwnerHome";
 import SignUp from "./SignUp";
 
-import Geocoder from './GeoLocalisation'
+import Geocoder from "./GeoLocalisation";
 
 const App = () => {
   return (
@@ -39,12 +39,9 @@ const App = () => {
         <Route exact path="/add-item">
           <AddItem />
         </Route>
-        <Route exact path="/addlocation">
+        <Route exact path="/add-location">
           <Geocoder />
         </Route>
-
-
-
       </Switch>
     </BrowserRouter>
   );
