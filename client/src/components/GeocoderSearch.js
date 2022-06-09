@@ -1,5 +1,6 @@
 import MapBoxGeocoder from "@mapbox/mapbox-gl-geocoder";
-import { Marker, useControl } from "react-map-gl";
+import { Marker, useControl, GeolocateControl } from "react-map-gl";
+// import 'mapbox-gl/dist/mapbox-gl.css'
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import { useEffect, useState } from "react";
 
@@ -17,15 +18,19 @@ const GeocoderSearch = () => {
   useControl(() => ctrl);
 
   ctrl.on("result", (e) => {
-    const coords = e.result.geometry.coordinates;
-    console.log("coords", coords);
+    const coordinatesSearch = e.result.geometry.coordinates;
+    console.log("coordinatesSearch", coordinatesSearch);
 
-    console.log("marker", marker);
-    // setMarker({latitude: coords[0], longitude: coords[1]})
+    console.log("marker initial state", marker);
+    setMarker({
+      longitude: coordinatesSearch[0],
+      latitude: coordinatesSearch[1],
+    });
     // console.log("marker", marker);
   });
 
-  console.log("marker.latitude", marker.longitude, marker.latitude);
+  console.log("marker updated - object:", marker);
+  console.log("marker updated lgt / lat:", marker.longitude, marker.latitude);
 
   return (
     <>
@@ -33,11 +38,31 @@ const GeocoderSearch = () => {
         longitude={marker.longitude}
         latitude={marker.latitude}
         draggable
-        // trackUserLocation
         color="red"
-      ></Marker>
+        onDragEnd={(e) =>
+          //  console.log('e', e.lngLat.lng)
+          setMarker({
+            longitude: e.lngLat.lng,
+            latitude: e.lngLat.lat,
+          })
+        }
+      />
+
+      {/* <GeolocateControl
+        trackUserLocation
+        onGeolocate={(e) =>
+          setMarker({
+            longitude: e.coords.longitude,
+            latitude: e.coords.latitude,
+          })
+
+        }
+      /> */}
     </>
   );
 };
 
 export default GeocoderSearch;
+
+// Marker
+// GeolocateControl: Mapbox method to geo tracked the user
