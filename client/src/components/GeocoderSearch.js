@@ -2,13 +2,16 @@ import MapBoxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import { Marker, useControl, GeolocateControl } from "react-map-gl";
 // import 'mapbox-gl/dist/mapbox-gl.css'
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { OwnerContext } from "./context/Context";
 
 const GeocoderSearch = () => {
-  const [marker, setMarker] = useState({
-    longitude: -73.577551,
-    latitude: 45.463839,
-  });
+  // const [marker, setMarker] = useState({
+  //   longitude: -73.577551,
+  //   latitude: 45.463839,
+  // });
+const {marker, setMarker} = useContext(OwnerContext)
+
 
   const ctrl = new MapBoxGeocoder({
     accessToken: process.env.REACT_APP_MAPBOX_TOKEN,

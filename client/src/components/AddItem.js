@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
+import { OwnerContext } from "./context/Context";
 
 const AddItem = () => {
   // Fetch - POST to create NEW ITEM
   // NEED to keep the data in a state
+  const {marker, setMarker} = useContext(OwnerContext)
+  console.log('marker', marker);
+
 
   const [category, setCategory] = useState(null);
   const [title, setTitle] = useState(null);
@@ -49,6 +53,7 @@ const AddItem = () => {
     // });
     // reader.readAsArrayBuffer(uploadImage);
 
+    //Only way to handle multi format form
     let image = document.getElementById("image-file").files[0];
     let formData = new FormData();
 
@@ -57,9 +62,6 @@ const AddItem = () => {
     formData.append("priceDaily", dailyPrice);
     formData.append("priceWeekly", weeklyPrice);
     formData.append("category", category);
-    console.log('category', category);
-
-
     formData.append("name", title);
 
     try {

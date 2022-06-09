@@ -33,9 +33,15 @@ export const OwnerContext = createContext(null);
 
 export const OwnerProvider = ({ children }) => {
   const [owner, setOwner] = usePersistedState("owner", null);
+  const [marker, setMarker] = useState({
+    longitude: -73.577551,
+    latitude: 45.463839,
+  });
+
+
 
   return (
-    <OwnerContext.Provider value={{ owner, setOwner }}>
+    <OwnerContext.Provider value={{ owner, setOwner, marker, setMarker }}>
       {children}
     </OwnerContext.Provider>
   );
