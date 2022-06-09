@@ -7,7 +7,6 @@ import GeocoderSearch from "./GeocoderSearch";
 import styled from "styled-components";
 
 const Geocoder = () => {
-  // const [marker, setMarker] = useState(null)
 
   return (
     <>

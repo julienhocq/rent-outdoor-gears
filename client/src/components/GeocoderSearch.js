@@ -6,11 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import { OwnerContext } from "./context/Context";
 
 const GeocoderSearch = () => {
-  // const [marker, setMarker] = useState({
-  //   longitude: -73.577551,
-  //   latitude: 45.463839,
-  // });
-const {marker, setMarker} = useContext(OwnerContext)
+const {markerNewItem, setMarkerNewItem} = useContext(OwnerContext)
 
 
   const ctrl = new MapBoxGeocoder({
@@ -24,27 +20,27 @@ const {marker, setMarker} = useContext(OwnerContext)
     const coordinatesSearch = e.result.geometry.coordinates;
     console.log("coordinatesSearch", coordinatesSearch);
 
-    console.log("marker initial state", marker);
-    setMarker({
+    console.log("position initial is", markerNewItem);
+    setMarkerNewItem({
       longitude: coordinatesSearch[0],
       latitude: coordinatesSearch[1],
     });
     // console.log("marker", marker);
   });
 
-  console.log("marker updated - object:", marker);
-  console.log("marker updated lgt / lat:", marker.longitude, marker.latitude);
+  console.log("position object:", markerNewItem);
+  console.log("position updated lgt / lat:", markerNewItem.longitude, markerNewItem.latitude);
 
   return (
     <>
       <Marker
-        longitude={marker.longitude}
-        latitude={marker.latitude}
+        longitude={markerNewItem.longitude}
+        latitude={markerNewItem.latitude}
         draggable
         color="red"
         onDragEnd={(e) =>
           //  console.log('e', e.lngLat.lng)
-          setMarker({
+          setMarkerNewItem({
             longitude: e.lngLat.lng,
             latitude: e.lngLat.lat,
           })
@@ -54,7 +50,7 @@ const {marker, setMarker} = useContext(OwnerContext)
       {/* <GeolocateControl
         trackUserLocation
         onGeolocate={(e) =>
-          setMarker({
+          setMarkerNewItem({
             longitude: e.coords.longitude,
             latitude: e.coords.latitude,
           })

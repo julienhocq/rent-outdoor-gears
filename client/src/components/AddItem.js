@@ -5,8 +5,8 @@ import { OwnerContext } from "./context/Context";
 const AddItem = () => {
   // Fetch - POST to create NEW ITEM
   // NEED to keep the data in a state
-  const {marker, setMarker} = useContext(OwnerContext)
-  console.log('marker', marker);
+  const {markerNewItem, setMarkerNewItem} = useContext(OwnerContext)
+  console.log('markerNewItem', markerNewItem);
 
 
   const [category, setCategory] = useState(null);
