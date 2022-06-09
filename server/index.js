@@ -8,22 +8,24 @@ const { getItemsByCategory } = require("./handlers/ItemsByCategory");
 const { getItemById } = require("./handlers/singleItem");
 const { register } = require("./handlers/register");
 const { getOwnerById } = require("./handlers/singleOwner");
-const { postItem } = require("./handlers/postItem");
+// const { postItem } = require("./handlers/postItem");
 const { newItem } = require("./handlers/newItem");
 
 const cloudinary = require("./middlewares/cloudinary");
 
 const { login } = require("./handlers/login");
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./uploads");
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "./uploads");
+//   },
+// });
 
-const upload = multer({
-  storage: storage,
-});
+// const upload = multer({
+//   storage: storage,
+// });
+
+const upload = multer({ dest: 'uploads/' })
 
 express()
   // This will give us will log more info to the console. see https://www.npmjs.com/package/morgan
@@ -54,7 +56,7 @@ express()
   // user - login
   .post("/api/owner/login", login)
 
-  .post("/api/item", postItem)
+  // .post("/api/item", postItem)
 
   //POST an image
   .post("/upload", upload.single("image"), newItem)
