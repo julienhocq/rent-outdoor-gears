@@ -10,47 +10,9 @@ const AddItem = () => {
   const [description, setDescription] = useState(null);
   const [dailyPrice, setDailyPrice] = useState(null);
   const [weeklyPrice, setWeeklyPrice] = useState(null);
-  const [uploadImage, setUploadImage] = useState(null);
+  // const [uploadImage, setUploadImage] = useState(null);
 
   const [newItem, setNewItem] = useState([]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    
-    try {
-      const data = await fetch("/upload", {
-        method: "POST",
-        headers: {
-          "Content-Type": "multipart/form-data",
-
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          category: category,
-          name: title,
-          description: description,
-          priceDaily: dailyPrice,
-          priceWeekly: weeklyPrice,
-          image: uploadImage
-        }),
-      });
-      const json = await data.json();
-      console.log('json.data is', json.data);
-    //   const newItem = json.data
-    //   setNewItem(json.data);
-    //  console.log('setNewItem', newItem);
-      // setOwner(username);
-      if (json.status === 201) {
-        console.log("youpii");
-        //   history.push("/");
-      }
-    } catch (error) {
-      console.log("ERROR:", error.message);
-    }
-  };
-
-
 
   const handleCategory = (e) => {
     setCategory(e.target.value);
@@ -67,21 +29,52 @@ const AddItem = () => {
   const handleWeeklyPrice = (e) => {
     setWeeklyPrice(e.target.value);
   };
-  const handleImageUpload = (e) => {
-    setUploadImage(e.target.files[0]);
+  // const handleImageUpload = (e) => {
+  //   // console.log("event target for image", e.target);
+  //   setUploadImage(e.target.files[0]);
+  // };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // try {
+    // Nick'solution to convert to a string
+    // const reader = new FileReader();
+    // reader.addEventListener("loadend", function() {
+    //   const view = new Int8Array(reader.result);
+    //   const bin = [...view].map((n) => n.toString(16).padStart(2, "0")).join("");
+    //   const b64 = btoa(bin)
+    //   console.log(bin)
+    //   console.log(b64)
+    // });
+    // reader.readAsArrayBuffer(uploadImage);
+
+    let image = document.getElementById("image-file").files[0];
+    let formData = new FormData();
+
+    formData.append("image", image);
+    formData.append("description", description);
+    formData.append("priceDaily", dailyPrice);
+    formData.append("priceWeekly", weeklyPrice);
+    formData.append("category", category);
+    console.log('category', category);
+
+
+    formData.append("name", title);
+
+    try {
+      await fetch("/upload", { method: "POST", body: formData });
+    } catch (error) {
+      console.log("ERROR:", error.message);
+    }
   };
-
-
-console.log('weeklyPrice', weeklyPrice);
-console.log('uploadImage', uploadImage);
-
 
   return (
     <Wrapper>
       <AddItemForm
         action="/upload"
         enctype="multipart/form-data"
-        method="post"
+        method="POST"
         onSubmit={(e) => handleSubmit(e)}
       >
         <p>Choose a category</p>
@@ -97,12 +90,14 @@ console.log('uploadImage', uploadImage);
 
         <input
           type="text"
+          id="title"
           placeholder="Title"
           onChange={(e) => handleTitle(e)}
           required
         />
         <input
           type="text"
+          id="description"
           placeholder="Description"
           onChange={(e) => handleDescription(e)}
           minlength="10"
@@ -122,8 +117,9 @@ console.log('uploadImage', uploadImage);
         />
         <input
           type="file"
+          id="image-file"
           name="image"
-          onChange={(e) => handleImageUpload(e)}
+          // onChange={(e) => handleImageUpload(e)}
         ></input>
         <button type="submit">Upload</button>
       </AddItemForm>
