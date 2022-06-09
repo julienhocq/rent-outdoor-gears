@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
 
 import Map from "react-map-gl";
 import GeocoderSearch from "./GeocoderSearch";
@@ -24,7 +26,9 @@ const Geocoder = () => {
           <GeocoderSearch />
         </Map>
         {/* <ControlPanel /> */}
-        <Button>Add your item</Button>
+        <Link to="/add-item">
+        <Button>Validate your location</Button>
+        </Link>
       </Wrapper>
     </>
   );
