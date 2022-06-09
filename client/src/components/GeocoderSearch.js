@@ -4,10 +4,9 @@ import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import { useEffect, useState } from "react";
 
 const GeocoderSearch = () => {
-
   const [marker, setMarker] = useState({
-    latitude: 45.463839,
     longitude: -73.577551,
+    latitude: 45.463839,
   });
 
   const ctrl = new MapBoxGeocoder({
@@ -16,7 +15,7 @@ const GeocoderSearch = () => {
     collapsed: true,
   });
   useControl(() => ctrl);
-useEffect(() => {
+
   ctrl.on("result", (e) => {
     const coords = e.result.geometry.coordinates;
     console.log("coords", coords);
@@ -24,16 +23,19 @@ useEffect(() => {
     console.log("marker", marker);
     // setMarker({latitude: coords[0], longitude: coords[1]})
     // console.log("marker", marker);
-    
   });
 
-}, [ctrl, marker])
-
-  console.log('marker.latitude', marker.latitude, marker.longitude);
+  console.log("marker.latitude", marker.longitude, marker.latitude);
 
   return (
     <>
-      <Marker  longitude={marker.longitude} latitude={marker.latitude} color="red"></Marker>
+      <Marker
+        longitude={marker.longitude}
+        latitude={marker.latitude}
+        draggable
+        // trackUserLocation
+        color="red"
+      ></Marker>
     </>
   );
 };
