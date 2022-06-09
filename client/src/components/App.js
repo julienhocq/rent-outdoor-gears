@@ -5,9 +5,11 @@ import Header from "./Header";
 // import { ItemState } from "./context/Context";
 import ItemDetails from "./ItemDetails";
 import Login from "./Login";
-import Map from "./Map";
+import MainMap from "./Map";
 import OwnerHome from "./OwnerHome";
 import SignUp from "./SignUp";
+
+import Geocoder from './GeoLocalisation'
 
 const App = () => {
   return (
@@ -15,7 +17,7 @@ const App = () => {
       <Header />
       <Switch>
         <Route exact path="/">
-          <Map />
+          <MainMap />
         </Route>
         <Route exact path="/item/:itemById">
           <ItemDetails />
@@ -37,6 +39,12 @@ const App = () => {
         <Route exact path="/add-item">
           <AddItem />
         </Route>
+        <Route exact path="/addlocation">
+          <Geocoder />
+        </Route>
+
+
+
       </Switch>
     </BrowserRouter>
   );
