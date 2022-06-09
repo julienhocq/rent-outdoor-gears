@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-import Map, { Marker } from "react-map-gl";
+// import MapboxDraw from '@mapbox/mapbox-gl-draw'
+import Map, { Marker, useControl } from "react-map-gl";
 import GeocoderSearch from "./GeocoderSearch";
 
 const Geocoder = () => {
@@ -11,6 +12,20 @@ const Geocoder = () => {
     longitude: -73.577551,
     zoom: 10,
   });
+
+
+
+  // function DrawControl(props: DrawControlProps) {
+  //   useControl(() => new MapboxDraw(props), {
+  //     position: props.position
+  //   });
+  
+  //   return null;
+  // }
+
+
+
+
 
   return (
     <>
@@ -23,6 +38,14 @@ const Geocoder = () => {
           setViewport(viewport);
         }}
       >
+        {/* <DrawControl
+        position="top-left"
+        displayControlsDefault={false}
+        controls={{
+          polygon: true,
+          trash: true
+        }}
+      /> */}
         {/* <GeocoderControl mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN} position="top-left" /> */}
         <GeocoderSearch />
 
@@ -32,11 +55,11 @@ const Geocoder = () => {
           setMarker(null);
         }} */}
 
-        <Marker
+        {/* <Marker
           latitude={45.463839}
           longitude={-73.577551}
           color="red"
-        ></Marker>
+        ></Marker> */}
       </Map>
       {/* <ControlPanel /> */}
     </>
