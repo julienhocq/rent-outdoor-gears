@@ -50,14 +50,15 @@ const MainMap = () => {
       let filteredProduct = [];
       filteredProduct = items.filter((item) => item.category === filterParam);
       console.log("filteredProduct IS", filterParam, filteredProduct);
-      setFilteredItems(filteredProduct);
+      if (filterParam === undefined || filterParam === "all") {
+        setFilteredItems(items);
+      } else {
+        setFilteredItems(filteredProduct);
+      }
       return filteredProduct;
     };
     filterItems();
   }, [filterParam, items]);
-
-  console.log("items is", items);
-  console.log("filteredItems is", filteredItems);
 
   return (
     <>
@@ -110,7 +111,7 @@ const MainMap = () => {
       <FilterSection>
         <div>Filter Section</div>
         <form>
-        <label>
+          <label>
             <input
               type="radio"
               value="all"
