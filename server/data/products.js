@@ -1,6 +1,6 @@
 const products = [
   {
-    id: "2001",
+    _id: "2001",
     category: "bike",
     name: "Bike Rocky Moutain edition 2022",
     description: "This bike will bring you everywhere",
@@ -15,7 +15,7 @@ const products = [
     longitude: -73.577551,
   },
   {
-    id: "2002",
+    _id: "2002",
     category: "bike",
     name: "City bike Giant Escape",
     description: "Perfect for commuting",
@@ -30,7 +30,7 @@ const products = [
     longitude: -73.572467,
   },
   {
-    id: "2003",
+    _id: "2003",
     category: "surf",
     name: "South Bay Board 9inches",
     description: "ready to surf big waves",
@@ -45,7 +45,7 @@ const products = [
     longitude: -73.5712097,
   },
   {
-    id: "2004",
+    _id: "2004",
     category: "surf",
     name: "LIB TECH LOST ROUND NOSE FISH '96 B-GRADE",
     description:
@@ -61,7 +61,7 @@ const products = [
     longitude: -73.633109,
   },
   {
-    id: "2005",
+    _id: "2005",
     category: "canoe",
     name: "Nova Craft Canoe",
     description:
@@ -77,7 +77,7 @@ const products = [
     longitude: -73.633109,
   },
   {
-    id: "2006",
+    _id: "2006",
     category: "camping",
     subCategory: "tent",
     name: "FreeLite - 2person Ultralight Tent",
@@ -94,7 +94,7 @@ const products = [
     longitude: -73.633109,
   },
   {
-    id: "2007",
+    _id: "2007",
     category: "camping",
     subCategory: "tent",
     name: "Party tent",
@@ -109,7 +109,7 @@ const products = [
     longitude: -73.633109,
   },
   {
-    id: "2008",
+    _id: "2008",
     category: "camping",
     subCategory: "backpack",
     name: "Woods 60L",
@@ -125,7 +125,7 @@ const products = [
     longitude: -73.633109,
   },
   {
-    id: "2009",
+    _id: "2009",
     category: "camping",
     subCategory: "backpack",
     name: "Wild 30L",
