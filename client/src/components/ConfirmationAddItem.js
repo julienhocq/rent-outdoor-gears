@@ -9,7 +9,15 @@ console.log('getNewItem', getNewItem);
 console.log('getting ther?');
 
     return (
-        <div>Hey</div>
+        <>
+        <div>Confirmation</div>
+        <p>{getNewItem.category}</p>
+        <img src={getNewItem.image} />
+        <p>{getNewItem.name}</p>
+        <p>$ {getNewItem.priceDaily}</p>
+
+
+        </>
 
     )
 }
