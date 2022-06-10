@@ -1,13 +1,12 @@
 import { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
+
 import styled from "styled-components";
 import { OwnerContext } from "./context/Context";
 
 const AddItem = () => {
-  // Fetch - POST to create NEW ITEM
-  // NEED to keep the data in a state
-  const {markerNewItem, setMarkerNewItem} = useContext(OwnerContext)
-  console.log('markerNewItem', markerNewItem);
-
+  const history = useHistory()
+  const { markerNewItem, setMarkerNewItem } = useContext(OwnerContext);
 
   const [category, setCategory] = useState(null);
   const [title, setTitle] = useState(null);
@@ -38,6 +37,11 @@ const AddItem = () => {
   //   setUploadImage(e.target.files[0]);
   // };
 
+  const linkToConfirmationPage = (formData) => {
+    history.push("/confirmation");
+  };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -63,9 +67,15 @@ const AddItem = () => {
     formData.append("priceWeekly", weeklyPrice);
     formData.append("category", category);
     formData.append("name", title);
+    formData.append("latitude", markerNewItem.latitude);
+    formData.append("longitude", markerNewItem.longitude);
 
     try {
-      await fetch("/upload", { method: "POST", body: formData });
+      const data = await fetch("/upload", { method: "POST", body: formData });
+      const json = await data.json()
+      //Set a session storage to use the data to the confirmation page
+      sessionStorage.setItem("NewItem", JSON.stringify(json.data))
+      linkToConfirmationPage(formData)
     } catch (error) {
       console.log("ERROR:", error.message);
     }
