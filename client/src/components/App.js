@@ -8,8 +8,10 @@ import Login from "./Login";
 import MainMap from "./Map";
 import OwnerHome from "./OwnerHome";
 import SignUp from "./SignUp";
-
 import Geocoder from "./GeoLocalisation";
+import ConfirmationNewItem from "./ConfirmationAddItem";
+
+
 
 const App = () => {
   return (
@@ -41,7 +43,12 @@ const App = () => {
         </Route>
         <Route exact path="/add-location">
           <Geocoder />
+
         </Route>
+        <Route exact path="/confirmation">
+          <ConfirmationNewItem />
+        </Route>
+        
       </Switch>
     </BrowserRouter>
   );
