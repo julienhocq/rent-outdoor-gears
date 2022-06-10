@@ -11,8 +11,11 @@ import { ItemContext } from "./context/Context";
 import MainGeoControl from "./MainGeocontrol";
 
 const MainMap = () => {
-  const [items, setItems] = useState();
+  const [items, setItems] = useState([]);
   const { selectedItem, setSelectedItem } = useContext(ItemContext);
+
+  const [filteredItems, setFilteredItems] = useState(items);
+  const [filterParam, setFilterParam] = useState();
 
   useEffect(() => {
     fetch(
@@ -29,8 +32,6 @@ const MainMap = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  // console.log("items", items);
-
   useEffect(() => {
     const listener = (e) => {
       if (e.key === "Escape") {
@@ -43,6 +44,20 @@ const MainMap = () => {
       window.removeEventListener("keydown", listener);
     };
   }, [setSelectedItem]);
+
+  useEffect(() => {
+    const filterItems = () => {
+      let filteredProduct = [];
+      filteredProduct = items.filter((item) => item.category === filterParam);
+      console.log("filteredProduct IS", filterParam, filteredProduct);
+      setFilteredItems(filteredProduct);
+      return filteredProduct;
+    };
+    filterItems();
+  }, [filterParam, items]);
+
+  console.log("items is", items);
+  console.log("filteredItems is", filteredItems);
 
   return (
     <>
@@ -57,7 +72,7 @@ const MainMap = () => {
         mapStyle="mapbox://styles/mapbox/streets-v9"
       >
         <MainGeoControl />
-        {items?.map((item) => (
+        {filteredItems?.map((item) => (
           <Marker
             key={item._id}
             latitude={item.latitude}
@@ -95,15 +110,24 @@ const MainMap = () => {
       <FilterSection>
         <div>Filter Section</div>
         <form>
+        <label>
+            <input
+              type="radio"
+              value="all"
+              name="filterGroup"
+              onChange={(e) => {
+                setFilterParam(e.target.value);
+              }}
+            ></input>
+            <span>All</span>
+          </label>
           <label>
             <input
               type="radio"
+              value="bike"
               name="filterGroup"
-              onChange={() => {
-                items.filter((item) => {
-                  console.log("", item.category);
-                  return item.category === "bike";
-                });
+              onChange={(e) => {
+                setFilterParam(e.target.value);
               }}
             ></input>
             <span>Bike</span>
@@ -112,7 +136,11 @@ const MainMap = () => {
             <input
               type="radio"
               name="filterGroup"
-              // onChange={(e)=> setItems()}
+              value="camping"
+              onChange={(e) => {
+                setFilterParam(e.target.value);
+              }}
+              // onChange={(e)=> filterByCategoryCamping()}
             ></input>
             <span>Camping</span>
           </label>
