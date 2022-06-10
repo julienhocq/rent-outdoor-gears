@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
-import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import Map, { Marker, Popup } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import styled from "styled-components";
 import imgIcon from "../assets/bike-icon-bis.jpg";
 import imgIconMap from "../assets/mapbox-icon.png";
 import { ItemContext } from "./context/Context";
 
-const Map = () => {
+const MainMap = () => {
   const [viewport, setViewport] = useState({
     latitude: 45.463839,
     longitude: -73.577551,
@@ -55,7 +55,7 @@ const Map = () => {
 
   return (
     <>
-      <ReactMapGL
+      <Map
         {...viewport}
         style={{ width: 800, height: 400 }}
         mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
@@ -95,13 +95,13 @@ const Map = () => {
             }}
           >
             <div>
-              <Link to={`/item/${selectedItem.id}`}>
+              <Link to={`/item/${selectedItem._id}`}>
               <h2>{selectedItem.name}</h2>
               </Link>
             </div>
           </Popup>
         ) : null}
-      </ReactMapGL>
+      </Map>
       <FilterSection>
         <div>Filter Section</div>
         <form>
@@ -151,4 +151,4 @@ const FilterSection = styled.div`
 padding-top: 20px;
 `
 
-export default Map;
+export default MainMap;
