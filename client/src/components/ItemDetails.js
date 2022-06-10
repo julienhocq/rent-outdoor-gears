@@ -34,7 +34,7 @@ console.log('item IS', item);
         <p>{item.name}</p>
         <p>{item.description}</p>
         <p>$ {item.priceDaily}</p>
-        <Link to="/add-location">
+        <Link to="/checkout">
         <button>BOOK THIS ITEM</button>
         </Link>
         </>
