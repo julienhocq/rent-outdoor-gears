@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 
 import Map, {
@@ -65,6 +65,15 @@ const MainMap = () => {
     filterItems();
   }, [filterParam, items]);
 
+  // const mapRef = useRef();
+
+  // const checkIfPositionInViewport = (lat, lng) => {
+  //     const bounds = mapRef.current.getMap().getBounds();
+  //     return (lat >= bounds._sw.lat && lat <= bounds._nw.lat && lng >= bounds._sw.lng && lng <= bounds._nw.lng);
+  // }
+
+  // return <Map ref={mapRef}/>
+
   return (
     <>
       <Map
@@ -78,8 +87,8 @@ const MainMap = () => {
         mapStyle="mapbox://styles/mapbox/streets-v9"
       >
         <FullscreenControl position="top-left" />
-        <MainGeoControl/>
-        <NavigationControl  position="top-left"  />
+        <MainGeoControl />
+        <NavigationControl position="top-left" />
         {filteredItems?.map((item) => (
           <>
             <Marker
@@ -98,9 +107,7 @@ const MainMap = () => {
               >
                 <Img src={imgIconMap} />
               </Button>
-              
             </Marker>
-            
           </>
         ))}
         {selectedItem ? (
@@ -168,6 +175,11 @@ const MainMap = () => {
           <div>{item.name}</div>
         ))}
       </div> */}
+      <div>
+        <Link to="add-location">
+          <ButtonAddItem>Add an item</ButtonAddItem>
+        </Link>
+      </div>
     </>
   );
 };
@@ -193,6 +205,19 @@ const WrapperFiltersItems = styled.div`
   position: absolute;
   top: 500px;
   left: 100px;
+`;
+
+const ButtonAddItem = styled.button`
+margin-top: 40px;
+width: 250px;
+    height: 40px;
+    padding: 7px 20px;
+    font-size: 1.2rem;
+    border: none;
+    color: white;
+    background-color: blue;
+    cursor: pointer;
+
 `;
 
 export default MainMap;
