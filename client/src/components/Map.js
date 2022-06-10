@@ -1,24 +1,60 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import MapBoxGeocoder from "@mapbox/mapbox-gl-geocoder";
 
-import Map, { Marker, Popup } from "react-map-gl";
+
+import Map, { Marker, Popup, useControl } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+
 import styled from "styled-components";
 import imgIcon from "../assets/bike-icon-bis.jpg";
 import imgIconMap from "../assets/mapbox-icon.png";
 import { ItemContext } from "./context/Context";
+import MainGeoControl from "./MainGeocontrol";
+
+
 
 const MainMap = () => {
-  const [viewport, setViewport] = useState({
-    latitude: 45.463839,
-    longitude: -73.577551,
-    zoom: 10,
-  });
+  // const [viewport, setViewport] = useState({
+  //   latitude: 45.463839,
+  //   longitude: -73.577551,
+  //   zoom: 10,
+  // });
 
   const [items, setItems] = useState();
   const {selectedItem, setSelectedItem} = useContext(ItemContext)
   // const [selectedItem, setSelectedItem] = useState()
 // console.log('sele', selectedItem);
+
+
+
+// const ctrl = new MapBoxGeocoder({
+//   accessToken: process.env.REACT_APP_MAPBOX_TOKEN,
+//   marker: true,
+//   collapsed: true,
+// });
+// useControl(() => ctrl);
+
+
+// ctrl.on("result", (e) => {
+//   const coordin = e.result.geometry.coordinates;
+//   console.log("coordin", coordin);
+
+//   // console.log("position initial is", markerNewItem);
+//   // setMarkerNewItem({
+//   //   longitude: coordinatesSearch[0],
+//   //   latitude: coordinatesSearch[1],
+//   // });
+//   // console.log("marker", marker);
+// });
+
+
+
+
+
+
+
+
 
 
   useEffect(() => {
@@ -56,14 +92,20 @@ const MainMap = () => {
   return (
     <>
       <Map
-        {...viewport}
+        // {...viewport}
+        initialViewState={{
+          longitude: -73.577551,
+          latitude: 45.463839,
+          zoom: 10,
+        }}
         style={{ width: 800, height: 400 }}
         mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         mapStyle="mapbox://styles/mapbox/streets-v9"
-        onViewportChange={viewport => {
-          setViewport(viewport);
-        }}
+        // onViewportChange={viewport => {
+        //   setViewport(viewport);
+        // }}
       >
+        <MainGeoControl />
         {items?.map((item) => (
           <Marker
             key={item._id}
