@@ -20,9 +20,9 @@ const getItemById = async (req, res) => {
     const result = await db.collection("products").find().toArray();
     // console.log("result is", result);
     const findItem = result.find((e) => {
-      return (e.id === id);
+      return (e._id === id);
     });
-    // console.log('findItem', findItem);
+    console.log('findItem', findItem);
     return res.status(200).json({
       status: 200,
       data: findItem,
