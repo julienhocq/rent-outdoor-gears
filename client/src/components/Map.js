@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
-import Map, { Marker, Popup } from "react-map-gl";
+import Map, {
+  Marker,
+  Popup,
+  NavigationControl,
+  FullscreenControl,
+} from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import styled from "styled-components";
@@ -72,25 +77,31 @@ const MainMap = () => {
         mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         mapStyle="mapbox://styles/mapbox/streets-v9"
       >
-        <MainGeoControl />
+        <FullscreenControl position="top-left" />
+        <MainGeoControl/>
+        <NavigationControl  position="top-left"  />
         {filteredItems?.map((item) => (
-          <Marker
-            key={item._id}
-            latitude={item.latitude}
-            longitude={item.longitude}
-            color="red"
-          >
-            <Button
-              onClick={(e) => {
-                e.preventDefault();
-                // console.log('im cliked');
-                setSelectedItem(item);
-                // console.log('item', item);
-              }}
+          <>
+            <Marker
+              key={item._id}
+              latitude={item.latitude}
+              longitude={item.longitude}
+              color="red"
             >
-              <Img src={imgIconMap} />
-            </Button>
-          </Marker>
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  // console.log('im cliked');
+                  setSelectedItem(item);
+                  // console.log('item', item);
+                }}
+              >
+                <Img src={imgIconMap} />
+              </Button>
+              
+            </Marker>
+            
+          </>
         ))}
         {selectedItem ? (
           <Popup
@@ -147,6 +158,16 @@ const MainMap = () => {
           </label>
         </form>
       </FilterSection>
+      {/* <div>
+                <WrapperFiltersItems>
+                  <div>{item.name}</div>
+                </WrapperFiltersItems>
+              </div> */}
+      {/* <div>
+        {filteredItems?.map((item) => (
+          <div>{item.name}</div>
+        ))}
+      </div> */}
     </>
   );
 };
@@ -166,6 +187,12 @@ const Img = styled.img`
 
 const FilterSection = styled.div`
   padding-top: 20px;
+`;
+
+const WrapperFiltersItems = styled.div`
+  position: absolute;
+  top: 500px;
+  left: 100px;
 `;
 
 export default MainMap;
