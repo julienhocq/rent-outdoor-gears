@@ -4,66 +4,66 @@ import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 import { ItemContext } from "./context/Context";
 
-
 const ItemDetails = () => {
-    const [item, setItem] = useState([]);
-    const [owner, setOwner] = useState([])
+  const [item, setItem] = useState([]);
+  const [owner, setOwner] = useState([]);
 
-    const {itemById} = useParams()
-
-    const {selectedItem, setSelectedItem} = useContext(ItemContext)
-    console.log('selectedItem IS', selectedItem);
-
+  const { itemById } = useParams();
 
   // fetching product info by itemId
-useEffect(() =>{
+  useEffect(() => {
     const fetchProduct = async () => {
-        const data = await fetch (`/api/item/${itemById}`)
-        console.log('data',data);
-        const json = await data.json()
-        setItem(json.data);
-        const ownerId = json.data.OwnerId
-        console.log('ownerId', ownerId);
-
-        const dataOwner = await fetch(`/api/profile/${ownerId}`)
+      await fetch(`/api/item/${itemById}`)
         .then((res) => res.json())
         .then((data) => {
-            setOwner(data.data)
-            console.log('data', data.data);
-        })
+          //   console.log('data',data.data);
+          setItem(data.data);
+        });
+    };
+    fetchProduct();
+  }, [itemById]);
 
-    } 
-    fetchProduct()
-}, [itemById])
+  //   console.log("item IS", item);
 
-console.log('ownerData', owner);
+  useEffect(() => {
+    const FetchOwner = async () => {
+      const ownerId = item.OwnerId;
+      await fetch(`/api/profile/${ownerId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setOwner(data.data);
+        });
+    };
+    FetchOwner();
+  }, [item.OwnerId, item._id]);
 
+  console.log("item", item);
+  console.log("ownerData", owner);
 
+  return (
+    <>
+      {item && owner && (
+        <>
+          <Img src={item.image} />
+          <p>{item.name}</p>
+          <p>{item.description}</p>
+          <p>$ {item.priceDaily}</p>
+          <Link to={`/profile/${owner._id}`}>
+            <p>{owner.username}</p>
+          </Link>
+          <img src={owner.image} />
 
-console.log('item IS', item);
-
-
-    return (
-<>
-        <Img src={item.image} />
-        <p>{item.name}</p>
-        <p>{item.description}</p>
-        <p>$ {item.priceDaily}</p>
-        <Link to={`/profile/${owner._id}`}>
-        <p>{owner.username}</p>
-        </Link>
-        <img src={owner.image} />
-
-
-        <Link to="/checkout">
-        <button>BOOK THIS ITEM</button>
-        </Link>
+          <Link to="/checkout">
+            <button>BOOK THIS ITEM</button>
+          </Link>
         </>
-    )
-}
+      )}
+    </>
+  );
+};
 
 const Img = styled.img`
-max-width: 600px;
-`
+  max-width: 600px;
+`;
 
-export default ItemDetails
+export default ItemDetails;
