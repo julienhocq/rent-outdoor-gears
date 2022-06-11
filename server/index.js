@@ -10,6 +10,7 @@ const { register } = require("./handlers/register");
 const { getOwnerById } = require("./handlers/singleOwner");
 // const { postItem } = require("./handlers/postItem");
 const { newItem } = require("./handlers/newItem");
+const {getItemsByOwner} = require("./handlers/getItemsByOwner")
 
 const cloudinary = require("./middlewares/cloudinary");
 
@@ -48,9 +49,11 @@ express()
   //Get All item by category
   .get("/api/items/:category", getItemsByCategory)
 
-  //Get owner by its Id
+    //Get owner by its Id
   .get("/api/profile/:profileById", getOwnerById)
 
+  .get("/api/profile/:profileById/items", getItemsByOwner)
+  
   // user - register
   .post("/api/owner/register", register)
   // user - login
