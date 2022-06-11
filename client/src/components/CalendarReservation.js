@@ -7,10 +7,10 @@ import { isWithinInterval } from "date-fns";
 
 const CalendarReservation = () => {
   const [date, setDate] = useState();
-console.log('new Date', new Date());
+// console.log('new Date', new Date());
 
   const disabledRanges = [
-    [new Date(2022,5,12), new Date(2022,5,13)],
+    [new Date(2022,5,25), new Date(2022,5,28)],
     [new Date(2022,5,17), new Date(2022,5,22)],
   ];
   
@@ -39,7 +39,9 @@ console.log('new Date', new Date());
   return (
     <div>
       <Calendar onChange={setDate} value={date} selectRange={true}
+      allowPartialRange={true}
       tileDisabled={tileDisabled}
+      minDate={new Date()}
       />
     </div>
     
