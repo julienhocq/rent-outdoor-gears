@@ -37,33 +37,109 @@ const ItemDetails = () => {
     FetchOwner();
   }, [item.OwnerId, item._id]);
 
-  console.log("item", item);
+  //   console.log("item", item);
   console.log("ownerData", owner);
+//   console.log("owner address", owner.address);
 
   return (
     <>
       {item && owner && (
         <>
-          <Img src={item.image} />
-          <p>{item.name}</p>
-          <p>{item.description}</p>
-          <p>$ {item.priceDaily}</p>
-          <Link to={`/profile/${owner._id}`}>
-            <p>{owner.username}</p>
-          </Link>
-          <img src={owner.image} />
+          <Main>
+            <PageWrapper>
+              <h1>{item.name}</h1>
+              <ItemImageWrapper>
+                <ItemImg src={item.image} />
+              </ItemImageWrapper>
+              <OwnerProfileWrapper>
+                <OwnerImageWrapper>
+                  <Img src={owner.image} />
+                </OwnerImageWrapper>
+                <Link to={`/profile/${owner._id}`}>
+                  <OwnerName>{owner.username}</OwnerName>
+                </Link>
+              {/* <OwnerCity>{owner.address.city}</OwnerCity> */}
+              </OwnerProfileWrapper>
+              <ItemDescription>Description: {item.description}</ItemDescription>
+              <p>Daily price: $ {item.priceDaily}</p>
+              <p>Weekly price: $ {item.priceWeekly}</p>
 
-          <Link to="/checkout">
-            <button>BOOK THIS ITEM</button>
-          </Link>
+              <Link to="/checkout">
+                <button>BOOK THIS ITEM</button>
+              </Link>
+            </PageWrapper>
+          </Main>
         </>
       )}
     </>
   );
 };
 
-const Img = styled.img`
-  max-width: 600px;
+const Main = styled.div`
+display: flex;
+justify-content: center;
+
 `;
+
+const PageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid black;
+
+  h1 {
+    text-align: center;
+  }
+
+`;
+
+// const ItemTitle = styled.h1`
+// display: flex;
+// text-align: center;
+// `
+
+const ItemImageWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+const ItemImg = styled.img`
+  max-width: 500px;
+  width: 100%;
+`;
+
+const OwnerImageWrapper = styled.div`
+  border: 1px solid black;
+  border-radius: 50%;
+  display: flex;
+  /* align-items: center; */
+  position: relative;
+  width: 100px;
+  height: 100px;
+`;
+
+const Img = styled.img`
+  border-radius: 50%;
+  /* display: flex; */
+  max-width: 100px;
+  max-height: 100px;
+  /* width: auto;
+    height: auto; */
+`;
+
+const OwnerName = styled.div`
+padding-left: 20px;
+`
+
+const OwnerProfileWrapper = styled.div`
+display: flex;
+align-items: center;
+`;
+
+const ItemDescription = styled.div`
+padding-top: 20px
+`
+
+
+const OwnerCity = styled.div``;
 
 export default ItemDetails;
