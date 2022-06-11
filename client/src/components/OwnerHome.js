@@ -2,9 +2,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import LoadingPage from "./Loading";
+import ErrorMessage from "./Error";
+
 
 const OwnerHome = () => {
   const [isPending, setIsPending] = useState(true);
+  const [error, setError] = useState(null);
+
   const [owner, setOwner] = useState([]);
   const [items, setItems] = useState([]);
 
@@ -17,7 +21,11 @@ const OwnerHome = () => {
         .then((data) => {
           setOwner(data.data);
           setIsPending(false);
+        })
+        .catch((err) => {
+          setError(err.message);
         });
+  
     };
     fetchOwner();
   }, [profileById]);
@@ -29,6 +37,9 @@ const OwnerHome = () => {
         .then((data) => {
           setItems(data.data);
           setIsPending(false);
+        })
+        .catch((err) => {
+          setError(err.message);
         });
     };
     fetchItemsOwner();
@@ -41,6 +52,8 @@ const OwnerHome = () => {
 
   return (
     <>
+          {error && <ErrorMessage></ErrorMessage>}
+
       {isPending && <LoadingPage />}
 
       {owner && items && (
