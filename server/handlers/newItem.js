@@ -20,8 +20,8 @@ const newItem = async (req, res) => {
     latitude,
     image,
   } = req.body;
-  //   console.log("req.body is", req.body);
-
+    console.log("req.body is", req.body);
+// console.log('req is', req);
   //req.file is the image file. Path is its path
   console.log("req.file IS", req.file);
   const { path } = req.file;
@@ -61,13 +61,14 @@ const newItem = async (req, res) => {
     //Upload the image to the Cloudinary service
     const uploadedImage = await cloudinary.uploader.upload(
       path,
-      { upload_preset: "rent-adventures" },
-      (error, uploadedImage) => {
-        console.log(uploadedImage, error);
-      }
+      { upload_preset: "rent-adventures",
+    }
+      // (error, uploadedImage) => {
+      //   console.log(uploadedImage, error);
+      // }
     );
     console.log("image is uploaded on Cloudinary");
-    // console.log("url IS", uploadedImage.url);
+    console.log("url IS", uploadedImage.url);
     // If the image is uploaded, let's create a new item in MongoDb
     if (uploadedImage) {
       const item = {
@@ -76,7 +77,7 @@ const newItem = async (req, res) => {
         description,
         priceDaily,
         priceWeekly,
-        image: uploadedImage.url,
+        image: uploadedImage.secure_url,
         isAvailable: true,
         city,
         latitude,
