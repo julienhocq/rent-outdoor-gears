@@ -10,8 +10,8 @@ const { register } = require("./handlers/register");
 const { getOwnerById } = require("./handlers/singleOwner");
 // const { postItem } = require("./handlers/postItem");
 const { newItem } = require("./handlers/newItem");
-const {getItemsByOwner} = require("./handlers/getItemsByOwner")
-
+const { getItemsByOwner } = require("./handlers/getItemsByOwner");
+const { bookItem } = require("./handlers/bookItem");
 const cloudinary = require("./middlewares/cloudinary");
 
 const { login } = require("./handlers/login");
@@ -26,7 +26,7 @@ const { login } = require("./handlers/login");
 //   storage: storage,
 // });
 
-const upload = multer({ dest: 'uploads/' })
+const upload = multer({ dest: "uploads/" });
 
 express()
   // This will give us will log more info to the console. see https://www.npmjs.com/package/morgan
@@ -46,14 +46,18 @@ express()
   //Get a specific Item
   .get("/api/item/:itemById", getItemById)
 
+  // Book an item
+  .post("/api/item/:itemById", bookItem)
+
   //Get All item by category
   .get("/api/items/:category", getItemsByCategory)
 
-    //Get owner by its Id
+  //Get owner by its Id
   .get("/api/profile/:profileById", getOwnerById)
 
+  // Get all owner's items
   .get("/api/profile/:profileById/items", getItemsByOwner)
-  
+
   // user - register
   .post("/api/owner/register", register)
   // user - login
