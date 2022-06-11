@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import LoadingPage from "./Loading";
 
 const OwnerHome = () => {
+  const [isPending, setIsPending] = useState(true);
   const [owner, setOwner] = useState([]);
   const [items, setItems] = useState([]);
+
   const { profileById } = useParams();
 
   useEffect(() => {
@@ -13,6 +16,7 @@ const OwnerHome = () => {
         .then((res) => res.json())
         .then((data) => {
           setOwner(data.data);
+          setIsPending(false);
         });
     };
     fetchOwner();
@@ -24,6 +28,7 @@ const OwnerHome = () => {
         .then((res) => res.json())
         .then((data) => {
           setItems(data.data);
+          setIsPending(false);
         });
     };
     fetchItemsOwner();
@@ -36,6 +41,8 @@ const OwnerHome = () => {
 
   return (
     <>
+      {isPending && <LoadingPage />}
+
       {owner && items && (
         <>
           <Img src={owner.image} />
