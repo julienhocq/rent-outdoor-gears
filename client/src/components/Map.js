@@ -14,8 +14,15 @@ import imgIcon from "../assets/bike-icon-bis.jpg";
 import imgIconMap from "../assets/mapbox-icon.png";
 import { ItemContext } from "./context/Context";
 import MainGeoControl from "./MainGeocontrol";
+import ErrorMessage from "./Error";
+
+import LoadingPage from "./Loading";
+
 
 const MainMap = () => {
+  const [error, setError] = useState(null);
+  const [isPending, setIsPending] = useState(true);
+
   const [items, setItems] = useState([]);
   const { selectedItem, setSelectedItem } = useContext(ItemContext);
 
@@ -33,8 +40,12 @@ const MainMap = () => {
       .then((res) => res.json())
       .then((data) => {
         setItems(data.data);
+        setIsPending(false);
+
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setError(err.message);
+      });
   }, []);
 
   useEffect(() => {
@@ -76,6 +87,9 @@ const MainMap = () => {
 
   return (
     <>
+          {error && <ErrorMessage></ErrorMessage>}
+      {isPending && <LoadingPage />}
+
       <Map
         initialViewState={{
           longitude: -73.577551,
