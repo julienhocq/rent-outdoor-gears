@@ -8,26 +8,38 @@ const options = {
   useUnifiedTopology: true,
 };
 
+const bookItem = async (req, res) => {
+  console.log("req.body", req.body);
 
-const bookItem = async (req, res) =>{
+  const client = new MongoClient(MONGO_URI, options);
 
-const client = new MongoClient(MONGO_URI, options);
-console.log('req.body', req.body);
-
-try {
+  try {
     await client.connect();
     console.log("Connected!");
     const db = client.db("RentOutdoorGears");
 
+    const reservation = {
+        _id: uuidv4(),
+      ownerId: req.body.ownerId,
+      itemId: req.body.itemId,
+      date: req.body.date
+    };
 
-} catch (err) {
+    // const bookItem = Object.assign({ _id: uuidv4(), reservation });
+    await db.collection("reservations").insertOne(reservation);
+    console.log('item booked ');
+
+    return res.status(200).json({
+      status: 200,
+      data: bookItem,
+      message: "This is the item",
+    });
+  } catch (err) {
     res.status(500).json({ status: 500, message: err.message });
   } finally {
     client.close();
     console.log("disconnected!");
   }
+};
 
-
-}
-
-module.exports = {bookItem}
+module.exports = { bookItem };
