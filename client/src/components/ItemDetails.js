@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 
 import styled from "styled-components";
 import { ItemContext } from "./context/Context";
+import CalendarReservation from "./CalendarReservation";
 
 const ItemDetails = () => {
   const [item, setItem] = useState([]);
@@ -37,9 +38,10 @@ const ItemDetails = () => {
     FetchOwner();
   }, [item.OwnerId, item._id]);
 
-  //   console.log("item", item);
-  console.log("ownerData", owner);
-//   console.log("owner address", owner.address);
+  // console.log("item", item._id);
+  // console.log("ownerData", owner);
+  // console.log("ownerId", owner._id);
+  //   console.log("owner address", owner.address);
 
   return (
     <>
@@ -58,7 +60,7 @@ const ItemDetails = () => {
                 <Link to={`/profile/${owner._id}`}>
                   <OwnerName>{owner.username}</OwnerName>
                 </Link>
-              {/* <OwnerCity>{owner.address.city}</OwnerCity> */}
+                {/* <OwnerCity>{owner.address.city}</OwnerCity> */}
               </OwnerProfileWrapper>
               <ItemDescription>Description: {item.description}</ItemDescription>
               <p>Daily price: $ {item.priceDaily}</p>
@@ -67,6 +69,9 @@ const ItemDetails = () => {
               <Link to="/checkout">
                 <button>BOOK THIS ITEM</button>
               </Link>
+              <Wrapper>
+                <CalendarReservation owner={owner} item={item} />
+              </Wrapper>
             </PageWrapper>
           </Main>
         </>
@@ -76,9 +81,8 @@ const ItemDetails = () => {
 };
 
 const Main = styled.div`
-display: flex;
-justify-content: center;
-
+  display: flex;
+  justify-content: center;
 `;
 
 const PageWrapper = styled.div`
@@ -90,7 +94,6 @@ const PageWrapper = styled.div`
   h1 {
     text-align: center;
   }
-
 `;
 
 // const ItemTitle = styled.h1`
@@ -127,19 +130,24 @@ const Img = styled.img`
 `;
 
 const OwnerName = styled.div`
-padding-left: 20px;
-`
+  padding-left: 20px;
+`;
 
 const OwnerProfileWrapper = styled.div`
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 `;
 
 const ItemDescription = styled.div`
-padding-top: 20px
-`
+  padding-top: 20px;
+`;
 
+/* 
+const OwnerCity = styled.div``; */
 
-const OwnerCity = styled.div``;
+const Wrapper = styled.div`
+  padding-top: 30px;
+  /* width: 500px; */
+`;
 
 export default ItemDetails;
