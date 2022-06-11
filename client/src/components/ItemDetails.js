@@ -7,11 +7,13 @@ import { ItemContext } from "./context/Context";
 
 const ItemDetails = () => {
     const [item, setItem] = useState([]);
+    const [owner, setOwner] = useState([])
 
     const {itemById} = useParams()
 
     const {selectedItem, setSelectedItem} = useContext(ItemContext)
     console.log('selectedItem IS', selectedItem);
+
 
   // fetching product info by itemId
 useEffect(() =>{
@@ -20,10 +22,23 @@ useEffect(() =>{
         console.log('data',data);
         const json = await data.json()
         setItem(json.data);
+        const ownerId = json.data.OwnerId
+        console.log('ownerId', ownerId);
+
+        const dataOwner = await fetch(`/api/profile/${ownerId}`)
+        .then((res) => res.json())
+        .then((data) => {
+            setOwner(data.data)
+            console.log('data', data.data);
+        })
 
     } 
     fetchProduct()
 }, [itemById])
+
+console.log('ownerData', owner);
+
+
 
 console.log('item IS', item);
 
@@ -34,6 +49,12 @@ console.log('item IS', item);
         <p>{item.name}</p>
         <p>{item.description}</p>
         <p>$ {item.priceDaily}</p>
+        <Link to={`/profile/${owner._id}`}>
+        <p>{owner.username}</p>
+        </Link>
+        <img src={owner.image} />
+
+
         <Link to="/checkout">
         <button>BOOK THIS ITEM</button>
         </Link>
