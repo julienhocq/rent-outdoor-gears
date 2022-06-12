@@ -18,7 +18,7 @@ console.log('user', owner);
     <>
       <Wrapper>
       <SectionOne>
-    <p>Hi {owner}, let's add a new item in 2 quick steps!</p>
+    <p>Hi {owner}, let's add a new item in 3 quick steps!</p>
       </SectionOne>
 
         <TitleAction>Step 1: Where is located you item?</TitleAction>

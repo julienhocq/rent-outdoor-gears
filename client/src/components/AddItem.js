@@ -89,7 +89,7 @@ const AddItem = () => {
         method="POST"
         onSubmit={(e) => handleSubmit(e)}
       >
-        <p>Choose a category</p>
+        <p>Step 2: Choose a category</p>
         <select
           name="category"
           id="category"
@@ -127,13 +127,14 @@ const AddItem = () => {
           onChange={(e) => handleWeeklyPrice(e)}
           required
         />
+          <p>Step 3: Choose a category</p>
         <input
           type="file"
           id="image-file"
           name="image"
           // onChange={(e) => handleImageUpload(e)}
         ></input>
-        <button type="submit">Upload</button>
+        <button type="submit">Add the item</button>
       </AddItemForm>
     </Wrapper>
   );
@@ -156,10 +157,12 @@ const AddItemForm = styled.form`
   border-radius: 6px;
   box-shadow: 5px 15px 31px 4px #dfdfdf;
   width: 500px;
-  height: 50vh;
+  height: 60vh;
   gap: 10px;
   p {
     font-size: 1.3rem;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
   input {
     width: 250px;
