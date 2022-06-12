@@ -4,7 +4,8 @@ import styled from "styled-components";
 import LoadingPage from "./Loading";
 import ErrorMessage from "./Error";
 
-import {GrMapLocation} from "react-icons/gr"
+import { GrMapLocation } from "react-icons/gr";
+import { GiNinjaHead } from "react-icons/gi";
 
 const OwnerHome = () => {
   const [isPending, setIsPending] = useState(true);
@@ -61,31 +62,47 @@ const OwnerHome = () => {
           <PageWrapper>
             <OwnerProfileWrapper>
               <OwnerImageWrapper>
-                <OwnerImg src={owner.image} />
+                {owner.image ? (
+                  <OwnerImg src={owner.image} />
+                ) : (
+                  <>
+                    <WrapperAvatarIcon>
+                      <GiNinjaHead size={120} />
+                      <p>Change image</p>
+                    </WrapperAvatarIcon>
+                  </>
+                )}
               </OwnerImageWrapper>
               <OwnerNameCityWrapper>
                 <OwnerName>{owner.username}</OwnerName>
                 <WrapperLocation>
-                <GrMapLocation />
-                <OwnerCity>{owner.address.city}</OwnerCity>
+                  <GrMapLocation />
+                  {owner.address ? (
+                    <OwnerCity>{owner.address.city}</OwnerCity>
+                  ) : (
+                    <p>City is not displayed.</p>
+                  )}
                 </WrapperLocation>
               </OwnerNameCityWrapper>
-
             </OwnerProfileWrapper>
-              </PageWrapper>
-            <OwnerItemh2>{owner.username}'s items: </OwnerItemh2>
+          </PageWrapper>
+          <OwnerItem>{owner.username}'s items: </OwnerItem>
+          {items.length > 0 ? (
             <ItemsWrapper>
-
               {items.map((item) => (
                 <Link to={`/item/${item._id}`}>
-                <ItemContainer>
-                  <ItemImg src={item.image}></ItemImg>
-                <h2>{item.name}</h2>
-                </ItemContainer>
+                  <ItemContainer>
+                    <ItemImg src={item.image}></ItemImg>
+                    <h2>{item.name}</h2>
+                  </ItemContainer>
                 </Link>
               ))}
             </ItemsWrapper>
-            <p>Add new item</p>
+          ) : (
+            <TextNoItem>No Item yet! </TextNoItem>
+          )}
+
+          <OwnerItem>Add new item</OwnerItem>
         </>
       )}
     </>
@@ -110,6 +127,19 @@ const OwnerImg = styled.img`
   width: 100%;
 `;
 
+const WrapperAvatarIcon = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 10px;
+
+  p {
+    padding-top: 10px;
+    font-size: 0.8em;
+    font-style: italic;
+  }
+`;
+
 const OwnerName = styled.div`
   padding-left: 20px;
   padding-bottom: 20px;
@@ -121,14 +151,18 @@ const OwnerCity = styled.div`
 `;
 
 const WrapperLocation = styled.div`
-display: flex;
-align-items: center;
-padding-top: 20px;
-padding-left: 20px;
-font-size: 1.4em;
+  display: flex;
+  align-items: center;
+  padding-top: 20px;
+  padding-left: 20px;
+  font-size: 1.4em;
 
-`
-
+  p {
+    font-size: 0.6em;
+    font-style: italic;
+    padding-left: 10px;
+  }
+`;
 
 const OwnerProfileWrapper = styled.div`
   display: flex;
@@ -140,10 +174,10 @@ const OwnerNameCityWrapper = styled.div`
   flex-direction: column;
 `;
 
-const OwnerItemh2 = styled.h2`
-padding-left: 40px;
-padding-top: 20px;
-`
+const OwnerItem = styled.h2`
+  padding-left: 40px;
+  padding-top: 20px;
+`;
 
 const ItemsWrapper = styled.div`
   padding-bottom: 60px;
@@ -158,21 +192,25 @@ const ItemsWrapper = styled.div`
   }
 `;
 
+const TextNoItem = styled.div`
+  padding: 20px 20px 20px 60px;
+`;
+
 const ItemContainer = styled.div`
-text-align: center;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-align-items: center;
-padding: 30px;
-margin: 10px;
-border-radius: 10px;
-box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 `;
 
 const ItemImg = styled.img`
-/* max-width: 120px; */
-padding-bottom: 20px;
-`
+  /* max-width: 120px; */
+  padding-bottom: 20px;
+`;
 
 export default OwnerHome;
