@@ -1,17 +1,27 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 
 import Map from "react-map-gl";
 import GeocoderSearch from "./GeocoderSearch";
 import styled from "styled-components";
+import { OwnerContext } from "./context/Context";
 
 const Geocoder = () => {
+
+
+const {owner} = useContext(OwnerContext)
+console.log('user', owner);
+
 
   return (
     <>
       <Wrapper>
-        <TitleAction>Where is located you item?</TitleAction>
+      <SectionOne>
+    <p>Hi {owner}, let's add a new item in 2 quick steps!</p>
+      </SectionOne>
+
+        <TitleAction>Step 1: Where is located you item?</TitleAction>
         <Map
           initialViewState={{
             longitude: -73.577551,
@@ -40,6 +50,15 @@ const Wrapper = styled.div`
   justify-content: center;
   padding-top: 20px;
 `;
+
+const SectionOne = styled.div`
+
+p {
+  font-size: 1.4em;
+  padding-bottom: 20px;
+}
+
+`
 
 const TitleAction = styled.h2`
   padding-bottom: 10px;
