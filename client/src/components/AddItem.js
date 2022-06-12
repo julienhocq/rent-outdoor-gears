@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
+import { GrFormPreviousLink } from "react-icons/gr";
 
 import styled from "styled-components";
 import { OwnerContext } from "./context/Context";
 
 const AddItem = () => {
-  const history = useHistory()
+  const history = useHistory();
   const { markerNewItem, setMarkerNewItem } = useContext(OwnerContext);
 
   const [category, setCategory] = useState(null);
@@ -41,7 +42,6 @@ const AddItem = () => {
     history.push("/confirmation");
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -72,10 +72,10 @@ const AddItem = () => {
 
     try {
       const data = await fetch("/upload", { method: "POST", body: formData });
-      const json = await data.json()
+      const json = await data.json();
       //Set a session storage to use the data to the confirmation page
-      sessionStorage.setItem("NewItem", JSON.stringify(json.data))
-      linkToConfirmationPage(formData)
+      sessionStorage.setItem("NewItem", JSON.stringify(json.data));
+      linkToConfirmationPage(formData);
     } catch (error) {
       console.log("ERROR:", error.message);
     }
@@ -83,12 +83,22 @@ const AddItem = () => {
 
   return (
     <Wrapper>
+
       <AddItemForm
         action="/upload"
         enctype="multipart/form-data"
         method="POST"
         onSubmit={(e) => handleSubmit(e)}
       >
+      <ReturnWrapper>
+        <Link to="/add-location">
+          <GrFormPreviousLink />
+          <span> Change location</span>
+        </Link>
+      </ReturnWrapper>
+
+
+        
         <p>Step 2: Choose a category</p>
         <select
           name="category"
@@ -127,7 +137,7 @@ const AddItem = () => {
           onChange={(e) => handleWeeklyPrice(e)}
           required
         />
-          <p>Step 3: Choose a category</p>
+        <p>Step 3: Choose a category</p>
         <input
           type="file"
           id="image-file"
@@ -146,6 +156,18 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   padding-top: 100px;
+`;
+
+const ReturnWrapper = styled.div`
+display: flex;
+  padding-bottom: 20px;
+  span {
+    padding: 10px;
+  }
+  a {
+    color: #32cd32;
+    text-decoration: none;
+  }
 `;
 
 const AddItemForm = styled.form`
