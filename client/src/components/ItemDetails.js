@@ -125,8 +125,7 @@ const Img = styled.img`
   /* display: flex; */
   max-width: 100px;
   max-height: 100px;
-  /* width: auto;
-    height: auto; */
+  object-fit: cover;
 `;
 
 const OwnerName = styled.div`
