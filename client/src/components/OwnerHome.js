@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 import LoadingPage from "./Loading";
@@ -6,29 +6,33 @@ import ErrorMessage from "./Error";
 
 import { GrMapLocation } from "react-icons/gr";
 import { GiNinjaHead } from "react-icons/gi";
+import { OwnerContext } from "./context/Context";
 
 const OwnerHome = () => {
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
 
-  const [owner, setOwner] = useState([]);
+  const [ownerProfile, setOwnerProfile] = useState([]);
   const [items, setItems] = useState([]);
 
+  const { owner } = useContext(OwnerContext);
+  let userId = owner[1];
+  console.log("userId", userId);
   const { profileById } = useParams();
 
   useEffect(() => {
-    const fetchOwner = async () => {
+    const fetchOwnerProfile = async () => {
       await fetch(`/api/profile/${profileById}`)
         .then((res) => res.json())
         .then((data) => {
-          setOwner(data.data);
+          setOwnerProfile(data.data);
           setIsPending(false);
         })
         .catch((err) => {
           setError(err.message);
         });
     };
-    fetchOwner();
+    fetchOwnerProfile();
   }, [profileById]);
 
   useEffect(() => {
@@ -46,10 +50,10 @@ const OwnerHome = () => {
     fetchItemsOwner();
   }, [profileById]);
 
-  console.log("owner is", owner);
+  console.log("ownerProfile Id is", ownerProfile._id);
   console.log("items is", items);
-  console.log("items 1", items[0]);
-  console.log("items 2", items[1]);
+  // console.log("items 1", items[0]);
+  // console.log("items 2", items[1]);
 
   return (
     <>
@@ -57,13 +61,13 @@ const OwnerHome = () => {
 
       {isPending && <LoadingPage />}
 
-      {owner && items && owner.username && (
+      {ownerProfile && items && ownerProfile.username && (
         <>
           <PageWrapper>
             <OwnerProfileWrapper>
               <OwnerImageWrapper>
-                {owner.image ? (
-                  <OwnerImg src={owner.image} />
+                {ownerProfile.image ? (
+                  <OwnerImg src={ownerProfile.image} />
                 ) : (
                   <>
                     <WrapperAvatarIcon>
@@ -74,11 +78,11 @@ const OwnerHome = () => {
                 )}
               </OwnerImageWrapper>
               <OwnerNameCityWrapper>
-                <OwnerName>{owner.username}</OwnerName>
+                <OwnerName>{ownerProfile.username}</OwnerName>
                 <WrapperLocation>
                   <GrMapLocation />
-                  {owner.address ? (
-                    <OwnerCity>{owner.address.city}</OwnerCity>
+                  {ownerProfile.address ? (
+                    <OwnerCity>{ownerProfile.address.city}</OwnerCity>
                   ) : (
                     <p>City is not displayed.</p>
                   )}
@@ -86,7 +90,7 @@ const OwnerHome = () => {
               </OwnerNameCityWrapper>
             </OwnerProfileWrapper>
           </PageWrapper>
-          <OwnerItem>{owner.username}'s items: </OwnerItem>
+          <OwnerItem>{ownerProfile.username}'s items: </OwnerItem>
           {items.length > 0 ? (
             <ItemsWrapper>
               {items.map((item) => (
@@ -101,8 +105,7 @@ const OwnerHome = () => {
           ) : (
             <TextNoItem>No Item yet! </TextNoItem>
           )}
-
-          <OwnerItem>Add new item</OwnerItem>
+          {ownerProfile._id === userId && <OwnerItem>Add new item</OwnerItem>}
         </>
       )}
     </>
