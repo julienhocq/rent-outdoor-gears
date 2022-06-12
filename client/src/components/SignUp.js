@@ -134,6 +134,7 @@ const SignupForm = styled.form`
     border: none;
     color: white;
     background-color: blue;
+    cursor: pointer;
   }
   a {
     color: #32cd32;

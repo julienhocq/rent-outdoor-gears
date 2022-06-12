@@ -107,6 +107,7 @@ const Form = styled.form`
     border: none;
     color: white;
     background-color: #aeeaff;
+    cursor: pointer;
   }
   p {
     font-size: 1.3rem;
