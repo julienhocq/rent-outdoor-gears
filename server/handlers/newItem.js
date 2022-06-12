@@ -20,15 +20,10 @@ const newItem = async (req, res) => {
     latitude,
     image,
   } = req.body;
-    console.log("req.body is", req.body);
-// console.log('req is', req);
   //req.file is the image file. Path is its path
-  console.log("req.file IS", req.file);
   const { path } = req.file;
-  //   console.log("path image is", path);
   const extension = req.file.mimetype;
   const size = req.file.size;
-  //   console.log("extension file is:", extension);
 
   // Image validations - has to be an image with size < 1.2 Mo
   if (
@@ -68,7 +63,7 @@ const newItem = async (req, res) => {
       // }
     );
     console.log("image is uploaded on Cloudinary");
-    console.log("url IS", uploadedImage.url);
+    // console.log("url IS", uploadedImage.url);
     // If the image is uploaded, let's create a new item in MongoDb
     if (uploadedImage) {
       const item = {
@@ -83,7 +78,7 @@ const newItem = async (req, res) => {
         latitude,
         longitude,
       };
-      console.log("item is", item);
+      // console.log("item is", item);
       const newItem = Object.assign({ _id: uuidv4() }, item);
       await db.collection("products").insertOne(newItem);
       res.status(200).json({
