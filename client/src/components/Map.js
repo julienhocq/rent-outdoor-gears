@@ -157,26 +157,38 @@ const MainMap = () => {
           <label>
             <input
               type="radio"
-              value="bike"
+              value="road"
               name="filterGroup"
               onChange={(e) => {
                 setFilterParam(e.target.value);
               }}
             ></input>
-            <span>Bike</span>
+            <span>Road</span>
           </label>
           <label>
             <input
               type="radio"
               name="filterGroup"
-              value="camping"
+              value="land"
               onChange={(e) => {
                 setFilterParam(e.target.value);
               }}
               // onChange={(e)=> filterByCategoryCamping()}
             ></input>
-            <span>Camping</span>
+            <span>Land</span>
           </label>
+          <label>
+            <input
+              type="radio"
+              name="filterGroup"
+              value="water"
+              onChange={(e) => {
+                setFilterParam(e.target.value);
+              }}
+            ></input>
+            <span>Water</span>
+          </label>
+
         </form>
       </FilterSection>
       {/* <div>
