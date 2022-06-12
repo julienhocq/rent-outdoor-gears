@@ -12,7 +12,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import styled from "styled-components";
 import imgIcon from "../assets/bike-icon-bis.jpg";
 import imgIconMap from "../assets/mapbox-icon.png";
-import { ItemContext } from "./context/Context";
+import { ItemContext, OwnerContext } from "./context/Context";
 import MainGeoControl from "./MainGeocontrol";
 import ErrorMessage from "./Error";
 
@@ -25,6 +25,8 @@ const MainMap = () => {
 
   const [items, setItems] = useState([]);
   const { selectedItem, setSelectedItem } = useContext(ItemContext);
+  const {owner} = useContext(OwnerContext)
+  console.log('owner', owner);
 
   const [filteredItems, setFilteredItems] = useState(items);
   const [filterParam, setFilterParam] = useState();
@@ -84,6 +86,12 @@ const MainMap = () => {
   // }
 
   // return <Map ref={mapRef}/>
+
+const handleClick = () => {
+  alert("Please log in!")
+}
+
+
 
   return (
     <>
@@ -202,13 +210,30 @@ const MainMap = () => {
         ))}
       </div> */}
       <div>
+        {owner ? (
         <Link to="add-location">
           <ButtonAddItem>Add an item</ButtonAddItem>
         </Link>
+
+        ): (
+          <>
+          <ButtonAddItem
+          onClick={(e) => handleClick(e)}
+          >Add an item</ButtonAddItem>
+          </>
+        )}
+        
+
+
       </div>
     </>
   );
 };
+
+
+const ListComponent = styled.div`
+`
+
 
 const Button = styled.button`
   cursor: pointer;
