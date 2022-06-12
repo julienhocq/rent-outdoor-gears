@@ -1,6 +1,9 @@
 import styled from "styled-components";
-import {GiExitDoor} from "react-icons/gi"
+import {GiExitDoor, GiSurfBoard} from "react-icons/gi"
 import { FaUserLock } from "react-icons/fa";
+import {AiFillHome} from "react-icons/ai";   // Home icon
+import {RiMapPinAddFill} from "react-icons/ri";  //add icon
+
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { OwnerContext } from "./context/Context";
 import { useContext } from "react";
@@ -13,6 +16,9 @@ const Header = () => {
   const handleLogout = () => {
     setOwner(null);
   };
+
+  console.log('owner', owner);
+  // console.log('owner Id', owner[1]);
 
   return (
     <HeaderSection>
@@ -32,11 +38,20 @@ const Header = () => {
           </>
         ) : (
           <>
-          <Greeting>Hi,{owner}</Greeting>
+          <NavLinkStyled to="/">
+          <AiFillHome size={30} color={"blue"} />
+          </NavLinkStyled>
+          <NavLinkStyled to="/add-location">
+          <RiMapPinAddFill size={30} color={"blue"} />
+          </NavLinkStyled>
+          <NavLinkStyled to={`/profile/${owner[1]}`}>
+          <GiSurfBoard size={30} color={"blue"} />
+          </NavLinkStyled>
+          {/* <Greeting>Hi,{owner}</Greeting> */}
           <LogOutWrapper onClick={handleLogout}>
           <GiExitDoor size={30} color={"blue"} />
           <NavLinkStyled to="/">
-          <LoginDesign>LOGOUT</LoginDesign>
+          {/* <LoginDesign>LOGOUT</LoginDesign> */}
           </NavLinkStyled>
           </LogOutWrapper>
           </>

@@ -33,9 +33,9 @@ const Login = () => {
           body: JSON.stringify({ email: email, password: password }),
         });
         const json = await data.json();
-        console.log('json', json);
+        console.log('json', json.data._id);
         setLoginMessage(json.message);
-        setOwner(json.data.username);
+        setOwner([json.data.username, json.data._id]);
         console.log('owner', owner);
         history.push("/");
       } catch (error) {
