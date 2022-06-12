@@ -1,4 +1,4 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import AddItem from "./AddItem";
 import Checkout from "./Checkout";
 import Header from "./Header";
@@ -11,13 +11,15 @@ import SignUp from "./SignUp";
 import Geocoder from "./GeoLocalisation";
 import ConfirmationNewItem from "./ConfirmationAddItem";
 import GlobalStyles from "./GlobalStyles";
-
-
+import { useContext } from "react";
+import { OwnerContext } from "./context/Context";
 
 const App = () => {
+  const { owner } = useContext(OwnerContext);
+
   return (
     <BrowserRouter>
-    <GlobalStyles />
+      <GlobalStyles />
       <Header />
       <Switch>
         <Route exact path="/">
@@ -41,16 +43,15 @@ const App = () => {
         </Route>
 
         <Route exact path="/add-item">
-          <AddItem />
+          {owner === null ? <Redirect to="/" /> : <AddItem />}
         </Route>
         <Route exact path="/add-location">
-          <Geocoder />
-
+          {owner === null ? <Redirect to="/" /> : <Geocoder />}
         </Route>
+
         <Route exact path="/confirmation">
           <ConfirmationNewItem />
         </Route>
-        
       </Switch>
     </BrowserRouter>
   );
