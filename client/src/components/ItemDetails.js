@@ -45,7 +45,7 @@ const ItemDetails = () => {
 
   return (
     <>
-      {item && owner && (
+      {item && owner && owner.address && (
         <>
           <Main>
             <PageWrapper>
@@ -56,19 +56,26 @@ const ItemDetails = () => {
               <OwnerProfileWrapper>
                 <OwnerImageWrapper>
                   <Img src={owner.image} />
+                  <NameCityWrapper>
+                    <Link to={`/profile/${owner._id}`}>
+                      <OwnerName>{owner.username}</OwnerName>
+                    </Link>
+                    <OwnerCity>{owner.address.city}</OwnerCity>
+                  </NameCityWrapper>
                 </OwnerImageWrapper>
-                <Link to={`/profile/${owner._id}`}>
-                  <OwnerName>{owner.username}</OwnerName>
-                </Link>
                 {/* <OwnerCity>{owner.address.city}</OwnerCity> */}
               </OwnerProfileWrapper>
-              <ItemDescription>Description: {item.description}</ItemDescription>
-              <p>Daily price: $ {item.priceDaily}</p>
-              <p>Weekly price: $ {item.priceWeekly}</p>
-
-              <Link to="/checkout">
+              <ItemDescription>
+                Description: {item.description}
+                <p>Daily price: $ {item.priceDaily}</p>
+                <p>Weekly price: $ {item.priceWeekly}</p>
+              </ItemDescription>
+              <AvailabilityWrapper>
+                Check the availabilties!
+              </AvailabilityWrapper>
+              {/* <Link to="/checkout">
                 <button>BOOK THIS ITEM</button>
-              </Link>
+              </Link> */}
               <Wrapper>
                 <CalendarReservation owner={owner} item={item} />
               </Wrapper>
@@ -106,31 +113,43 @@ const ItemImageWrapper = styled.div`
   justify-content: space-around;
 `;
 const ItemImg = styled.img`
-  max-width: 500px;
+  max-width: 800px;
   width: 100%;
 `;
 
 const OwnerImageWrapper = styled.div`
-  border: 1px solid black;
+  /* border: 1px solid black; */
   border-radius: 50%;
   display: flex;
   /* align-items: center; */
   position: relative;
-  width: 100px;
-  height: 100px;
+  top: -40px;
+  left: 10px;
+  width: 130px;
+  height: 130px;
 `;
 
 const Img = styled.img`
   border-radius: 50%;
-  /* display: flex; */
-  max-width: 100px;
-  max-height: 100px;
+  max-width: 130px;
+  max-height: 130px;
   object-fit: cover;
+  border: 2px solid white;
+`;
+
+const NameCityWrapper = styled.div`
+padding-top: 20px;
+  display: flex;
+  align-items: center;
 `;
 
 const OwnerName = styled.div`
   padding-left: 20px;
+  /* padding-top: 60px; */
+  font-size: 1.4em;
 `;
+
+const OwnerCity = styled.div``;
 
 const OwnerProfileWrapper = styled.div`
   display: flex;
@@ -139,12 +158,21 @@ const OwnerProfileWrapper = styled.div`
 
 const ItemDescription = styled.div`
   padding-top: 20px;
+  p {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 `;
 
 /* 
 const OwnerCity = styled.div``; */
 
+const AvailabilityWrapper = styled.div`
+  font-size: 1.4em;
+`;
+
 const Wrapper = styled.div`
+  display: flex;
   padding-top: 30px;
   /* width: 500px; */
 `;
