@@ -105,7 +105,14 @@ const OwnerHome = () => {
           ) : (
             <TextNoItem>No Item yet! </TextNoItem>
           )}
-          {ownerProfile._id === userId && <OwnerItem>Add new item</OwnerItem>}
+          {ownerProfile._id === userId &&
+          <>
+          <OwnerItem>Add new item</OwnerItem>
+          <Link to ="/add-location">
+          <button>Yes!</button>
+          </Link>
+          </>
+          }
         </>
       )}
     </>
