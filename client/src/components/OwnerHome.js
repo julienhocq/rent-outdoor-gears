@@ -16,8 +16,8 @@ const OwnerHome = () => {
   const [items, setItems] = useState([]);
 
   const { owner } = useContext(OwnerContext);
-  let userId = owner[1];
-  console.log("userId", userId);
+  // let userId = owner[1];
+  // console.log("userId", userId);
   const { profileById } = useParams();
 
   useEffect(() => {
@@ -105,7 +105,7 @@ const OwnerHome = () => {
           ) : (
             <TextNoItem>No Item yet! </TextNoItem>
           )}
-          {ownerProfile._id === userId &&
+          {owner === undefined && ownerProfile._id === owner[1] &&
           <>
           <OwnerItem>Add new item</OwnerItem>
           <Link to ="/add-location">
