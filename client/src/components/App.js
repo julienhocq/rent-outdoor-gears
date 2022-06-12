@@ -10,12 +10,14 @@ import OwnerHome from "./OwnerHome";
 import SignUp from "./SignUp";
 import Geocoder from "./GeoLocalisation";
 import ConfirmationNewItem from "./ConfirmationAddItem";
+import GlobalStyles from "./GlobalStyles";
 
 
 
 const App = () => {
   return (
     <BrowserRouter>
+    <GlobalStyles />
       <Header />
       <Switch>
         <Route exact path="/">
