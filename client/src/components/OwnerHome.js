@@ -98,6 +98,12 @@ const OwnerHome = () => {
                   <ItemContainer>
                     <ItemImg src={item.image}></ItemImg>
                     <h2>{item.name}</h2>
+                    <Container>
+                      <div>Category:<span> {item.category}</span> </div>
+                      <div>Description: <span>{item.description}</span> </div>
+                      <div>Daily price: ${item.priceDaily} </div>
+                      <div>Weekly price: ${item.priceWeekly} </div>
+                    </Container>
                   </ItemContainer>
                 </Link>
               ))}
@@ -105,14 +111,14 @@ const OwnerHome = () => {
           ) : (
             <TextNoItem>No Item yet! </TextNoItem>
           )}
-          {owner === undefined && ownerProfile._id === owner[1] &&
-          <>
-          <OwnerItem>Add new item</OwnerItem>
-          <Link to ="/add-location">
-          <button>Yes!</button>
-          </Link>
-          </>
-          }
+          {owner === undefined && ownerProfile._id === owner[1] && (
+            <>
+              <OwnerItem>Add new item</OwnerItem>
+              <Link to="/add-location">
+                <button>Yes!</button>
+              </Link>
+            </>
+          )}
         </>
       )}
     </>
@@ -212,15 +218,37 @@ const ItemContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  /* align-items: flex-start; */
+
   padding: 30px;
   margin: 10px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+  h2 {
+    text-align: center;
+    color: green;
+    padding-bottom: 10px;
+  }
 `;
 
 const ItemImg = styled.img`
   /* max-width: 120px; */
   padding-bottom: 20px;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  div {
+    padding-bottom: 5px;
+  }
+  span{
+    font-style: italic;
+  }
+
 `;
 
 export default OwnerHome;
