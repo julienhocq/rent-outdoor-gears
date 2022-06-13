@@ -1,6 +1,5 @@
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import AddItem from "./AddItem";
-import Checkout from "./DELETECheckout";
 import Header from "./Header";
 // import { ItemState } from "./context/Context";
 import ItemDetails from "./ItemDetails";
