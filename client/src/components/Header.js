@@ -1,23 +1,22 @@
 import styled from "styled-components";
-import {GiExitDoor, GiSurfBoard} from "react-icons/gi"
+import { GiExitDoor, GiSurfBoard } from "react-icons/gi";
 import { FaUserLock } from "react-icons/fa";
-import {AiFillHome} from "react-icons/ai";   // Home icon
-import {RiMapPinAddFill} from "react-icons/ri";  //add icon
+import { AiFillHome } from "react-icons/ai"; // Home icon
+import { RiMapPinAddFill } from "react-icons/ri"; //add icon
 
-import { NavLink, Link, useLocation } from "react-router-dom";
+import { NavLink, Link, useLocation, Redirect } from "react-router-dom";
 import { OwnerContext } from "./context/Context";
 import { useContext } from "react";
-
-
 
 const Header = () => {
   const { owner, setOwner } = useContext(OwnerContext);
 
   const handleLogout = () => {
-    setOwner(null);
+    localStorage.clear()
+    setOwner(null)
   };
 
-  console.log('owner', owner);
+  console.log("owner", owner);
   // console.log('owner Id', owner[1]);
 
   return (
@@ -32,32 +31,30 @@ const Header = () => {
         // ref={userMenuRef}
       >
         {!owner ? (
-        <>
-           <FaUserLock size={30} color={"blue"} />
-          <LoginDesign>LOGIN</LoginDesign>
+          <>
+            <FaUserLock size={30} color={"blue"} />
+            <LoginDesign>LOGIN</LoginDesign>
           </>
         ) : (
           <>
-          <NavLinkStyled to="/">
-          <AiFillHome size={30} color={"blue"} />
-          </NavLinkStyled>
-          <NavLinkStyled to="/add-location">
-          <RiMapPinAddFill size={30} color={"blue"} />
-          </NavLinkStyled>
-          <NavLinkStyled to={`/profile/${owner[1]}`}>
-          <GiSurfBoard size={30} color={"blue"} />
-          </NavLinkStyled>
-          {/* <Greeting>Hi,{owner}</Greeting> */}
-          <LogOutWrapper onClick={handleLogout}>
-          <GiExitDoor size={30} color={"blue"} />
-          <NavLinkStyled to="/">
-          {/* <LoginDesign>LOGOUT</LoginDesign> */}
-          </NavLinkStyled>
-          </LogOutWrapper>
+            <NavLinkStyled to="/">
+              <AiFillHome size={30} color={"blue"} />
+            </NavLinkStyled>
+            <NavLinkStyled to="/add-location">
+              <RiMapPinAddFill size={30} color={"blue"} />
+            </NavLinkStyled>
+            <NavLinkStyled to={`/profile/${owner[1]}`}>
+              <GiSurfBoard size={30} color={"blue"} />
+            </NavLinkStyled>
+            {/* <Greeting>Hi,{owner}</Greeting> */}
+              <NavLinkStyled to="/">
+            <LogOutWrapper onClick={handleLogout}>
+              <GiExitDoor size={30} color={"blue"} />
+                {/* <LoginDesign>LOGOUT</LoginDesign> */}
+            </LogOutWrapper>
+              </NavLinkStyled>
           </>
         )}
-        
-
       </NavLinkStyled>
     </HeaderSection>
   );
@@ -100,10 +97,8 @@ const LoginDesign = styled.span`
   font-weight: 700;
 `;
 
-const Logout = styled.div`
-`
+const Logout = styled.div``;
 
-const LogOutWrapper = styled.div`
-`
+const LogOutWrapper = styled.div``;
 
 export default Header;
