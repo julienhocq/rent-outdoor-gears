@@ -18,6 +18,11 @@ import ErrorMessage from "./Error";
 
 import LoadingPage from "./Loading";
 
+import landImage from "../assets/Category-Land-01_m.jpg";
+import roadImage from "../assets/Category-Road-01_m.jpg";
+import waterImage from "../assets/Category-Water-01_m.jpg";
+import heroImageOne from "../assets/Hero-image01.jpg";
+import heroImageTwo from "../assets/Hero-image02.jpg";
 
 const MainMap = () => {
   const [error, setError] = useState(null);
@@ -25,8 +30,8 @@ const MainMap = () => {
 
   const [items, setItems] = useState([]);
   const { selectedItem, setSelectedItem } = useContext(ItemContext);
-  const {owner} = useContext(OwnerContext)
-  console.log('owner', owner);
+  const { owner } = useContext(OwnerContext);
+  console.log("owner", owner);
 
   const [filteredItems, setFilteredItems] = useState(items);
   const [filterParam, setFilterParam] = useState();
@@ -43,7 +48,6 @@ const MainMap = () => {
       .then((data) => {
         setItems(data.data);
         setIsPending(false);
-
       })
       .catch((err) => {
         setError(err.message);
@@ -87,153 +91,178 @@ const MainMap = () => {
 
   // return <Map ref={mapRef}/>
 
-const handleClick = () => {
-  alert("Please log in!")
-}
-
-
+  const handleClick = () => {
+    alert("Please log in!");
+  };
 
   return (
     <>
-          {error && <ErrorMessage></ErrorMessage>}
+      {error && <ErrorMessage></ErrorMessage>}
       {isPending && <LoadingPage />}
+      <Main>
+        <SectionHeroImage>
+          <img src={heroImageOne} />
+          <HeroText>
+            <h2>Rent Adventure </h2>
+            <p>
+              Wherever you are, don't miss an opportunity to live your next
+              adventure
+            </p>
+          </HeroText>
+        </SectionHeroImage>
+        <SectionFilter>
+          <form>
+            <label>
+              <input
+                type="radio"
+                value="all"
+                name="filterGroup"
+                onChange={(e) => {
+                  setFilterParam(e.target.value);
+                }}
+              ></input>
+              <span>All</span>
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="road"
+                name="filterGroup"
+                onChange={(e) => {
+                  setFilterParam(e.target.value);
+                }}
+              ></input>
+              <span>Road</span>
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="filterGroup"
+                value="land"
+                onChange={(e) => {
+                  setFilterParam(e.target.value);
+                }}
+                // onChange={(e)=> filterByCategoryCamping()}
+              ></input>
+              <span>Land</span>
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="filterGroup"
+                value="water"
+                onChange={(e) => {
+                  setFilterParam(e.target.value);
+                }}
+              ></input>
+              <span>Water</span>
+            </label>
+          </form>
+        </SectionFilter>
 
-      <Map
-        initialViewState={{
-          longitude: -73.577551,
-          latitude: 45.463839,
-          zoom: 10,
-        }}
-        style={{ width: 800, height: 400 }}
-        mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-        mapStyle="mapbox://styles/mapbox/streets-v9"
-      >
-        <FullscreenControl position="top-left" />
-        <MainGeoControl />
-        <NavigationControl position="top-left" />
-        {filteredItems?.map((item) => (
-          <>
-            <Marker
-              key={item._id}
-              latitude={item.latitude}
-              longitude={item.longitude}
-              color="red"
-            >
-              <Button
-                onClick={(e) => {
-                  e.preventDefault();
-                  // console.log('im cliked');
-                  setSelectedItem(item);
-                  // console.log('item', item);
+        <SectionMap>
+          <Map
+            initialViewState={{
+              longitude: -73.577551,
+              latitude: 45.463839,
+              zoom: 10,
+            }}
+            style={{ width: 1000, height: 500 }}
+            mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+            mapStyle="mapbox://styles/mapbox/streets-v9"
+          >
+            <FullscreenControl position="top-left" />
+            <MainGeoControl />
+            <NavigationControl position="top-left" />
+            {filteredItems?.map((item) => (
+              <>
+                <Marker
+                  key={item._id}
+                  latitude={item.latitude}
+                  longitude={item.longitude}
+                  color="red"
+                >
+                  <Button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      // console.log('im cliked');
+                      setSelectedItem(item);
+                      // console.log('item', item);
+                    }}
+                  >
+                    <Img src={imgIconMap} />
+                  </Button>
+                </Marker>
+              </>
+            ))}
+            {selectedItem ? (
+              <Popup
+                latitude={selectedItem.latitude}
+                longitude={selectedItem.longitude}
+                onClose={() => {
+                  setSelectedItem(null);
                 }}
               >
-                <Img src={imgIconMap} />
-              </Button>
-            </Marker>
-          </>
-        ))}
-        {selectedItem ? (
-          <Popup
-            latitude={selectedItem.latitude}
-            longitude={selectedItem.longitude}
-            onClose={() => {
-              setSelectedItem(null);
-            }}
-          >
-            <div>
-              <Link to={`/item/${selectedItem._id}`}>
-                <h2>{selectedItem.name}</h2>
+                <div>
+                  <Link to={`/item/${selectedItem._id}`}>
+                    <h2>{selectedItem.name}</h2>
+                  </Link>
+                </div>
+              </Popup>
+            ) : null}
+          </Map>
+        </SectionMap>
+        <SectionAddItem>
+          <div>
+            {owner ? (
+              <Link to="add-location">
+                <ButtonAddItem>Add an item</ButtonAddItem>
               </Link>
-            </div>
-          </Popup>
-        ) : null}
-      </Map>
-      <FilterSection>
-        <div>Filter Section</div>
-        <form>
-          <label>
-            <input
-              type="radio"
-              value="all"
-              name="filterGroup"
-              onChange={(e) => {
-                setFilterParam(e.target.value);
-              }}
-            ></input>
-            <span>All</span>
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="road"
-              name="filterGroup"
-              onChange={(e) => {
-                setFilterParam(e.target.value);
-              }}
-            ></input>
-            <span>Road</span>
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="filterGroup"
-              value="land"
-              onChange={(e) => {
-                setFilterParam(e.target.value);
-              }}
-              // onChange={(e)=> filterByCategoryCamping()}
-            ></input>
-            <span>Land</span>
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="filterGroup"
-              value="water"
-              onChange={(e) => {
-                setFilterParam(e.target.value);
-              }}
-            ></input>
-            <span>Water</span>
-          </label>
-
-        </form>
-      </FilterSection>
-      {/* <div>
-                <WrapperFiltersItems>
-                  <div>{item.name}</div>
-                </WrapperFiltersItems>
-              </div> */}
-      {/* <div>
-        {filteredItems?.map((item) => (
-          <div>{item.name}</div>
-        ))}
-      </div> */}
-      <div>
-        {owner ? (
-        <Link to="add-location">
-          <ButtonAddItem>Add an item</ButtonAddItem>
-        </Link>
-
-        ): (
-          <>
-          <ButtonAddItem
-          onClick={(e) => handleClick(e)}
-          >Add an item</ButtonAddItem>
-          </>
-        )}
-        
-
-
-      </div>
+            ) : (
+              <>
+                <ButtonAddItem onClick={(e) => handleClick(e)}>
+                  Add an item
+                </ButtonAddItem>
+              </>
+            )}
+          </div>
+        </SectionAddItem>
+        <SectionExploreCategory>
+          <h2>Explore by universe</h2>
+        </SectionExploreCategory>
+        <SectionCategories>
+          <RoadContainer>
+            <img src={roadImage} />
+            <h3>Road</h3>
+          </RoadContainer>
+          <LandContainer>
+            <img src={landImage} />
+            <h3>Land</h3>
+          </LandContainer>
+          <WaterContainer>
+            <img src={waterImage} />
+            <h3>Water</h3>
+          </WaterContainer>
+        </SectionCategories>
+      </Main>
     </>
   );
 };
 
-
-const ListComponent = styled.div`
-`
-
+const Main = styled.div`
+  /* max-width: 1600px; */
+  /* padding: 20px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const SectionMap = styled.div`
+  display: flex;
+  justify-content: space-around;
+  padding: 40px;
+  border: 2px solid black;
+  box-shadow: 5px 15px 31px 4px #dfdfdf;
+`;
 
 const Button = styled.button`
   cursor: pointer;
@@ -247,9 +276,56 @@ const Img = styled.img`
   /* border-radius: 50%; */
   /* width: 80px; */
 `;
+const SectionHeroImage = styled.div`
+  padding-bottom: 20px;
+  /* height: 600px; */
+  /* width: 100%; */
+  /* position: relative; */
+  /* background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; */
 
-const FilterSection = styled.div`
+  /* background-image: url("https://images.unsplash.com/photo-1499971670613-a1df6023b6e1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80"); */
+  img {
+  }
+`;
+
+const HeroText = styled.div`
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+
+  h2 {
+    font-size: 3em;
+    padding-bottom: 20px;
+  }
+
+  p {
+    font-size: 1.4em;
+  }
+`;
+
+const SectionFilter = styled.div`
   padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: center;
+
+  form {
+    /* color: green; */
+    font-size: 1.4em;
+    display: flex;
+    flex-direction: row;
+  }
+  label {
+    padding: 0 30px;
+  }
+  span {
+    padding: 0 10px;
+  }
 `;
 
 const WrapperFiltersItems = styled.div`
@@ -259,16 +335,72 @@ const WrapperFiltersItems = styled.div`
 `;
 
 const ButtonAddItem = styled.button`
-margin-top: 40px;
-width: 250px;
-    height: 40px;
-    padding: 7px 20px;
-    font-size: 1.2rem;
-    border: none;
-    color: white;
-    background-color: blue;
-    cursor: pointer;
+  margin: 20px;
+  width: 250px;
+  height: 40px;
+  padding: 7px 20px;
+  font-size: 1.2rem;
+  border: none;
+  color: white;
+  background-color: blue;
+  cursor: pointer;
+`;
 
+const SectionAddItem = styled.div`
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 140px;
+  background-color: teal;
+`;
+
+const SectionExploreCategory = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 140px;
+`;
+
+const SectionCategories = styled.div`
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: 60px;
+  h3 {
+    z-index: 10;
+    color: white;
+    /* opacity: 0.8; */
+    font-size: 4em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+`;
+
+const RoadContainer = styled.div`
+  display: flex;
+  height: 300px;
+  padding: 20px;
+  position: relative;
+`;
+
+const LandContainer = styled.div`
+  display: flex;
+  position: relative;
+  height: 300px;
+  padding: 20px;
+`;
+
+const WaterContainer = styled.div`
+  display: flex;
+  position: relative;
+  height: 300px;
+  padding: 20px;
 `;
 
 export default MainMap;
