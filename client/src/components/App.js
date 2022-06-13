@@ -1,6 +1,6 @@
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import AddItem from "./AddItem";
-import Checkout from "./Checkout";
+import Checkout from "./DELETECheckout";
 import Header from "./Header";
 // import { ItemState } from "./context/Context";
 import ItemDetails from "./ItemDetails";
@@ -13,6 +13,7 @@ import ConfirmationNewItem from "./ConfirmationAddItem";
 import GlobalStyles from "./GlobalStyles";
 import { useContext } from "react";
 import { OwnerContext } from "./context/Context";
+import ConfirmationBooking from "./ConfirmationBooking";
 
 const App = () => {
   const { owner } = useContext(OwnerContext);
@@ -28,8 +29,8 @@ const App = () => {
         <Route exact path="/item/:itemById">
           <ItemDetails />
         </Route>
-        <Route exact path="/checkout">
-          <Checkout />
+        <Route exact path="/confirmation-booking">
+          <ConfirmationBooking />
         </Route>
         <Route exact path="/login">
           <Login />

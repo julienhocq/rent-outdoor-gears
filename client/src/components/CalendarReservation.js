@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
@@ -11,6 +11,7 @@ import ItemDetails from "./ItemDetails";
 
 const CalendarReservation = ({ owner, item }) => {
   const { itemById } = useParams();
+  const history = useHistory()
 
   const { owner: user } = useContext(OwnerContext);
   // console.log('user', user);
@@ -81,6 +82,13 @@ const CalendarReservation = ({ owner, item }) => {
   // console.log('ownerId', owner._id);
   // console.log('itemById', itemById);
 
+const handleAfterBooking = () => {
+  history.push('/confirmation-booking')
+
+}
+
+
+
   const handleBooking = async (e) => {
     e.preventDefault();
     if (!user) console.log("pas possible de réserver");
@@ -99,6 +107,7 @@ const CalendarReservation = ({ owner, item }) => {
     })
       .then(() => {
         console.log("post sent, it's booked");
+        handleAfterBooking()
       })
       .catch((error) => {
         console.error("failed to book the item", error);
@@ -121,7 +130,9 @@ const CalendarReservation = ({ owner, item }) => {
             <Button>Sign in to book!</Button>
           </Link>
         ) : (
-          <Button>Book</Button>
+          <Button
+          onSubmit={handleAfterBooking}
+          >Book</Button>
         )}
       </Form>
     </div>
