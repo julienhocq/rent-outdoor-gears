@@ -75,7 +75,7 @@ const newItem = async (req, res) => {
         image: uploadedImage.secure_url,
         isAvailable: true,
         OwnerId,
-        city,
+        city: "",
         latitude,
         longitude,
       };
