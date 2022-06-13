@@ -29,10 +29,12 @@ const login = async (req, res) => {
         status: 401,
         message: "The user doesn't exist!",
       });
-    const password = CryptoJs.AES.decrypt(
-      owner.password,
-      process.env.PASS_SEC
-    ).toString(CryptoJs.enc.Utf8);
+      const password = owner.password;
+      // CRYPTO PASSWORD - HAS TO BE DONE LATER ...
+    // const password = CryptoJs.AES.decrypt(
+    //   owner.password,
+    //   process.env.PASS_SEC
+    // ).toString(CryptoJs.enc.Utf8);
     if (password !== req.body.password)
       return res.status(401).json({
         status: 401,
