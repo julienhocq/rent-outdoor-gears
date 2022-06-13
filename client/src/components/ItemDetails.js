@@ -1,14 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import LoadingPage from "./Loading";
 
 import styled from "styled-components";
-import { ItemContext } from "./context/Context";
 import CalendarReservation from "./CalendarReservation";
 
 const ItemDetails = () => {
+  const [isPending, setIsPending] = useState(true);
+
   const [item, setItem] = useState([]);
   const [owner, setOwner] = useState([]);
-
+  console.log("owner", owner);
   const { itemById } = useParams();
 
   // fetching product info by itemId
@@ -19,12 +21,16 @@ const ItemDetails = () => {
         .then((data) => {
           //   console.log('data',data.data);
           setItem(data.data);
+          setIsPending(false);
+        })
+        .catch((err) => {
+          setIsPending(false);
         });
     };
     fetchProduct();
   }, [itemById]);
 
-  //   console.log("item IS", item);
+  console.log("item IS", item);
 
   useEffect(() => {
     const FetchOwner = async () => {
@@ -33,6 +39,10 @@ const ItemDetails = () => {
         .then((res) => res.json())
         .then((data) => {
           setOwner(data.data);
+          setIsPending(false);
+        })
+        .catch((err) => {
+          setIsPending(false);
         });
     };
     FetchOwner();
@@ -45,6 +55,8 @@ const ItemDetails = () => {
 
   return (
     <>
+      {isPending && <LoadingPage />}
+
       {item && owner && owner.address && (
         <>
           <Main>
@@ -138,7 +150,7 @@ const Img = styled.img`
 `;
 
 const NameCityWrapper = styled.div`
-padding-top: 20px;
+  padding-top: 20px;
   display: flex;
   align-items: center;
 `;
