@@ -11,14 +11,17 @@ const Geocoder = () => {
 
 
 const {owner} = useContext(OwnerContext)
-console.log('user', owner);
+const ownerUsername = owner[0]
+const ownerId = owner[1]
+console.log('owner', owner[1]);
 
 
   return (
     <>
+  {ownerId && 
       <Wrapper>
       <SectionOne>
-    <p>Hi {owner}, let's add a new item in 3 quick steps!</p>
+    <p>Hi {ownerUsername}, let's add a new item in 3 quick steps!</p>
       </SectionOne>
 
         <TitleAction>Step 1: Where is located you item?</TitleAction>
@@ -39,6 +42,7 @@ console.log('user', owner);
         <Button>Validate your location</Button>
         </Link>
       </Wrapper>
+      }
     </>
   );
 };
