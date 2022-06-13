@@ -11,7 +11,7 @@ import ItemDetails from "./ItemDetails";
 
 const CalendarReservation = ({ owner, item }) => {
   const { itemById } = useParams();
-  const history = useHistory()
+  const history = useHistory();
 
   const { owner: user } = useContext(OwnerContext);
   // console.log('user', user);
@@ -82,36 +82,34 @@ const CalendarReservation = ({ owner, item }) => {
   // console.log('ownerId', owner._id);
   // console.log('itemById', itemById);
 
-const handleAfterBooking = () => {
-  history.push('/confirmation-booking')
-
-}
-
-
+  const handleAfterBooking = () => {
+    history.push("/confirmation-booking");
+  };
 
   const handleBooking = async (e) => {
     e.preventDefault();
     if (!user) console.log("pas possible de réserver");
 
-    await fetch(`/api/item/${itemById}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        ownerId: owner._id,
-        itemId: item._id,
-        date: date,
-      }),
-    })
-      .then(() => {
-        console.log("post sent, it's booked");
-        handleAfterBooking()
-      })
-      .catch((error) => {
-        console.error("failed to book the item", error);
+    try {
+      const data = await fetch(`/api/item/${itemById}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          ownerId: owner._id,
+          itemId: item._id,
+          date: date,
+        }),
       });
+
+      const json = await data.json();
+      sessionStorage.setItem("NewBooking", JSON.stringify(json.data));
+      handleAfterBooking();
+    } catch (error) {
+      console.error("failed to book the item", error);
+    }
   };
 
   return (
@@ -130,9 +128,7 @@ const handleAfterBooking = () => {
             <Button>Sign in to book!</Button>
           </Link>
         ) : (
-          <Button
-          onSubmit={handleAfterBooking}
-          >Book</Button>
+          <Button onSubmit={handleAfterBooking}>Book</Button>
         )}
       </Form>
     </div>
