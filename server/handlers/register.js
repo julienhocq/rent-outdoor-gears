@@ -37,7 +37,7 @@ const register = async (req, res) => {
     await client.connect();
     const db = client.db("RentOutdoorGears");
     const result = await db.collection("owners").findOne({ email });
-    console.log('result', result);
+    console.log("result", result);
     if (result) {
       res
         .status(400)
@@ -51,8 +51,19 @@ const register = async (req, res) => {
           req.body.password,
           process.env.PASS_SEC
         ).toString(),
+        address: {
+          streetNumber: "",
+          streetName: "",
+          city: "",
+          zipcode: "",
+          country: "",
+          county_code: "",
+          latitude: "",
+          longitude: "",
+        },
+        image:"",
       };
-      console.log('owner', owner);
+      console.log("owner", owner);
       const NewOwner = Object.assign({ _id: uuidv4() }, owner);
       await db.collection("owners").insertOne(NewOwner);
       res.status(201).json({ status: 201, message: "New owner added!" });
