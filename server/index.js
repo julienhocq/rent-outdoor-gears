@@ -69,7 +69,7 @@ express()
 
   // .post("/api/item", postItem)
 
-  //POST an image
+  //Add a new item - include image and text
   .post("/upload", upload.single("image"), newItem)
 
   // this is our catch all endpoint.

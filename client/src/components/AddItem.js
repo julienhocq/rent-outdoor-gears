@@ -8,6 +8,8 @@ import { OwnerContext } from "./context/Context";
 const AddItem = () => {
   const history = useHistory();
   const { markerNewItem, setMarkerNewItem } = useContext(OwnerContext);
+ const {owner} = useContext(OwnerContext)
+  console.log('userId', owner[1]);
 
   const [category, setCategory] = useState(null);
   const [title, setTitle] = useState(null);
@@ -45,19 +47,7 @@ const AddItem = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // try {
-    // Nick'solution to convert to a string
-    // const reader = new FileReader();
-    // reader.addEventListener("loadend", function() {
-    //   const view = new Int8Array(reader.result);
-    //   const bin = [...view].map((n) => n.toString(16).padStart(2, "0")).join("");
-    //   const b64 = btoa(bin)
-    //   console.log(bin)
-    //   console.log(b64)
-    // });
-    // reader.readAsArrayBuffer(uploadImage);
-
-    //Only way to handle multi format form
+    //How to handle multi format form
     let image = document.getElementById("image-file").files[0];
     let formData = new FormData();
 
@@ -67,6 +57,7 @@ const AddItem = () => {
     formData.append("priceWeekly", weeklyPrice);
     formData.append("category", category);
     formData.append("name", title);
+    formData.append("OwnerId", owner[1])
     formData.append("latitude", markerNewItem.latitude);
     formData.append("longitude", markerNewItem.longitude);
 
@@ -105,9 +96,9 @@ const AddItem = () => {
           id="category"
           onChange={(e) => handleCategory(e)}
         >
-          <option value="camping">Camping</option>
-          <option value="bike">Bike</option>
-          <option value="Surf">Surf</option>
+          <option value="road">Road</option>
+          <option value="land">Land</option>
+          <option value="water">Water</option>
         </select>
 
         <input
@@ -137,7 +128,7 @@ const AddItem = () => {
           onChange={(e) => handleWeeklyPrice(e)}
           required
         />
-        <p>Step 3: Choose a category</p>
+        <p>Step 3: Upload an image </p>
         <input
           type="file"
           id="image-file"

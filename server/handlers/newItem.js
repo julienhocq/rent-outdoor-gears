@@ -16,6 +16,7 @@ const newItem = async (req, res) => {
     priceDaily,
     priceWeekly,
     city,
+    OwnerId,
     longitude,
     latitude,
     image,
@@ -56,8 +57,7 @@ const newItem = async (req, res) => {
     //Upload the image to the Cloudinary service
     const uploadedImage = await cloudinary.uploader.upload(
       path,
-      { upload_preset: "rent-adventures",
-    }
+      { upload_preset: "rent-adventures" }
       // (error, uploadedImage) => {
       //   console.log(uploadedImage, error);
       // }
@@ -74,6 +74,7 @@ const newItem = async (req, res) => {
         priceWeekly,
         image: uploadedImage.secure_url,
         isAvailable: true,
+        OwnerId,
         city,
         latitude,
         longitude,
