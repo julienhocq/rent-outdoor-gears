@@ -58,14 +58,14 @@ const ItemDetails = () => {
       {isPending && <LoadingPage />}
 
       {item && owner && owner.address && (
-        <>
+       
           <Main>
             <PageWrapper>
               <h1>{item.name}</h1>
               <ItemImageWrapper>
                 <ItemImg src={item.image} />
               </ItemImageWrapper>
-              <OwnerProfileWrapper>
+              {/* <OwnerProfileWrapper> */}
                 <OwnerImageWrapper>
                   <Img src={owner.image} />
                   <NameCityWrapper>
@@ -76,7 +76,7 @@ const ItemDetails = () => {
                   </NameCityWrapper>
                 </OwnerImageWrapper>
                 {/* <OwnerCity>{owner.address.city}</OwnerCity> */}
-              </OwnerProfileWrapper>
+              {/* </OwnerProfileWrapper> */}
               <ItemDescription>
                 Description: {item.description}
                 <p>Daily price: $ {item.priceDaily}</p>
@@ -93,7 +93,7 @@ const ItemDetails = () => {
               </Wrapper>
             </PageWrapper>
           </Main>
-        </>
+        
       )}
     </>
   );
@@ -136,9 +136,9 @@ const OwnerImageWrapper = styled.div`
   /* align-items: center; */
   position: relative;
   top: -40px;
-  left: 10px;
-  width: 130px;
+  padding: 0 10px;
   height: 130px;
+  width: 100%
 `;
 
 const Img = styled.img`
@@ -153,6 +153,8 @@ const NameCityWrapper = styled.div`
   padding-top: 20px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 const OwnerName = styled.div`
@@ -166,6 +168,7 @@ const OwnerCity = styled.div``;
 const OwnerProfileWrapper = styled.div`
   display: flex;
   align-items: center;
+  width: 100%
 `;
 
 const ItemDescription = styled.div`
@@ -184,9 +187,8 @@ const AvailabilityWrapper = styled.div`
 `;
 
 const Wrapper = styled.div`
-  display: flex;
   padding-top: 30px;
-  /* width: 500px; */
+  margin: 0 auto
 `;
 
 export default ItemDetails;
