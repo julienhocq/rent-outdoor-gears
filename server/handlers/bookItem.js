@@ -25,13 +25,12 @@ const bookItem = async (req, res) => {
       date: req.body.date
     };
 
-    // const bookItem = Object.assign({ _id: uuidv4(), reservation });
-    await db.collection("reservations").insertOne(reservation);
+   const bookItem = await db.collection("reservations").insertOne(reservation);
     console.log('item booked ');
 
     return res.status(200).json({
       status: 200,
-      data: bookItem,
+      data: reservation,
       message: "This is the item",
     });
   } catch (err) {
