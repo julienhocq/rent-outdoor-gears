@@ -10,7 +10,7 @@ const ItemDetails = () => {
 
   const [item, setItem] = useState([]);
   const [owner, setOwner] = useState([]);
-  console.log("owner", owner);
+  // console.log("owner", owner);
   const { itemById } = useParams();
 
   // fetching product info by itemId
@@ -30,7 +30,7 @@ const ItemDetails = () => {
     fetchProduct();
   }, [itemById]);
 
-  console.log("item IS", item);
+  // console.log("item IS", item);
 
   useEffect(() => {
     const FetchOwner = async () => {
@@ -121,12 +121,16 @@ const PageWrapper = styled.div`
 // `
 
 const ItemImageWrapper = styled.div`
-  display: flex;
-  justify-content: space-around;
+ display: flex;
+  /* justify-content: space-around; */
+  margin: 0 auto;
+  max-height: 400px;
+  max-width: 600px;
 `;
 const ItemImg = styled.img`
   max-width: 800px;
   width: 100%;
+  object-fit: cover;
 `;
 
 const OwnerImageWrapper = styled.div`
@@ -138,7 +142,7 @@ const OwnerImageWrapper = styled.div`
   top: -40px;
   padding: 0 10px;
   height: 130px;
-  width: 100%
+  width: 100%;
 `;
 
 const Img = styled.img`
@@ -168,7 +172,7 @@ const OwnerCity = styled.div``;
 const OwnerProfileWrapper = styled.div`
   display: flex;
   align-items: center;
-  width: 100%
+  width: 100%;
 `;
 
 const ItemDescription = styled.div`
