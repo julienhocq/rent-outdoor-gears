@@ -103,10 +103,9 @@ const MainMap = () => {
         <SectionHeroImage>
           <img src={heroImageOne} />
           <HeroText>
-            <h2>Rent Adventure </h2>
+            <h2>Ready? </h2>
             <p>
-              Wherever you are, don't miss an opportunity to live your next
-              adventure
+              Your next adventure is at your fingertips
             </p>
           </HeroText>
         </SectionHeroImage>
@@ -216,12 +215,12 @@ const MainMap = () => {
           <div>
             {owner ? (
               <Link to="add-location">
-                <ButtonAddItem>Add an item</ButtonAddItem>
+                <ButtonAddItem>Post an item</ButtonAddItem>
               </Link>
             ) : (
               <>
                 <ButtonAddItem onClick={(e) => handleClick(e)}>
-                  Add an item
+                  Post an item
                 </ButtonAddItem>
               </>
             )}
@@ -299,12 +298,12 @@ const HeroText = styled.div`
   color: white;
 
   h2 {
-    font-size: 3em;
+    font-size:4em;
     padding-bottom: 20px;
   }
 
   p {
-    font-size: 1.4em;
+    font-size: 1.8em;
   }
 `;
 
@@ -347,7 +346,7 @@ const ButtonAddItem = styled.button`
 `;
 
 const SectionAddItem = styled.div`
-  margin-top: 40px;
+  margin-top: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
