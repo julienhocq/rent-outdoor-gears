@@ -11,6 +11,7 @@ import { OwnerContext } from "./context/Context";
 const OwnerHome = () => {
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
+  const [status, setStatus] = useState();
 
   const [ownerProfile, setOwnerProfile] = useState([]);
   const [items, setItems] = useState([]);
@@ -21,47 +22,51 @@ const OwnerHome = () => {
   const { profileById } = useParams();
 
   useEffect(() => {
-    const fetchOwnerProfile = async () => {
-      await fetch(`/api/profile/${profileById}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setOwnerProfile(data.data);
-          setIsPending(false);
-        })
-        .catch((err) => {
-          setError(err.message);
-        });
-    };
-    fetchOwnerProfile();
+    fetch(`/api/profile/${profileById}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setOwnerProfile(data.data);
+        setStatus(true);
+        setIsPending(false);
+      })
+      .catch((err) => {
+        console.log("err", err);
+
+        setIsPending(false);
+        setError(err);
+      });
   }, [profileById]);
 
   useEffect(() => {
-    const fetchItemsOwner = async () => {
-      await fetch(`/api/profile/${profileById}/items`)
-        .then((res) => res.json())
-        .then((data) => {
-          setItems(data.data);
-          setIsPending(false);
-        })
-        .catch((err) => {
-          setError(err.message);
-        });
-    };
-    fetchItemsOwner();
+    fetch(`/api/profile/${profileById}/items`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 500) {
+          throw new Error("error");
+        }
+        setItems(data.data);
+        setStatus(true);
+        setIsPending(false);
+      })
+      .catch((err) => {
+        console.log("err", err);
+        setIsPending(false);
+        setError(err);
+      });
   }, [profileById]);
 
-  console.log("ownerProfile Id is", ownerProfile._id);
-  console.log("items is", items);
+  // console.log("ownerProfile Id is", ownerProfile._id);
+  // console.log("items is", items);
   // console.log("items 1", items[0]);
   // console.log("items 2", items[1]);
 
   return (
     <>
-      {error && <ErrorMessage></ErrorMessage>}
+      {error && <ErrorMessage />}
 
       {isPending && <LoadingPage />}
 
-      {ownerProfile && items && ownerProfile.username && (
+      {status && ownerProfile && items && ownerProfile.username && (
         <>
           <PageWrapper>
             <OwnerProfileWrapper>
@@ -99,8 +104,12 @@ const OwnerHome = () => {
                     <ItemImg src={item.image}></ItemImg>
                     <h2>{item.name}</h2>
                     <Container>
-                      <div>Category:<span> {item.category}</span> </div>
-                      <div>Description: <span>{item.description}</span> </div>
+                      <div>
+                        Category:<span> {item.category}</span>{" "}
+                      </div>
+                      <div>
+                        Description: <span>{item.description}</span>{" "}
+                      </div>
                       <div>Daily price: ${item.priceDaily} </div>
                       <div>Weekly price: ${item.priceWeekly} </div>
                     </Container>
@@ -245,10 +254,9 @@ const Container = styled.div`
   div {
     padding-bottom: 5px;
   }
-  span{
+  span {
     font-style: italic;
   }
-
 `;
 
 export default OwnerHome;
