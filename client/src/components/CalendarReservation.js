@@ -12,87 +12,51 @@ import ItemDetails from "./ItemDetails";
 const CalendarReservation = ({ owner, item }) => {
   const { itemById } = useParams();
 
-  const { owner : user } = useContext(OwnerContext)
-  console.log('user', user);
-
+  const { owner: user } = useContext(OwnerContext);
+  // console.log('user', user);
 
   const [date, setDate] = useState(new Date());
-  const [resa, setResa] = useState([])
-  const [essai, setEssai] = useState()
+  const [reservations, setReservations] = useState([]);
 
-  // console.log('new Date', new Date());
-  // const [disabledRanges, setDisabledRanges] = useState([])
+  const [disabledRanges, setDisabledRanges] = useState([]);
 
+  // new Date - ex: newDate(2017, 0, 1) - month index = 0
   // const disabledRanges = [
   //   [new Date(2022, 5, 25), new Date(2022, 5, 28)],
-  //   [new Date(2022, 5, 17), new Date(2022, 5, 22)],
+  //   [new Date(2022, 5, 21), new Date(2022, 5, 21)],
   // ];
-  const disabledRanges = [
-    // [new Date(2022, 5, 25), new Date(2022, 5, 25)],
-    //  ["2022-07-13", "2022-07-15"]
-    
-  ];
 
-
-console.log('essai is', essai);
-
-
-  console.log(new Date(2022, 5, 25));
-  console.log('', date);
-  // console.log('', (2022, 5, 25).toDateString());
+  console.log("disabledRanges", disabledRanges);
 
   useEffect(() => {
-
     const fetchReservations = async () => {
       await fetch(`/api/item/${itemById}/reservations`)
-      .then((res) => res.json())
-      .then((data) => {
-        setResa(data.data)
-        let reservations = data.data
-        let datesReservations = []
-        // let filterResa = reservations.filter(e => datesReservations.push(new Date(e.date)))
-        let filterResa = reservations.filter(e => datesReservations.push(e.date))
-        console.log('datesReservations is', datesReservations);
-        // let filterResa = reservations.filter(e => datesReservations.push(e.date.toString()))
-        let newDatesFormat = []
-        // for (let i = 0; i<= datesReservations.length; i++) {
-        //   console.log('',datesReservations[i]);
-        // //  let newDates = datesReservations[i].forEach((e) => e = new Date(e))
-        // console.log(datesReservations[i].map(e => new Date(e)))
-        // //  console.log('', newDates);
-        // }
-        // console.log('', datesReservations);
+        .then((res) => res.json())
+        .then((data) => {
+          setReservations(data.data);
+          console.log("reservations", data.data);
+          let reservations = data.data;
+          let datesReservations = [];
+          reservations.filter((e) => datesReservations.push(e.date));
+          console.log("datesReservations is", datesReservations);
 
+          for (let i = 0; i < datesReservations.length; i++) {
+            let array = datesReservations[i];
+            if (array.length === 1) {
+              array.push(array[0]);
+            }
+            array.forEach((element, index) => {
+              array[index] = new Date(element);
+            });
+          }
+          setDisabledRanges(datesReservations);
 
+          console.log("new array", datesReservations);
+        });
+    };
 
-
-        // let newDatesFormat = []
-        // datesReservations.filter(e => newDatesFormat.push(e[0], e[1]))
-
-        // datesReservations.filter(e => newDatesFormat.push(new Date(e[0])))
-        console.log('newDatesFormat', newDatesFormat);
-
-
-
-        // console.log('filterResa', filterResa);
-        // setDisabledRanges(datesReservations)
-        // setEssai(datesReservations)
-
-
-        // console.log('filterResa', filterResa);
-
-        // console.log('reservations IS', reservations);
-
-      })
-    }
-  
-   fetchReservations()
+    fetchReservations();
   }, [itemById]);
-
-  
-
-
-
 
   function tileDisabled({ date, view }) {
     // Add class to tiles in month view only
@@ -111,22 +75,15 @@ console.log('essai is', essai);
     return ranges.some((range) => isWithinRange(date, range));
   }
 
-  console.log("date", date);
   // console.log("owner", owner);
   // console.log("item", item);
 
   // console.log('ownerId', owner._id);
   // console.log('itemById', itemById);
 
-
-
-
   const handleBooking = async (e) => {
     e.preventDefault();
-    if (!user ) console.log('pas possible de réserver');
-
-
-
+    if (!user) console.log("pas possible de réserver");
 
     await fetch(`/api/item/${itemById}`, {
       method: "POST",
@@ -148,7 +105,6 @@ console.log('essai is', essai);
       });
   };
 
-
   return (
     <div>
       <Form onSubmit={handleBooking}>
@@ -162,27 +118,23 @@ console.log('essai is', essai);
         />
         {!user ? (
           <Link to="/login">
-          <Button>Sign in to book!</Button>
+            <Button>Sign in to book!</Button>
           </Link>
         ) : (
           <Button>Book</Button>
-
-        )
-        
-         }
+        )}
       </Form>
     </div>
   );
 };
 
 const Form = styled.form`
-display: flex;
-flex-direction: column;
-align-items: center
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Button = styled.button`
-
   margin-top: 20px;
   width: 250px;
   height: 40px;
