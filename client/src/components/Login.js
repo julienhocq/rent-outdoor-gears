@@ -2,86 +2,78 @@ import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { useState, useContext } from "react";
 import { OwnerContext } from "./context/Context";
-// import { UserContext } from "../context/Context";
-
-
-
 
 const Login = () => {
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [loginMessage, setLoginMessage] = useState(null);
 
-    const [email, setEmail] = useState(null);
-    const [password, setPassword] = useState(null);
-    const [loginMessage, setLoginMessage] = useState(null);
-  
-    //for authentication purposes
-    const { owner, setOwner } = useContext(OwnerContext);
-  
-    const history = useHistory();
-  
-    //when owner submits login info, we make a fetch request to authenticate info
-    //we get back authentication and set their username in state/context
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-  
-      try {
-        const data = await fetch("/api/owner/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({ email: email, password: password }),
-        });
-        const json = await data.json();
-        console.log('json', json.data._id);
-        setLoginMessage(json.message);
+  //for authentication purposes
+  const { setOwner } = useContext(OwnerContext);
+
+  const history = useHistory();
+
+  //when owner submits login info, we make a fetch request to authenticate info
+  //we get back authentication and set their username in state/context
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const data = await fetch("/api/owner/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ email: email, password: password }),
+      });
+      const json = await data.json();
+      setLoginMessage(json.message);
+
+      if (json.status === 201) {
         setOwner([json.data.username, json.data._id]);
-        console.log('owner', owner);
         history.push("/");
-      } catch (error) {
-        console.log("ERROR:", error.message);
       }
-    };
-  
-    const handleEmail = (e) => {
-      setEmail(e.target.value);
-    };
-  
-    const handlePassword = (e) => {
-      setPassword(e.target.value);
-    };
-  
+    } catch (error) {
+      console.log("ERROR:", error.message);
+    }
+  };
 
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
 
-    return (
-        <Wrapper>
-          <Form onSubmit={(e) => handleSubmit(e)}>
-            <LoginContainer>
-              <p>Log In</p>
-              <input
-                type="email"
-                placeholder="Email"
-                onChange={(e) => handleEmail(e)}
-                required
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                onChange={(e) => handlePassword(e)}
-                required
-              />
-              <button type="submit">Submit</button>
-              <SignUpInfo>
-                Not a member? <Link to="/sign-up">Sign up here.</Link>
-              </SignUpInfo>
-              <LoginMessage>{loginMessage}</LoginMessage>
-            </LoginContainer>
-          </Form>
-        </Wrapper>
-      );
-    
-}
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
 
+  return (
+    <Wrapper>
+      <Form onSubmit={(e) => handleSubmit(e)}>
+        <LoginContainer>
+          <p>Log In</p>
+          <input
+            type="email"
+            placeholder="Email"
+            onChange={(e) => handleEmail(e)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            onChange={(e) => handlePassword(e)}
+            required
+          />
+          <button type="submit">Submit</button>
+          <SignUpInfo>
+            Not a member? <Link to="/sign-up">Sign up here.</Link>
+          </SignUpInfo>
+          <LoginMessage>{loginMessage}</LoginMessage>
+        </LoginContainer>
+      </Form>
+    </Wrapper>
+  );
+};
 
 export default Login;
 
@@ -137,6 +129,5 @@ const SignUpInfo = styled.div`
 
 const LoginMessage = styled.div`
   font-weight: 600;
-  color: #343a40;
+  color: red;
 `;
-
