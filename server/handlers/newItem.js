@@ -33,19 +33,19 @@ const newItem = async (req, res) => {
     extension === "image/png"
   ) {
   } else {
-    console.log("not an IMAGE. Sorry no upload");
+    // console.log("not an IMAGE. Sorry no upload");
     return res.status(401).json({
       status: 401,
-      message: "unsupported file format, only JPG or PNG",
+      message: "Unsupported file format, only JPG or PNG",
     });
   }
   if (size > 1200000) {
     // console.log("image size too big");
     return res
       .status(401)
-      .json({ status: 401, message: "Max image size should be < 1200 Mo" });
+      .json({ status: 401, message: "The image size should be < 1.20 Mo" });
   }
-  //   console.log("its an image and with the right size");
+    // console.log("its an image and with the right size");
 
   const client = new MongoClient(MONGO_URI, options);
   try {
@@ -63,7 +63,6 @@ const newItem = async (req, res) => {
       // }
     );
     console.log("image is uploaded on Cloudinary");
-    // console.log("url IS", uploadedImage.url);
     // If the image is uploaded, let's create a new item in MongoDb
     if (uploadedImage) {
       const item = {
