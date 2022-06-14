@@ -13,6 +13,7 @@ const { newItem } = require("./handlers/newItem");
 const { getItemsByOwner } = require("./handlers/getItemsByOwner");
 const { bookItem } = require("./handlers/bookItem");
 const {getAllReservationByItemId} = require("./handlers/getAllReservationByItemId")
+const {getReservationsByOwner} = require("./handlers/getReservationsByOwner")
 const cloudinary = require("./middlewares/cloudinary");
 
 const { login } = require("./handlers/login");
@@ -61,6 +62,10 @@ express()
 
   // Get all owner's items
   .get("/api/profile/:profileById/items", getItemsByOwner)
+
+  //Get all reservations for a user
+  .get("/api/profile/:profileById/reservations", getReservationsByOwner)
+
 
   // user - register
   .post("/api/owner/register", register)
