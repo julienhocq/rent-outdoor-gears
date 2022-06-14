@@ -29,7 +29,6 @@ const ItemDetails = () => {
     fetchProduct();
   }, [itemById]);
 
-
   useEffect(() => {
     const FetchOwner = async () => {
       const ownerId = item.OwnerId;
@@ -45,7 +44,6 @@ const ItemDetails = () => {
     };
     FetchOwner();
   }, [item.OwnerId, item._id]);
-
 
   return (
     <>
@@ -67,15 +65,17 @@ const ItemDetails = () => {
                 <OwnerCity>{owner.address.city}</OwnerCity>
               </NameCityWrapper>
             </OwnerImageWrapper>
-        
+
             <ItemDescription>
               Description: {item.description}
               <p>Daily price: $ {item.priceDaily}</p>
               <p>Weekly price: $ {item.priceWeekly}</p>
             </ItemDescription>
 
-            <AvailabilityWrapper>Interested? Check the availabilities!</AvailabilityWrapper>
-  
+            <AvailabilityWrapper>
+              Interested? Check the availabilities!
+            </AvailabilityWrapper>
+
             <Wrapper>
               <CalendarReservation owner={owner} item={item} />
             </Wrapper>
@@ -89,7 +89,6 @@ const ItemDetails = () => {
 const Main = styled.div`
   display: flex;
   justify-content: center;
-
 `;
 
 const PageWrapper = styled.div`
@@ -174,8 +173,6 @@ const ItemDescription = styled.div`
 
 /* 
 const OwnerCity = styled.div``; */
-
-
 
 const AvailabilityWrapper = styled.div`
   font-size: 1.4em;
