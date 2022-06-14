@@ -14,7 +14,9 @@ const CalendarReservation = ({ owner, item }) => {
   const history = useHistory();
 
   const { owner: user } = useContext(OwnerContext);
-  // console.log('user', user);
+  console.log('user IS', user);
+  let clientId = user[1]
+  console.log('user ID', clientId);
 
   const [date, setDate] = useState();
   const [reservations, setReservations] = useState([]);
@@ -73,19 +75,13 @@ const CalendarReservation = ({ owner, item }) => {
     return ranges.some((range) => isWithinRange(date, range));
   }
 
-  // console.log("owner", owner);
-  // console.log("item", item);
-
-  // console.log('ownerId', owner._id);
-  // console.log('itemById', itemById);
-
   const handleAfterBooking = () => {
     history.push("/confirmation-booking");
   };
 
   const handleBooking = async (e) => {
     e.preventDefault();
-    if (!user) console.log("pas possible de réserver");
+    if (!user) console.log("no user!");
 
     try {
       const data = await fetch(`/api/item/${itemById}`, {
@@ -97,6 +93,7 @@ const CalendarReservation = ({ owner, item }) => {
         body: JSON.stringify({
           ownerId: owner._id,
           itemId: item._id,
+          clientId: clientId,
           date: date,
         }),
       });
