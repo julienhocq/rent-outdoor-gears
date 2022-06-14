@@ -21,10 +21,9 @@ const getReservationsByOwner = async (req, res) =>{
       const db = client.db("RentOutdoorGears");
   
       const AllReservations = await db.collection("reservations").find().toArray();
-      console.log("AllReservations", AllReservations);
   
       const findReservationsByOwnerId = AllReservations.filter((e) => {
-        return e.ownerId === _id;
+        return e.clientId === _id;
       });
   
       console.log("findReservationsByOwnerId", findReservationsByOwnerId);
