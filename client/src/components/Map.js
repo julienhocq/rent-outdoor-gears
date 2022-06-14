@@ -11,10 +11,13 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 import styled from "styled-components";
 import imgIcon from "../assets/bike-icon-bis.jpg";
-import imgIconMap from "../assets/mapbox-icon.png";
+import markerLocation from "../assets/Marker-location.svg";
+
 import { ItemContext, OwnerContext } from "./context/Context";
 import MainGeoControl from "./MainGeocontrol";
 import ErrorMessage from "./Error";
+
+import { GiMountains } from "react-icons/gi";
 
 import LoadingPage from "./Loading";
 
@@ -94,6 +97,7 @@ const MainMap = () => {
   const handleClick = () => {
     alert("Please log in!");
   };
+  console.log("selectedItem", selectedItem);
 
   return (
     <>
@@ -104,9 +108,7 @@ const MainMap = () => {
           <img src={heroImageOne} />
           <HeroText>
             <h2>Ready? </h2>
-            <p>
-              Your next adventure is at your fingertips
-            </p>
+            <p>Your next adventure is at your fingertips</p>
           </HeroText>
         </SectionHeroImage>
         <SectionFilter>
@@ -179,18 +181,15 @@ const MainMap = () => {
                   key={item._id}
                   latitude={item.latitude}
                   longitude={item.longitude}
-                  color="red"
+                  anchor="bottom"
                 >
-                  <Button
+                  <Img
+                    src={markerLocation}
                     onClick={(e) => {
                       e.preventDefault();
-                      // console.log('im cliked');
                       setSelectedItem(item);
-                      // console.log('item', item);
                     }}
-                  >
-                    <Img src={imgIconMap} />
-                  </Button>
+                  />
                 </Marker>
               </>
             ))}
@@ -203,9 +202,13 @@ const MainMap = () => {
                 }}
               >
                 <div>
-                  <Link to={`/item/${selectedItem._id}`}>
+                  <PopupStyle>
                     <h2>{selectedItem.name}</h2>
-                  </Link>
+                    <img src={selectedItem.image} alt="" width="100%" />
+                    <LinkStyled to={`/item/${selectedItem._id}`}>
+                      <p>More details</p>
+                    </LinkStyled>
+                  </PopupStyle>
                 </div>
               </Popup>
             ) : null}
@@ -267,12 +270,45 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const PopupStyle = styled.div`
+  border: none;
+
+  h2 {
+    text-align: center;
+    padding-bottom: 10px;
+  }
+
+  img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+  }
+
+  a {
+    text-decoration: none;
+  }
+  a:hover {
+    color: blue;
+  }
+
+  /* a:focus {
+  color: blue;
+} */
+
+  p {
+    text-align: right;
+    font-style: italic;
+  }
+`;
+const LinkStyled = styled(Link)`
+  text-decoration: none;
+`;
+
 const Img = styled.img`
-  /* background-image: url(${imgIconMap}); */
   background-size: cover;
   min-width: 50px;
   height: 50px;
-  /* border-radius: 50%; */
+  border-radius: 50%;
   /* width: 80px; */
 `;
 const SectionHeroImage = styled.div`
@@ -298,7 +334,7 @@ const HeroText = styled.div`
   color: white;
 
   h2 {
-    font-size:4em;
+    font-size: 4em;
     padding-bottom: 20px;
   }
 
