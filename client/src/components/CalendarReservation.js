@@ -16,7 +16,7 @@ const CalendarReservation = ({ owner, item }) => {
   const { owner: user } = useContext(OwnerContext);
   // console.log('user', user);
 
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState();
   const [reservations, setReservations] = useState([]);
 
   const [disabledRanges, setDisabledRanges] = useState([]);
@@ -28,10 +28,10 @@ const CalendarReservation = ({ owner, item }) => {
   // ];
 
   console.log("disabledRanges", disabledRanges);
+  console.log('date selected', date);
 
   useEffect(() => {
-    const fetchReservations = async () => {
-      await fetch(`/api/item/${itemById}/reservations`)
+    fetch(`/api/item/${itemById}/reservations`)
         .then((res) => res.json())
         .then((data) => {
           setReservations(data.data);
@@ -54,9 +54,7 @@ const CalendarReservation = ({ owner, item }) => {
 
           console.log("new array", datesReservations);
         });
-    };
-
-    fetchReservations();
+   
   }, [itemById]);
 
   function tileDisabled({ date, view }) {
@@ -64,7 +62,6 @@ const CalendarReservation = ({ owner, item }) => {
     if (view === "month") {
       // Check if a date React-Calendar wants to check is within any of the ranges
       return isWithinRanges(date, disabledRanges);
-      // return false
     }
   }
 
@@ -142,7 +139,7 @@ const Form = styled.form`
 `;
 
 const Button = styled.button`
-  margin-top: 20px;
+  margin: 40px;
   width: 250px;
   height: 40px;
   padding: 7px 20px;
