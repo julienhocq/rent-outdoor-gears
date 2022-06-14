@@ -25,13 +25,14 @@ const Login = () => {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({ email: email, password: password }),
+        body: JSON.stringify({ email: email, password: password, }),
       });
       const json = await data.json();
       setLoginMessage(json.message);
 
       if (json.status === 201) {
-        setOwner([json.data.username, json.data._id]);
+        console.log('json.data', json.data.image);
+        setOwner([json.data.username, json.data._id, json.data.image]);
         history.push("/");
       }
     } catch (error) {

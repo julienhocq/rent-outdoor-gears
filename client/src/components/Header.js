@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import { GiExitDoor, GiSurfBoard } from "react-icons/gi";
+import { GiExitDoor } from "react-icons/gi";
 import { FaUserLock } from "react-icons/fa";
 import { AiFillHome } from "react-icons/ai"; // Home icon
 import { RiMapPinAddFill } from "react-icons/ri"; //add icon
+import { GiNinjaHead } from "react-icons/gi";
 
-import { NavLink, Link, useLocation, Redirect } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { OwnerContext } from "./context/Context";
 import { useContext } from "react";
 
@@ -12,12 +13,11 @@ const Header = () => {
   const { owner, setOwner } = useContext(OwnerContext);
 
   const handleLogout = () => {
-    localStorage.clear()
-    setOwner(null)
+    localStorage.clear();
+    setOwner(null);
   };
 
-  console.log("owner", owner);
-  // console.log('owner Id', owner[1]);
+  // owner ? console.log("image", owner[2]) : console.log("error");
 
   return (
     <HeaderSection>
@@ -27,8 +27,6 @@ const Header = () => {
       <NavLinkStyled
         // if user is not logged in, then this link directs to login page. If user is logged in, then clicking here opens a drop down menu
         to={!owner && "/login"}
-        // onClick={() => setToggleUserMenu(!toggleUserMenu)}
-        // ref={userMenuRef}
       >
         {!owner ? (
           <>
@@ -43,16 +41,20 @@ const Header = () => {
             <NavLinkStyled to="/add-location">
               <RiMapPinAddFill size={30} color={"blue"} />
             </NavLinkStyled>
-            <NavLinkStyled to={`/profile/${owner[1]}`}>
-              <GiSurfBoard size={30} color={"blue"} />
+            <NavLinkStyled to="/">
+              <LogOutWrapper onClick={handleLogout}>
+                <GiExitDoor size={30} color={"blue"} />
+              </LogOutWrapper>
             </NavLinkStyled>
-            {/* <Greeting>Hi,{owner}</Greeting> */}
-              <NavLinkStyled to="/">
-            <LogOutWrapper onClick={handleLogout}>
-              <GiExitDoor size={30} color={"blue"} />
-                {/* <LoginDesign>LOGOUT</LoginDesign> */}
-            </LogOutWrapper>
-              </NavLinkStyled>
+            <NavLinkStyled to={`/profile/${owner[1]}`}>
+              <AvatarWrapper>
+                {owner[2] === undefined ? (
+                  <GiNinjaHead size={40} />
+                ) : (
+                  <AvatarImg src={owner[2]}></AvatarImg>
+                )}
+              </AvatarWrapper>
+            </NavLinkStyled>
           </>
         )}
       </NavLinkStyled>
@@ -85,20 +87,32 @@ const NavLinkStyled = styled(NavLink)`
   gap: 10px;
 `;
 
-const Greeting = styled.div`
-  font-weight: bold;
-  text-decoration: none;
-  color: blue;
-`;
-
 const LoginDesign = styled.span`
   color: blue;
   font-size: 1.2em;
   font-weight: 700;
 `;
 
-const Logout = styled.div``;
-
 const LogOutWrapper = styled.div``;
+
+const AvatarWrapper = styled.div`
+  border-radius: 50%;
+  display: flex;
+  /* align-items: center; */
+  /* position: relative; */
+  /* top: -40px; */
+  padding: 0 10px;
+  height: 80px;
+  width: 80px;
+  /* width: 100%; */
+`;
+
+const AvatarImg = styled.img`
+  border-radius: 50%;
+  max-width: 100px;
+  max-height: 100px;
+  object-fit: cover;
+  border: 2px solid white;
+`;
 
 export default Header;
