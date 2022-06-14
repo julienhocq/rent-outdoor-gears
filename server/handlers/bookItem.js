@@ -22,6 +22,7 @@ const bookItem = async (req, res) => {
         _id: uuidv4(),
       ownerId: req.body.ownerId,
       itemId: req.body.itemId,
+      clientId: req.body.clientId,
       date: req.body.date
     };
 
