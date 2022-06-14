@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import Map, {
@@ -10,7 +10,6 @@ import Map, {
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import styled from "styled-components";
-import imgIcon from "../assets/bike-icon-bis.jpg";
 import markerLocation from "../assets/Marker-location.svg";
 
 import { ItemContext, OwnerContext } from "./context/Context";
@@ -25,7 +24,6 @@ import landImage from "../assets/Category-Land-01_m.jpg";
 import roadImage from "../assets/Category-Road-01_m.jpg";
 import waterImage from "../assets/Category-Water-01_m.jpg";
 import heroImageOne from "../assets/Hero-image01.jpg";
-import heroImageTwo from "../assets/Hero-image02.jpg";
 
 const MainMap = () => {
   const [error, setError] = useState(null);
@@ -85,17 +83,11 @@ const MainMap = () => {
     filterItems();
   }, [filterParam, items]);
 
-  // const mapRef = useRef();
 
-  // const checkIfPositionInViewport = (lat, lng) => {
-  //     const bounds = mapRef.current.getMap().getBounds();
-  //     return (lat >= bounds._sw.lat && lat <= bounds._nw.lat && lng >= bounds._sw.lng && lng <= bounds._nw.lng);
-  // }
-
-  // return <Map ref={mapRef}/>
+  const [loginMessage, setLoginMessage] = useState();
 
   const handleClick = () => {
-    alert("Please log in!");
+    setLoginMessage("Please login");
   };
   console.log("selectedItem", selectedItem);
 
@@ -143,7 +135,6 @@ const MainMap = () => {
                 onChange={(e) => {
                   setFilterParam(e.target.value);
                 }}
-                // onChange={(e)=> filterByCategoryCamping()}
               ></input>
               <span>Land</span>
             </label>
@@ -225,6 +216,9 @@ const MainMap = () => {
                 <ButtonAddItem onClick={(e) => handleClick(e)}>
                   Post an item
                 </ButtonAddItem>
+                <LinkStyled to="/login">
+                  <LoginMessage>{loginMessage}</LoginMessage>
+                </LinkStyled>
               </>
             )}
           </div>
@@ -234,15 +228,15 @@ const MainMap = () => {
         </SectionExploreCategory>
         <SectionCategories>
           <RoadContainer>
-            <img src={roadImage} />
+            <img src={roadImage} alt="road-category" />
             <h3>Road</h3>
           </RoadContainer>
           <LandContainer>
-            <img src={landImage} />
+            <img src={landImage} alt="land-category" />
             <h3>Land</h3>
           </LandContainer>
           <WaterContainer>
-            <img src={waterImage} />
+            <img src={waterImage} alt="water-category" />
             <h3>Water</h3>
           </WaterContainer>
         </SectionCategories>
@@ -264,10 +258,6 @@ const SectionMap = styled.div`
   padding: 40px;
   border: 2px solid black;
   box-shadow: 5px 15px 31px 4px #dfdfdf;
-`;
-
-const Button = styled.button`
-  cursor: pointer;
 `;
 
 const PopupStyle = styled.div`
@@ -319,10 +309,6 @@ const SectionHeroImage = styled.div`
   /* background-position: center;
   background-repeat: no-repeat;
   background-size: cover; */
-
-  /* background-image: url("https://images.unsplash.com/photo-1499971670613-a1df6023b6e1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80"); */
-  img {
-  }
 `;
 
 const HeroText = styled.div`
@@ -363,12 +349,6 @@ const SectionFilter = styled.div`
   }
 `;
 
-const WrapperFiltersItems = styled.div`
-  position: absolute;
-  top: 500px;
-  left: 100px;
-`;
-
 const ButtonAddItem = styled.button`
   margin: 20px;
   width: 250px;
@@ -379,6 +359,12 @@ const ButtonAddItem = styled.button`
   color: white;
   background-color: blue;
   cursor: pointer;
+`;
+
+const LoginMessage = styled.div`
+  text-align: center;
+  font-weight: 600;
+  color: red;
 `;
 
 const SectionAddItem = styled.div`
