@@ -7,6 +7,8 @@ import ErrorMessage from "./Error";
 import { GrMapLocation } from "react-icons/gr";
 import { GiNinjaHead } from "react-icons/gi";
 import { OwnerContext } from "./context/Context";
+import MyOwnReservations from "./MyOwnReservations";
+
 
 const OwnerHome = () => {
   const [isPending, setIsPending] = useState(true);
@@ -24,12 +26,12 @@ const OwnerHome = () => {
   const { profileById } = useParams();
 
   // console.log('Connected USER IS ', owner);
-  console.log("Connected USER id (owner[1]) IS ", user[1]);
+  // console.log("Connected USER id (owner[1]) IS ", user[1]);
 
   // console.log('OWNER profile is', ownerProfile);
-  console.log("OWNER profile (ownerProfile._id) id is", ownerProfile._id);
+  // console.log("OWNER profile (ownerProfile._id) id is", ownerProfile._id);
 
-  // Give information on owner - profile
+  // Give informations on the owner - profile
   useEffect(() => {
     fetch(`/api/profile/${profileById}`)
       .then((res) => res.json())
@@ -96,7 +98,6 @@ const OwnerHome = () => {
       });
   }, [selectedItemById]);
 
-  console.log("reservations", reservations);
 
   // console.log("ownerProfile Id is", ownerProfile._id);
   // console.log("items is", items);
@@ -175,23 +176,9 @@ const OwnerHome = () => {
           ) : (
             <TextNoItem>No Item yet! </TextNoItem>
           )}
-          {user === undefined && ownerProfile._id === user[1] && (
-            <>
-              <OwnerItem>Add new item</OwnerItem>
-              <Link to="/add-location">
-                <button>Yes!</button>
-              </Link>
-            </>
-          )}
-          <OwnerReservations>Reservations</OwnerReservations>
-          {reservations === null || reservations.length < 1 ? (
-            <OwnerResaText>No reservations. Add an item first!</OwnerResaText>
-          ) : (
-            <OwnerResaText>dibida</OwnerResaText>
-          )}
-          {user &&
-            reservations?.map((reservation) => <p>{reservation.ownerId}</p>)}
-          <p></p>
+          
+          <MyOwnReservations ownerProfile={ownerProfile} reservations={reservations} />
+
         </>
       )}
     </>
@@ -350,12 +337,5 @@ const ButtonDelete = styled.button`
   }
 `;
 
-const OwnerReservations = styled.h2`
-  padding-left: 40px;
-  padding-top: 20px;
-`;
-const OwnerResaText = styled.p`
-  padding: 20px 20px 20px 60px;
-`;
 
 export default OwnerHome;
