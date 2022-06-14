@@ -1,26 +1,70 @@
-
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const ConfirmationNewItem = () => {
+  const getNewItem = JSON.parse(sessionStorage.getItem("NewItem"));
 
-const getNewItem = JSON.parse(sessionStorage.getItem("NewItem"))
+  console.log("getNewItem", getNewItem);
 
-console.log('getNewItem', getNewItem);
+  return (
+    <>
+      <WrapperReservation>
+        <h2>Congratulations!</h2>
+        <h2>You just add a new item to the {getNewItem.category} collection</h2>
 
-console.log('getting ther?');
-
-    return (
-        <>
-        <div>Confirmation</div>
-        <p>{getNewItem.category}</p>
         <img src={getNewItem.image} />
-        <p>{getNewItem.name}</p>
-        <p>$ {getNewItem.priceDaily}</p>
 
+        <p>
+          Title: <span>{getNewItem.name}</span>{" "}
+        </p>
+        <p>Description: {getNewItem.description}</p>
+        <p>
+          Daily price:<span> $ {getNewItem.priceDaily}</span>
+        </p>
 
-        </>
+        <p>
+          Weekly price:<span> $ {getNewItem.priceWeekly}</span>
+        </p>
+        <Link to={`/item/${getNewItem._id}`}>
+          <h3>Go check your article</h3>
+        </Link>
+      </WrapperReservation>
+    </>
+  );
+};
 
-    )
-}
+const WrapperReservation = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 3px solid blue;
+  border-radius: 4px;
+  padding: 30px;
+  max-width: 800px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  h2 {
+    text-align: center;
+    padding-bottom: 20px;
+  }
 
+  h3 {
+    text-align: center;
+  }
+  img {
+    max-width: 400px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+  }
 
-export default ConfirmationNewItem
+  p {
+    padding: 5px;
+  }
+
+  span {
+    font-weight: 700;
+  }
+`;
+
+export default ConfirmationNewItem;
