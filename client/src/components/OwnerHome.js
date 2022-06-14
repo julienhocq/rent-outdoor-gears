@@ -15,10 +15,12 @@ const OwnerHome = () => {
 
   const [ownerProfile, setOwnerProfile] = useState([]);
   const [items, setItems] = useState([]);
+  const [reservations, setReservations] = useState(null)
 
   const { owner } = useContext(OwnerContext);
   // let userId = owner[1];
   // console.log("userId", userId);
+  console.log('owner', owner);
   const { profileById } = useParams();
 
   useEffect(() => {
@@ -54,6 +56,32 @@ const OwnerHome = () => {
         setError(err);
       });
   }, [profileById]);
+
+
+useEffect(() => {
+  fetch(`/api/profile/${profileById}/reservations`)
+  .then((res) => res.json())
+  .then((data) => {
+    if (data.status === 500) {
+      throw new Error("error")
+    }
+    setReservations(data.data)
+    setStatus(true);
+    setIsPending(false);
+
+  })
+
+  .catch((err) => {
+    console.log("err", err);
+    setIsPending(false);
+    setError(err);
+  });
+
+}, [profileById])
+
+
+console.log('reservations', reservations);
+
 
   // console.log("ownerProfile Id is", ownerProfile._id);
   // console.log("items is", items);
@@ -128,6 +156,16 @@ const OwnerHome = () => {
               </Link>
             </>
           )}
+          <OwnerReservations>Reservations</OwnerReservations>
+          {(reservations === null || reservations.length <1) ? (
+          <OwnerResaText>No reservations. Add an item first!</OwnerResaText>
+          ) : (
+            <OwnerResaText>dibida</OwnerResaText>
+          )}
+          {owner && reservations?.map((reservation) => (
+              <p>{reservation.ownerId}</p>
+            ))}
+          <p></p>
         </>
       )}
     </>
@@ -257,6 +295,14 @@ const Container = styled.div`
   span {
     font-style: italic;
   }
+`;
+
+const OwnerReservations = styled.h2`
+  padding-left: 40px;
+  padding-top: 20px;
+`;
+  const OwnerResaText = styled.p`
+  padding: 20px 20px 20px 60px;
 `;
 
 export default OwnerHome;
