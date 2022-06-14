@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import LoadingPage from "./Loading";
 
@@ -10,7 +10,6 @@ const ItemDetails = () => {
 
   const [item, setItem] = useState([]);
   const [owner, setOwner] = useState([]);
-  // console.log("owner", owner);
   const { itemById } = useParams();
 
   // fetching product info by itemId
@@ -30,7 +29,6 @@ const ItemDetails = () => {
     fetchProduct();
   }, [itemById]);
 
-  // console.log("item IS", item);
 
   useEffect(() => {
     const FetchOwner = async () => {
@@ -48,52 +46,41 @@ const ItemDetails = () => {
     FetchOwner();
   }, [item.OwnerId, item._id]);
 
-  // console.log("item", item._id);
-  // console.log("ownerData", owner);
-  // console.log("ownerId", owner._id);
-  //   console.log("owner address", owner.address);
 
   return (
     <>
       {isPending && <LoadingPage />}
 
       {item && owner && owner.address && (
-       
-          <Main>
-            <PageWrapper>
-              <h1>{item.name}</h1>
-              <ItemImageWrapper>
-                <ItemImg src={item.image} />
-              </ItemImageWrapper>
-              {/* <OwnerProfileWrapper> */}
-                <OwnerImageWrapper>
-                  <Img src={owner.image} />
-                  <NameCityWrapper>
-                    <Link to={`/profile/${owner._id}`}>
-                      <OwnerName>{owner.username}</OwnerName>
-                    </Link>
-                    <OwnerCity>{owner.address.city}</OwnerCity>
-                  </NameCityWrapper>
-                </OwnerImageWrapper>
-                {/* <OwnerCity>{owner.address.city}</OwnerCity> */}
-              {/* </OwnerProfileWrapper> */}
-              <ItemDescription>
-                Description: {item.description}
-                <p>Daily price: $ {item.priceDaily}</p>
-                <p>Weekly price: $ {item.priceWeekly}</p>
-              </ItemDescription>
-              <AvailabilityWrapper>
-                Check the availabilties!
-              </AvailabilityWrapper>
-              {/* <Link to="/checkout">
-                <button>BOOK THIS ITEM</button>
-              </Link> */}
-              <Wrapper>
-                <CalendarReservation owner={owner} item={item} />
-              </Wrapper>
-            </PageWrapper>
-          </Main>
+        <Main>
+          <PageWrapper>
+            <h1>{item.name}</h1>
+            <ItemImageWrapper>
+              <ItemImg src={item.image} />
+            </ItemImageWrapper>
+            <OwnerImageWrapper>
+              <Img src={owner.image} />
+              <NameCityWrapper>
+                <Link to={`/profile/${owner._id}`}>
+                  <OwnerName>{owner.username}</OwnerName>
+                </Link>
+                <OwnerCity>{owner.address.city}</OwnerCity>
+              </NameCityWrapper>
+            </OwnerImageWrapper>
         
+            <ItemDescription>
+              Description: {item.description}
+              <p>Daily price: $ {item.priceDaily}</p>
+              <p>Weekly price: $ {item.priceWeekly}</p>
+            </ItemDescription>
+
+            <AvailabilityWrapper>Interested? Check the availabilities!</AvailabilityWrapper>
+  
+            <Wrapper>
+              <CalendarReservation owner={owner} item={item} />
+            </Wrapper>
+          </PageWrapper>
+        </Main>
       )}
     </>
   );
@@ -102,6 +89,7 @@ const ItemDetails = () => {
 const Main = styled.div`
   display: flex;
   justify-content: center;
+
 `;
 
 const PageWrapper = styled.div`
@@ -109,6 +97,7 @@ const PageWrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   border: 1px solid black;
+  margin-bottom: 40px;
 
   h1 {
     text-align: center;
@@ -121,7 +110,7 @@ const PageWrapper = styled.div`
 // `
 
 const ItemImageWrapper = styled.div`
- display: flex;
+  display: flex;
   /* justify-content: space-around; */
   margin: 0 auto;
   max-height: 400px;
@@ -186,13 +175,15 @@ const ItemDescription = styled.div`
 /* 
 const OwnerCity = styled.div``; */
 
+
+
 const AvailabilityWrapper = styled.div`
   font-size: 1.4em;
 `;
 
 const Wrapper = styled.div`
   padding-top: 30px;
-  margin: 0 auto
+  margin: 0 auto;
 `;
 
 export default ItemDetails;
