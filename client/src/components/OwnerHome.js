@@ -11,18 +11,25 @@ import { OwnerContext } from "./context/Context";
 const OwnerHome = () => {
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
-  const [status, setStatus] = useState();
+  const [status, setStatus] = useState(true);
 
   const [ownerProfile, setOwnerProfile] = useState([]);
   const [items, setItems] = useState([]);
-  const [reservations, setReservations] = useState(null)
+  const [reservations, setReservations] = useState(null);
+  const [selectedItemById, setSelectedItemById] = useState();
 
-  const { owner } = useContext(OwnerContext);
+  const { owner: user } = useContext(OwnerContext);
   // let userId = owner[1];
   // console.log("userId", userId);
-  console.log('owner', owner);
   const { profileById } = useParams();
 
+  // console.log('Connected USER IS ', owner);
+  console.log("Connected USER id (owner[1]) IS ", user[1]);
+
+  // console.log('OWNER profile is', ownerProfile);
+  console.log("OWNER profile (ownerProfile._id) id is", ownerProfile._id);
+
+  // Give information on owner - profile
   useEffect(() => {
     fetch(`/api/profile/${profileById}`)
       .then((res) => res.json())
@@ -39,6 +46,7 @@ const OwnerHome = () => {
       });
   }, [profileById]);
 
+  // Give all items for a selected owner
   useEffect(() => {
     fetch(`/api/profile/${profileById}/items`)
       .then((res) => res.json())
@@ -57,31 +65,38 @@ const OwnerHome = () => {
       });
   }, [profileById]);
 
+  // Give all reservations for a selected profile owner
+  useEffect(() => {
+    fetch(`/api/profile/${profileById}/reservations`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 500) {
+          throw new Error("error");
+        }
+        setReservations(data.data);
+        setStatus(true);
+        setIsPending(false);
+      })
 
-useEffect(() => {
-  fetch(`/api/profile/${profileById}/reservations`)
-  .then((res) => res.json())
-  .then((data) => {
-    if (data.status === 500) {
-      throw new Error("error")
-    }
-    setReservations(data.data)
-    setStatus(true);
-    setIsPending(false);
+      .catch((err) => {
+        console.log("err", err);
+        setIsPending(false);
+        setError(err);
+      });
+  }, [profileById]);
 
-  })
+  //DELETE the selected item
+  useEffect(() => {
+    fetch(`/api/item/${selectedItemById}`, { method: "DELETE" })
+      .then(() => setStatus(false))
+      .catch((err) => {
+        console.log("err", err);
+        setIsPending(false);
+        setError(err);
+      });
+  }, [selectedItemById]);
 
-  .catch((err) => {
-    console.log("err", err);
-    setIsPending(false);
-    setError(err);
-  });
-
-}, [profileById])
-
-
-console.log('reservations', reservations);
-
+  console.log("reservations", reservations);
 
   // console.log("ownerProfile Id is", ownerProfile._id);
   // console.log("items is", items);
@@ -127,8 +142,8 @@ console.log('reservations', reservations);
           {items.length > 0 ? (
             <ItemsWrapper>
               {items.map((item) => (
-                <Link to={`/item/${item._id}`}>
-                  <ItemContainer>
+                <ItemContainer>
+                  <Link to={`/item/${item._id}`}>
                     <ItemImg src={item.image}></ItemImg>
                     <h2>{item.name}</h2>
                     <Container>
@@ -141,14 +156,26 @@ console.log('reservations', reservations);
                       <div>Daily price: ${item.priceDaily} </div>
                       <div>Weekly price: ${item.priceWeekly} </div>
                     </Container>
-                  </ItemContainer>
-                </Link>
+                  </Link>
+                  {user[1] === ownerProfile._id && (
+                    <ButtonDelete
+                      id={`${item._id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setSelectedItemById(item._id);
+                        window.location.reload(true);
+                      }}
+                    >
+                      Delete the Item
+                    </ButtonDelete>
+                  )}
+                </ItemContainer>
               ))}
             </ItemsWrapper>
           ) : (
             <TextNoItem>No Item yet! </TextNoItem>
           )}
-          {owner === undefined && ownerProfile._id === owner[1] && (
+          {user === undefined && ownerProfile._id === user[1] && (
             <>
               <OwnerItem>Add new item</OwnerItem>
               <Link to="/add-location">
@@ -157,14 +184,13 @@ console.log('reservations', reservations);
             </>
           )}
           <OwnerReservations>Reservations</OwnerReservations>
-          {(reservations === null || reservations.length <1) ? (
-          <OwnerResaText>No reservations. Add an item first!</OwnerResaText>
+          {reservations === null || reservations.length < 1 ? (
+            <OwnerResaText>No reservations. Add an item first!</OwnerResaText>
           ) : (
             <OwnerResaText>dibida</OwnerResaText>
           )}
-          {owner && reservations?.map((reservation) => (
-              <p>{reservation.ownerId}</p>
-            ))}
+          {user &&
+            reservations?.map((reservation) => <p>{reservation.ownerId}</p>)}
           <p></p>
         </>
       )}
@@ -246,7 +272,9 @@ const ItemsWrapper = styled.div`
   padding-bottom: 60px;
   max-width: 1200px;
   display: grid;
-  align-items: center;
+  align-items: stretch;
+  justify-items: center;
+
   grid-template-columns: repeat(auto-fit, minmax(250px, 2fr));
 
   a {
@@ -265,6 +293,7 @@ const ItemContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  max-width: 600px;
   /* align-items: flex-start; */
 
   padding: 30px;
@@ -280,8 +309,11 @@ const ItemContainer = styled.div`
 `;
 
 const ItemImg = styled.img`
-  /* max-width: 120px; */
+  /* max-width: 200px; */
   padding-bottom: 20px;
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
 `;
 
 const Container = styled.div`
@@ -297,11 +329,32 @@ const Container = styled.div`
   }
 `;
 
+const ButtonDelete = styled.button`
+  margin: 20px;
+  width: 250px;
+  height: 40px;
+  padding: 7px 20px;
+  font-size: 1.2rem;
+  border: none;
+  color: white;
+  background-color: orange;
+  cursor: pointer;
+
+  &:hover {
+    color: red;
+    background-color: yellow;
+  }
+  &:active {
+    color: purple;
+    background-color: yellowgreen;
+  }
+`;
+
 const OwnerReservations = styled.h2`
   padding-left: 40px;
   padding-top: 20px;
 `;
-  const OwnerResaText = styled.p`
+const OwnerResaText = styled.p`
   padding: 20px 20px 20px 60px;
 `;
 
