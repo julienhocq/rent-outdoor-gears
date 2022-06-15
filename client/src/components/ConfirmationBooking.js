@@ -7,8 +7,10 @@ const ConfirmationBooking = () => {
   // const [error, setError] = useState(null);
 
   const getNewBooking = JSON.parse(sessionStorage.getItem("NewBooking"));
+  console.log('getNewBooking', getNewBooking);
 
   const dateReservation = getNewBooking.date;
+  console.log('dateReservation', dateReservation);
   let dateStart = new Date(getNewBooking.date[0]);
   let dateEnd = new Date(getNewBooking.date[1]);
 
@@ -22,15 +24,15 @@ const ConfirmationBooking = () => {
           <p>Booked date:</p>
 
           {dateReservation.length === 1 ? (
-            <p>{moment.utc(dateStart).format("dddd Do YYYY")} </p>
+            <p>{moment.utc(dateStart).format("dddd Do MMM YYYY")} </p>
           ) : (
             <>
               <p>
                 From:
-                <span> {moment.utc(dateStart).format("dddd Do YYYY")}</span>{" "}
+                <span> {moment.utc(dateStart).format("dddd Do MMM YYYY")}</span>{" "}
               </p>
               <p>
-                To:<span> {moment.utc(dateEnd).format("dddd Do YYYY")}</span>{" "}
+                To:<span> {moment.utc(dateEnd).format("dddd Do MMM YYYY")}</span>{" "}
               </p>
             </>
           )}

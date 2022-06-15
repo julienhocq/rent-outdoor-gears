@@ -9,7 +9,7 @@ const options = {
 
 const getItemById = async (req, res) => {
   const id = req.params.itemById;
-  console.log("req id is", id);
+  // console.log("req id is", id);
   const client = new MongoClient(MONGO_URI, options);
   try {
     await client.connect();
@@ -22,7 +22,7 @@ const getItemById = async (req, res) => {
     const findItem = result.find((e) => {
       return (e._id === id);
     });
-    console.log('findItem', findItem);
+    // console.log('findItem', findItem);
     return res.status(200).json({
       status: 200,
       data: findItem,

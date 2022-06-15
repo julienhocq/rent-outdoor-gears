@@ -9,7 +9,7 @@ const options = {
 
 const getItemsByOwner = async (req, res) => {
   const _id = req.params.profileById;
-  console.log("id is", _id);
+  // console.log("id is", _id);
   const client = new MongoClient(MONGO_URI, options);
 
   try {
@@ -27,7 +27,7 @@ const getItemsByOwner = async (req, res) => {
       return e.OwnerId === findOwner._id;
     });
 
-    console.log("findOwnerItems", findOwnerItems);
+    // console.log("findOwnerItems", findOwnerItems);
 
     return res.status(200).json({
       status: 200,

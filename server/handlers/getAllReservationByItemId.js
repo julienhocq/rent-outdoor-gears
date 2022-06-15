@@ -11,7 +11,6 @@ const getAllReservationByItemId = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   const _id = req.params.itemById;
 
-  console.log("whasssss");
   try {
     await client.connect();
     console.log("Connected!");
@@ -22,7 +21,7 @@ const getAllReservationByItemId = async (req, res) => {
     const findReservations = allReservations.filter((e) => {
       return e.itemId === _id;
     });
-    console.log("findReservations", findReservations);
+    // console.log("findReservations", findReservations);
 
     return res.status(200).json({
       status: 200,
