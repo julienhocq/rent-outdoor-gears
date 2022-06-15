@@ -2,7 +2,7 @@ const products = [
   {
     _id: "2001",
     category: "road",
-    name: "Bike Rocky Moutain edition 2022",
+    name: "Bike Rocky Moutain",
     description: "This bike will bring you everywhere",
     priceDaily: "20",
     priceWeekly: "120",
@@ -16,7 +16,7 @@ const products = [
   {
     _id: "2002",
     category: "road",
-    name: "City bike Giant Escape",
+    name: "City bike",
     description: "Perfect for commuting",
     priceDaily: "15",
     priceWeekly: "90",
@@ -30,7 +30,7 @@ const products = [
   {
     _id: "2003",
     category: "water",
-    name: "South Bay Board 9inches",
+    name: "Surf 10inches",
     description: "ready to surf big waves",
     priceDaily: "25",
     priceWeekly: "160",
@@ -44,12 +44,12 @@ const products = [
   {
     _id: "2004",
     category: "water",
-    name: "LIB TECH LOST ROUND NOSE FISH '96 B-GRADE",
+    name: "Surf 9,4inches",
     description:
       "Super stable wave catching machine and will ensure you catch the most waves and stay on your feet for the longest time",
     priceDaily: "22",
     priceWeekly: "150",
-    image: "https://images.unsplash.com/photo-1597905230918-10662f565df1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=327&q=80",
+    image: "https://images.unsplash.com/photo-1591623458750-82196d033a25?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=873&q=80",
     isAvailable: true,
     OwnerId: "1041",
     city: "Montreal",
@@ -59,7 +59,7 @@ const products = [
   {
     _id: "2005",
     category: "water",
-    name: "Nova Craft Canoe",
+    name: "Canoe Nova Craft",
     description:
       "Perfect for the casual camper, cottager or solo paddler cruising flat waters and floating down lazy rivers",
     priceDaily: "40",
@@ -75,12 +75,12 @@ const products = [
     _id: "2006",
     category: "land",
     subCategory: "tent",
-    name: "FreeLite - 2person Ultralight Tent",
+    name: "2 person Ultralight Tent",
     description:
       "Tent for 2 people, not really waterproof but with a nice color",
     priceDaily: "31",
     priceWeekly: "200",
-    image: "https://images.unsplash.com/photo-1624923686627-514dd5e57bae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+    image: "https://images.unsplash.com/photo-1550957886-ac45931e5779?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
     isAvailable: true,
     OwnerId: "1043",
     city: "Montreal",
@@ -132,6 +132,22 @@ const products = [
     latitude: 45.483806,
     longitude: -73.572467,
 },
+{
+  _id: "2010",
+  category: "camping",
+  subCategory: "stove",
+  name: "Colemman & plates",
+  description: "All you need for your camping kitchen",
+  priceDaily: "10",
+  priceWeekly: "60",
+  image: "https://images.unsplash.com/photo-1564138956667-918571027ccf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1036&q=80",
+  isAvailable: true,
+  OwnerId: "1044",
+  city: "Montreal",
+  latitude: 45.483806,
+  longitude: -73.572467,
+},
+
 ];
 
 module.exports = { products };
