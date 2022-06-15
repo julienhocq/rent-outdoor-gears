@@ -77,8 +77,6 @@ express()
   // user - login
   .post("/api/owner/login", login)
 
-  // .post("/api/item", postItem)
-
   //Add a new item - include image and text
   .post("/upload", upload.single("image"), newItem)
 
