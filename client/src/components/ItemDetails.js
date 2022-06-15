@@ -18,7 +18,6 @@ const ItemDetails = () => {
       await fetch(`/api/item/${itemById}`)
         .then((res) => res.json())
         .then((data) => {
-          //   console.log('data',data.data);
           setItem(data.data);
           setIsPending(false);
         })
@@ -60,7 +59,7 @@ const ItemDetails = () => {
               <Img src={owner.image} />
               <NameCityWrapper>
                 <Link to={`/profile/${owner._id}`}>
-                  <OwnerName>{owner.username}</OwnerName>
+                  <h3>{owner.username}</h3>
                 </Link>
                 <OwnerCity>{owner.address.city}</OwnerCity>
               </NameCityWrapper>
@@ -114,7 +113,6 @@ const ItemImg = styled.img`
 `;
 
 const OwnerImageWrapper = styled.div`
-  /* border: 1px solid black; */
   border-radius: 50%;
   display: flex;
   position: relative;
@@ -138,11 +136,18 @@ const NameCityWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-`;
 
-const OwnerName = styled.div`
-  padding-left: 20px;
-  font-size: 1.4em;
+  h3 {
+    padding-left: 20px;
+    font-size: 1.4em;
+  }
+  a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  a:hover {
+    color: pink;
+  }
 `;
 
 const OwnerCity = styled.div``;

@@ -9,7 +9,7 @@ const ErrorMessage = () => {
       </IconTop>
       <TextError>An unknown error has occured</TextError>
       <DetailError>
-        Please try refreshing the page. Otherwise go read a book outside.
+        Please try refreshing the page. Otherwise go enjoy the great outdoor!
       </DetailError>
       <IconBottom>
         <GiBookCover />

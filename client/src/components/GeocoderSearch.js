@@ -14,13 +14,14 @@ const {markerNewItem, setMarkerNewItem} = useContext(OwnerContext)
     marker: true,
     collapsed: true,
   });
+  //Display the search functionnality on the map
   useControl(() => ctrl);
 
+  //Move the marker when search is triggered
   ctrl.on("result", (e) => {
     const coordinatesSearch = e.result.geometry.coordinates;
-    console.log("coordinatesSearch", coordinatesSearch);
 
-    console.log("position initial is", markerNewItem);
+    // console.log("position initial is", markerNewItem);
     setMarkerNewItem({
       longitude: coordinatesSearch[0],
       latitude: coordinatesSearch[1],

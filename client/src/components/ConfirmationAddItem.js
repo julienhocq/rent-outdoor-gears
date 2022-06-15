@@ -4,13 +4,13 @@ import styled from "styled-components";
 const ConfirmationNewItem = () => {
   const getNewItem = JSON.parse(sessionStorage.getItem("NewItem"));
 
-  console.log("getNewItem", getNewItem);
-
   return (
     <>
       <WrapperReservation>
         <h2>Congratulations!</h2>
-        <h2>You just add a new item to the {getNewItem.category} collection</h2>
+        <h2>
+          You just added a new item to the {getNewItem.category} collection
+        </h2>
 
         <img src={getNewItem.image} />
 
@@ -36,7 +36,7 @@ const ConfirmationNewItem = () => {
 const WrapperReservation = styled.div`
   display: flex;
   flex-direction: column;
-  border: 3px solid blue;
+  border: 3px solid var(--color-primary);
   border-radius: 4px;
   padding: 30px;
   max-width: 800px;
@@ -51,6 +51,14 @@ const WrapperReservation = styled.div`
 
   h3 {
     text-align: center;
+  }
+
+  a {
+    color: var(--color-primary);
+  }
+
+  a:hover {
+    color: pink;
   }
   img {
     max-width: 400px;

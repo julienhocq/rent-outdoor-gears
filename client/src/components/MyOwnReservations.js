@@ -144,12 +144,17 @@ const ReservationWrapper = styled.div`
   }
 
   button {
-    background-color: blue;
+    background-color: var(--color-primary);
     border: none;
     color: white;
     padding: 10px;
     margin-top: 20px;
     cursor: pointer;
+  }
+
+  button:hover {
+    background-color: var(--color-tertiary);
+    color: white;
   }
 `;
 
