@@ -9,7 +9,6 @@ import { GiNinjaHead } from "react-icons/gi";
 import { OwnerContext } from "./context/Context";
 import MyOwnReservations from "./MyOwnReservations";
 
-
 const OwnerHome = () => {
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
@@ -24,12 +23,7 @@ const OwnerHome = () => {
   // let userId = owner[1];
   // console.log("userId", userId);
   const { profileById } = useParams();
-
-  // console.log('Connected USER IS ', owner);
-  // console.log("Connected USER id (owner[1]) IS ", user[1]);
-
-  // console.log('OWNER profile is', ownerProfile);
-  // console.log("OWNER profile (ownerProfile._id) id is", ownerProfile._id);
+  // console.log('user', user);
 
   // Give informations on the owner - profile
   useEffect(() => {
@@ -98,12 +92,6 @@ const OwnerHome = () => {
       });
   }, [selectedItemById]);
 
-
-  // console.log("ownerProfile Id is", ownerProfile._id);
-  // console.log("items is", items);
-  // console.log("items 1", items[0]);
-  // console.log("items 2", items[1]);
-
   return (
     <>
       {error && <ErrorMessage />}
@@ -147,18 +135,19 @@ const OwnerHome = () => {
                   <Link to={`/item/${item._id}`}>
                     <ItemImg src={item.image}></ItemImg>
                     <h2>{item.name}</h2>
-                    <Container>
-                      <div>
-                        Category:<span> {item.category}</span>{" "}
-                      </div>
-                      <div>
-                        Description: <span>{item.description}</span>{" "}
-                      </div>
-                      <div>Daily price: ${item.priceDaily} </div>
-                      <div>Weekly price: ${item.priceWeekly} </div>
-                    </Container>
                   </Link>
-                  {user[1] === ownerProfile._id && (
+                  <p>{item._id}</p>
+                  <Container>
+                    <div>
+                      Category:<span> {item.category}</span>{" "}
+                    </div>
+                    <div>
+                      Description: <span>{item.description}</span>{" "}
+                    </div>
+                    <div>Daily price: ${item.priceDaily} </div>
+                    <div>Weekly price: ${item.priceWeekly} </div>
+                  </Container>
+                  {user && user[1] === ownerProfile._id && (
                     <ButtonDelete
                       id={`${item._id}`}
                       onClick={(e) => {
@@ -176,9 +165,13 @@ const OwnerHome = () => {
           ) : (
             <TextNoItem>No Item yet! </TextNoItem>
           )}
-          
-          <MyOwnReservations ownerProfile={ownerProfile} reservations={reservations} />
 
+          {user && (
+            <MyOwnReservations
+              ownerProfile={ownerProfile}
+              reservations={reservations}
+            />
+          )}
         </>
       )}
     </>
@@ -336,6 +329,5 @@ const ButtonDelete = styled.button`
     background-color: yellowgreen;
   }
 `;
-
 
 export default OwnerHome;

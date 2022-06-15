@@ -5,13 +5,14 @@ import { OwnerContext } from "./context/Context";
 import moment from "moment";
 import { Link } from "react-router-dom";
 
-
 const MyOwnReservations = ({ ownerProfile, reservations }) => {
   const { owner: user } = useContext(OwnerContext);
-  let userId = user[1];
+  console.log("user", user);
   const [isPending, setIsPending] = useState(true);
   const [item, setItem] = useState([]);
   const { itemId } = useParams();
+
+  let userId = user[1];
 
   // let dateStart = new Date(getNewBooking.date[0]);
   // let dateEnd = new Date(getNewBooking.date[1]);
@@ -44,30 +45,39 @@ const MyOwnReservations = ({ ownerProfile, reservations }) => {
 
   return (
     <>
-    
-    {userId !== ownerProfile._id && !reservations &&
-    ( <><OwnerReservations>Items you booked</OwnerReservations><p>No reservation yet</p></>)}
+      {userId !== ownerProfile._id && !reservations && (
+        <>
+          <OwnerReservations>Items you booked</OwnerReservations>
+          <p>No reservation yet</p>
+        </>
+      )}
 
-    {userId === ownerProfile._id && ( 
-        <><OwnerReservations>Items you booked</OwnerReservations></>
-    )}
+      {userId === ownerProfile._id && (
+        <>
+          <OwnerReservations>Items you booked</OwnerReservations>
+        </>
+      )}
 
       <AllReservations>
         {userId === ownerProfile._id &&
           reservations?.map((reservation) => (
-              
             <ReservationWrapper>
               <>
                 <h4>Reservation n°: {reservations.indexOf(reservation) + 1}</h4>
                 <>
                   {reservation.date.length === 1 ? (
-                    <><p>
-                                  {moment.utc(reservation.date[0]).format("dddd Do YYYY")}{" "}
-                              </p><>
-                                      <Link to={`/item/${reservation.itemId}`}>
-                                          <button>Item you booked</button>
-                                      </Link>
-                                  </></>
+                    <>
+                      <p>
+                        {moment
+                          .utc(reservation.date[0])
+                          .format("dddd Do MMM YYYY")}{" "}
+                      </p>
+                      <>
+                        <Link to={`/item/${reservation.itemId}`}>
+                          <button>Item you booked</button>
+                        </Link>
+                      </>
+                    </>
                   ) : (
                     <>
                       <p>
@@ -76,7 +86,7 @@ const MyOwnReservations = ({ ownerProfile, reservations }) => {
                           {" "}
                           {moment
                             .utc(reservation.date[0])
-                            .format("dddd Do YYYY")}
+                            .format("dddd Do MMM YYYY")}
                         </span>{" "}
                       </p>
                       <p>
@@ -85,12 +95,12 @@ const MyOwnReservations = ({ ownerProfile, reservations }) => {
                           {" "}
                           {moment
                             .utc(reservation.date[1])
-                            .format("dddd Do YYYY")}
+                            .format("dddd Do MMM YYYY")}
                         </span>{" "}
                       </p>
-                      <Link to={`/item/${reservation.itemId}`} >
-                      <button>Item you booked</button>
-                            </Link>
+                      <Link to={`/item/${reservation.itemId}`}>
+                        <button>Item you booked</button>
+                      </Link>
                     </>
                   )}
                 </>
@@ -107,48 +117,40 @@ const OwnerReservations = styled.h2`
   padding-top: 20px;
 `;
 
-
 const AllReservations = styled.div`
-/* border: 1px solid black ; */
-display: flex;
-justify-content: space-evenly;
-flex-wrap: wrap;
-padding: 40px 20px;
+  /* border: 1px solid black ; */
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding: 40px 20px;
 `;
 
 const ReservationWrapper = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: space-around;
-align-items: center;
-border: 1px solid black ;
-margin: 20px;
-padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid black;
+  margin: 20px;
+  padding: 30px;
 
-h4{
+  h4 {
     padding-bottom: 20px;
-}
+  }
 
-p {
+  p {
     text-align: left;
     padding: 5px;
-}
+  }
 
-/* p:nth-child(2) { 
-    text-align: left;
-} */
-
-button {
+  button {
     background-color: blue;
     border: none;
     color: white;
     padding: 10px;
     margin-top: 20px;
     cursor: pointer;
-}
-
+  }
 `;
-
-
 
 export default MyOwnReservations;
