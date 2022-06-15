@@ -14,9 +14,7 @@ const CalendarReservation = ({ owner, item }) => {
   const history = useHistory();
 
   const { owner: user } = useContext(OwnerContext);
-  console.log('user IS', user);
-  let clientId = user[1]
-  console.log('user ID', clientId);
+  // console.log('user IS', user);
 
   const [date, setDate] = useState();
   const [reservations, setReservations] = useState([]);
@@ -29,8 +27,9 @@ const CalendarReservation = ({ owner, item }) => {
   //   [new Date(2022, 5, 21), new Date(2022, 5, 21)],
   // ];
 
-  console.log("disabledRanges", disabledRanges);
-  console.log('date selected', date);
+  // console.log("disabledRanges", disabledRanges);
+  // console.log('date selected', date);
+  console.log('date', date);
 
   useEffect(() => {
     fetch(`/api/item/${itemById}/reservations`)
@@ -76,12 +75,14 @@ const CalendarReservation = ({ owner, item }) => {
   }
 
   const handleAfterBooking = () => {
+    if (date)
     history.push("/confirmation-booking");
   };
 
   const handleBooking = async (e) => {
     e.preventDefault();
     if (!user) console.log("no user!");
+    let  clientId = user[1]
 
     try {
       const data = await fetch(`/api/item/${itemById}`, {
@@ -122,7 +123,13 @@ const CalendarReservation = ({ owner, item }) => {
             <Button>Sign in to book!</Button>
           </Link>
         ) : (
-          <Button onSubmit={handleAfterBooking}>Book</Button>
+          !date? (
+            <Button disabled style={{backgroundColor: "pink"}}>Select a date</Button>
+
+          ) : (
+
+            <Button onSubmit={handleAfterBooking}>Book</Button>
+          )
         )}
       </Form>
     </div>
@@ -136,15 +143,23 @@ const Form = styled.form`
 `;
 
 const Button = styled.button`
-  margin: 40px;
+  margin: 20px;
   width: 250px;
-  height: 40px;
-  padding: 7px 20px;
-  font-size: 1.2rem;
+  padding: 10px 20px;
+  font-size: 1.6rem;
   border: none;
   color: white;
-  background-color: blue;
   cursor: pointer;
+  font-family: monospace;
+  background-color: var(--color-secondary);
+  border: 2px solid #e1f3f3;
+  padding: 0.25em 0.5em;
+  transition: background-color 2s ease-out;
+
+  &:hover {
+    background-color: var(--color-tertiary);
+  }
+
 `;
 
 export default CalendarReservation;
