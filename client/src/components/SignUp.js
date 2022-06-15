@@ -34,14 +34,12 @@ const SignUp = () => {
       });
       const json = await data.json();
       setSignUpMessage(json.message);
-      console.log('json', json);
+      console.log("json", json);
       if (json.status === 201) {
-
-        console.log('json.data', json.data);
+        console.log("json.data", json.data);
         setOwner([json.data.username, json.data._id, json.data.image]);
         history.push("/");
       }
-
     } catch (error) {
       console.log("ERROR:", error.message);
     }
@@ -108,7 +106,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 100px;
+  padding: 100px 20px 60px 20px;
+
 `;
 
 const SignupForm = styled.form`
@@ -131,23 +130,24 @@ const SignupForm = styled.form`
     outline: none;
   }
   button {
+    padding: 10px 10px;
+    font-size: 1.6em;
     width: 250px;
-    height: 40px;
-    padding: 7px 20px;
-    font-size: 1.2rem;
     border: none;
     color: white;
-    background-color: blue;
     cursor: pointer;
+    font-family: monospace;
+    background-color: var(--color-secondary);
+    border: 2px solid #e1f3f3;
+    transition: background-color 2s ease-out;
   }
   a {
-    color: #32cd32;
+    color: var(--color-tertiary);
     text-decoration: none;
   }
-`;
-
-const NameContainer = styled.div`
-  display: flex;
+  a:hover {
+    color: pink;
+  }
 `;
 
 const SignUpInfo = styled.div`

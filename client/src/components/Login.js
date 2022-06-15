@@ -25,13 +25,13 @@ const Login = () => {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({ email: email, password: password, }),
+        body: JSON.stringify({ email: email, password: password }),
       });
       const json = await data.json();
       setLoginMessage(json.message);
 
       if (json.status === 201) {
-        console.log('json.data', json.data.image);
+        console.log("json.data", json.data.image);
         setOwner([json.data.username, json.data._id, json.data.image]);
         history.push("/");
       }
@@ -93,21 +93,27 @@ const Form = styled.form`
     outline: none;
   }
   button {
-    width: 250px;
-    height: 40px;
-    padding: 7px 20px;
-    font-size: 1.2rem;
     border: none;
-    color: white;
-    background-color: #aeeaff;
-    cursor: pointer;
+  color: white;
+  width: 250px;
+
+  cursor: pointer;
+  font-family: monospace;
+  background-color: var(--color-secondary);
+  border: 2px solid #e1f3f3;
+  padding: 0.25em 0.5em;
+  transition: background-color 2s ease-out;
   }
+
   p {
     font-size: 1.3rem;
   }
   a {
-    color: #32cd32;
+    color: var(--color-tertiary);
     text-decoration: none;
+  }
+  a:hover {
+    color: pink;
   }
 `;
 
@@ -122,6 +128,24 @@ const LoginContainer = styled.div`
   width: 500px;
   height: 35vh;
   gap: 10px;
+
+  button {
+    margin: 20px;
+    padding: 10px 20px;
+    font-size: 1.4em;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-family: monospace;
+    background-color: var(--color-secondary);
+    border: 2px solid #e1f3f3;
+    padding: 0.25em 0.5em;
+    transition: background-color 2s ease-out;
+
+    &:hover {
+      background-color: var(--color-tertiary);
+    }
+  }
 `;
 
 const SignUpInfo = styled.div`

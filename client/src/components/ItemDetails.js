@@ -70,11 +70,8 @@ const ItemDetails = () => {
               Description: {item.description}
               <p>Daily price: $ {item.priceDaily}</p>
               <p>Weekly price: $ {item.priceWeekly}</p>
+              <h3>Interested? Check the availabilities!</h3>
             </ItemDescription>
-
-            <AvailabilityWrapper>
-              Interested? Check the availabilities!
-            </AvailabilityWrapper>
 
             <Wrapper>
               <CalendarReservation owner={owner} item={item} />
@@ -92,10 +89,11 @@ const Main = styled.div`
 `;
 
 const PageWrapper = styled.div`
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border: 1px solid black;
+  border: 4px solid var(--color-primary);
   margin-bottom: 40px;
 
   h1 {
@@ -103,14 +101,8 @@ const PageWrapper = styled.div`
   }
 `;
 
-// const ItemTitle = styled.h1`
-// display: flex;
-// text-align: center;
-// `
-
 const ItemImageWrapper = styled.div`
   display: flex;
-  /* justify-content: space-around; */
   margin: 0 auto;
   max-height: 400px;
   max-width: 600px;
@@ -125,7 +117,6 @@ const OwnerImageWrapper = styled.div`
   /* border: 1px solid black; */
   border-radius: 50%;
   display: flex;
-  /* align-items: center; */
   position: relative;
   top: -40px;
   padding: 0 10px;
@@ -151,31 +142,23 @@ const NameCityWrapper = styled.div`
 
 const OwnerName = styled.div`
   padding-left: 20px;
-  /* padding-top: 60px; */
   font-size: 1.4em;
 `;
 
 const OwnerCity = styled.div``;
 
-const OwnerProfileWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-`;
-
 const ItemDescription = styled.div`
   padding-top: 20px;
+  padding-left: 10px;
   p {
     padding-top: 10px;
     padding-bottom: 10px;
   }
-`;
-
-/* 
-const OwnerCity = styled.div``; */
-
-const AvailabilityWrapper = styled.div`
-  font-size: 1.4em;
+  h3 {
+    padding-top: 10px;
+    font-size: 1.4em;
+    text-align: center;
+  }
 `;
 
 const Wrapper = styled.div`

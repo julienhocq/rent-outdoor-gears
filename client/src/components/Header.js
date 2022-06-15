@@ -16,8 +16,6 @@ const Header = () => {
     localStorage.clear();
     setOwner(null);
   };
-console.log('owner', owner);
-  // owner ? console.log("image", owner[2]) : console.log("error");
 
   return (
     <HeaderSection>
@@ -30,20 +28,20 @@ console.log('owner', owner);
       >
         {!owner ? (
           <>
-            <FaUserLock size={30} color={"blue"} />
+            <FaUserLock size={30} color={"white"} />
             <LoginDesign>LOGIN</LoginDesign>
           </>
         ) : (
           <>
             <NavLinkStyled to="/">
-              <AiFillHome size={30} color={"blue"} />
+              <AiFillHome size={40} color={"#0045F2"} />
             </NavLinkStyled>
             <NavLinkStyled to="/add-location">
-              <RiMapPinAddFill size={30} color={"blue"} />
+              <RiMapPinAddFill size={40} color={"#D97652"} />
             </NavLinkStyled>
             <NavLinkStyled to="/">
               <LogOutWrapper onClick={handleLogout}>
-                <GiExitDoor size={30} color={"blue"} />
+                <GiExitDoor size={40} color={"#0045F2"} />
               </LogOutWrapper>
             </NavLinkStyled>
             <NavLinkStyled to={`/profile/${owner[1]}`}>
@@ -66,18 +64,20 @@ const HeaderSection = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
   margin-top: 0px !important;
   color: white;
-  background-color: #aeeaff;
-  padding: 20px 40px;
+  /* background-color: #aeeaff; */
+  background-color: #6bbef2;
+  padding: 10px 40px;
 `;
 
 const LogoHeader = styled.h1`
+  font-family: monospace;
+
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.3em;
   font-size: 2.7em;
-  color: black;
+  color: white;
 `;
 
 const NavLinkStyled = styled(NavLink)`
@@ -88,7 +88,7 @@ const NavLinkStyled = styled(NavLink)`
 `;
 
 const LoginDesign = styled.span`
-  color: blue;
+  color: white;
   font-size: 1.2em;
   font-weight: 700;
 `;
@@ -98,13 +98,9 @@ const LogOutWrapper = styled.div``;
 const AvatarWrapper = styled.div`
   border-radius: 50%;
   display: flex;
-  /* align-items: center; */
-  /* position: relative; */
-  /* top: -40px; */
   padding: 0 10px;
   height: 80px;
   width: 80px;
-  /* width: 100%; */
 `;
 
 const AvatarImg = styled.img`

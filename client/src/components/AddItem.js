@@ -145,7 +145,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 100px;
+  padding: 80px 20px;
+
 `;
 
 const ReturnWrapper = styled.div`
@@ -169,7 +170,7 @@ const AddItemForm = styled.form`
   border-radius: 6px;
   box-shadow: 5px 15px 31px 4px #dfdfdf;
   width: 500px;
-  height: 60vh;
+  height: auto;
   gap: 10px;
   p {
     font-size: 1.3rem;
@@ -181,19 +182,29 @@ const AddItemForm = styled.form`
     height: 40px;
     outline: none;
   }
+  a {
+    color: var(--color-tertiary);
+    text-decoration: none;
+  }
+  a:hover {
+    color: pink;
+  }
   button {
     width: 250px;
-    height: 40px;
-    padding: 7px 20px;
     font-size: 1.2rem;
+    padding: 10px 10px;
+    font-size: 1.6em;
     border: none;
     color: white;
-    background-color: blue;
     cursor: pointer;
-  }
-  a {
-    color: #32cd32;
-    text-decoration: none;
+    font-family: monospace;
+    background-color: var(--color-secondary);
+    border: 2px solid #e1f3f3;
+    transition: background-color 2s ease-out;
+
+    &:hover {
+      background-color: var(--color-tertiary);
+    }
   }
 `;
 

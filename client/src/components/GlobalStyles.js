@@ -3,8 +3,7 @@ import { createGlobalStyle } from "styled-components";
 export default createGlobalStyle`
 
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=Poppins:wght@300;500;600&display=swap');
-
-
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600;700;800&family=PT+Sans:wght@400;700&display=swap');
 
 /* https://www.joshwcomeau.com/css/custom-css-reset/
 
@@ -24,8 +23,9 @@ export default createGlobalStyle`
   */
   html, body {
     height: 100%;
-    /* padding: 10px; */
-    font-family: 'PT Sans', sans-serif;
+    /* font-family: 'PT Sans', sans-serif; */
+    font-family:'Inconsolata', monospace;
+
 
     /* background-color: #7DE2FE; */
   }
@@ -63,12 +63,12 @@ export default createGlobalStyle`
   #root, #__next {
       // CHANGER LES COULEURS ////**** */
     isolation: isolate;
-    --color-primary: #343A40;  
-    --color-secondary:#1A1A1A ;
-    --color-tertiary: #C1C1C1;
-    --color-light: #E5E5E5;
-    --color-complimentary: #DBF2E3;    
-    --color-lightBlue: #C2D9E3
+    --color-primary: #6BBEF2;  
+    --color-secondary:#2D9595 ;
+    --color-tertiary: #D97652;
+    /* --color-light: #E5E5E5;
+    --color-complimentary: #DBF2E3;     */
+    --color-lightBlue: #E1F3F3;
   }
 
 a:active {

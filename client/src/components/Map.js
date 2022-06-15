@@ -83,7 +83,6 @@ const MainMap = () => {
     filterItems();
   }, [filterParam, items]);
 
-
   const [loginMessage, setLoginMessage] = useState();
 
   const handleClick = () => {
@@ -104,6 +103,7 @@ const MainMap = () => {
           </HeroText>
         </SectionHeroImage>
         <SectionFilter>
+          <h2>Find what you need based on type & location </h2>
           <form>
             <label>
               <input
@@ -206,6 +206,7 @@ const MainMap = () => {
           </Map>
         </SectionMap>
         <SectionAddItem>
+          <h2>Share your gear and share the next adventure</h2>
           <div>
             {owner ? (
               <Link to="add-location">
@@ -216,9 +217,11 @@ const MainMap = () => {
                 <ButtonAddItem onClick={(e) => handleClick(e)}>
                   Post an item
                 </ButtonAddItem>
-                <LinkStyled to="/login">
-                  <LoginMessage>{loginMessage}</LoginMessage>
-                </LinkStyled>
+                <LoginMessStyle>
+                  <LinkStyled to="/login">
+                    <p>{loginMessage}</p>
+                  </LinkStyled>
+                </LoginMessStyle>
               </>
             )}
           </div>
@@ -302,7 +305,7 @@ const Img = styled.img`
   /* width: 80px; */
 `;
 const SectionHeroImage = styled.div`
-  padding-bottom: 20px;
+  padding-bottom: 60px;
   /* height: 600px; */
   /* width: 100%; */
   /* position: relative; */
@@ -322,58 +325,89 @@ const HeroText = styled.div`
   h2 {
     font-size: 4em;
     padding-bottom: 20px;
+    letter-spacing: 0.2em;
   }
 
   p {
-    font-size: 1.8em;
+    font-size: 2em;
   }
 `;
 
 const SectionFilter = styled.div`
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px 0;
+  margin-bottom: 10px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  /* background-color: #85D3F2; */
+  width: 100%;
+
+  h2 {
+    font-size: 2em;
+    padding-bottom: 10px;
+    color: #d97652;
+  }
 
   form {
     /* color: green; */
     font-size: 1.4em;
     display: flex;
     flex-direction: row;
+    padding-top: 20px;
   }
   label {
-    padding: 0 30px;
+    padding: 10px 30px;
   }
   span {
     padding: 0 10px;
   }
 `;
+const SectionAddItem = styled.div`
+  margin-top: 80px;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  color: black;
+  background-color: var(--color-lightBlue);
+
+  h2 {
+    font-size: 2em;
+    padding-right: 10px;
+    padding-bottom: 20px;
+  }
+`;
 
 const ButtonAddItem = styled.button`
   margin: 20px;
-  width: 250px;
-  height: 40px;
-  padding: 7px 20px;
-  font-size: 1.2rem;
+  padding: 10px 20px;
+  font-size: 1.6rem;
   border: none;
   color: white;
-  background-color: blue;
   cursor: pointer;
+  font-family: monospace;
+  background-color: var(--color-secondary);
+  border: 2px solid #e1f3f3;
+  padding: 0.25em 0.5em;
+  transition: background-color 2s ease-out;
+
+  &:hover {
+    background-color: var(--color-tertiary);
+  }
 `;
 
-const LoginMessage = styled.div`
-  text-align: center;
-  font-weight: 600;
-  color: red;
-`;
+const LoginMessStyle = styled.div`
+  p {
+    text-align: center;
+    font-weight: 600;
+    /* color: red; */
+  }
 
-const SectionAddItem = styled.div`
-  margin-top: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 140px;
-  background-color: teal;
+  a:hover {
+    color: pink;
+  }
 `;
 
 const SectionExploreCategory = styled.div`
@@ -381,6 +415,10 @@ const SectionExploreCategory = styled.div`
   justify-content: center;
   align-items: center;
   height: 140px;
+
+  h2 {
+    font-size: 2em;
+  }
 `;
 
 const SectionCategories = styled.div`
