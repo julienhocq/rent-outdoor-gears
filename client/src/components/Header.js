@@ -16,7 +16,7 @@ const Header = () => {
     localStorage.clear();
     setOwner(null);
   };
-
+console.log('owner', owner);
   // owner ? console.log("image", owner[2]) : console.log("error");
 
   return (
@@ -48,8 +48,8 @@ const Header = () => {
             </NavLinkStyled>
             <NavLinkStyled to={`/profile/${owner[1]}`}>
               <AvatarWrapper>
-                {owner[2] === undefined ? (
-                  <GiNinjaHead size={40} />
+                {owner[2] === "" ? (
+                  <GiNinjaHead size={70} />
                 ) : (
                   <AvatarImg src={owner[2]}></AvatarImg>
                 )}
@@ -70,7 +70,7 @@ const HeaderSection = styled.header`
   margin-top: 0px !important;
   color: white;
   background-color: #aeeaff;
-  padding: 20px 20px;
+  padding: 20px 40px;
 `;
 
 const LogoHeader = styled.h1`
@@ -84,7 +84,7 @@ const NavLinkStyled = styled(NavLink)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  gap: 10px;
+  gap: 20px;
 `;
 
 const LoginDesign = styled.span`
