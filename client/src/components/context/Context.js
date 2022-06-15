@@ -1,19 +1,14 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const ItemContext = createContext();
 
 export const ItemProvider = ({ children }) => {
-//   const [items, setItems] = useState();
-//   console.log("erer ", items);
-
   const [selectedItem, setSelectedItem] = useState();
   console.log("selected in context", selectedItem);
 
   return (
     <ItemContext.Provider
       value={{
-        // items,
-        // setItems,
         selectedItem,
         setSelectedItem,
       }}
@@ -23,13 +18,8 @@ export const ItemProvider = ({ children }) => {
   );
 };
 
-// export const ItemState = () => {
-//     return useContext(ItemContext)
-// }
-
 //context to pass user logged-in status across App.
 export const OwnerContext = createContext(null);
-
 
 export const OwnerProvider = ({ children }) => {
   const [owner, setOwner] = usePersistedState("owner", null);
@@ -38,10 +28,10 @@ export const OwnerProvider = ({ children }) => {
     latitude: 45.463839,
   });
 
-
-
   return (
-    <OwnerContext.Provider value={{ owner, setOwner, markerNewItem, setMarkerNewItem }}>
+    <OwnerContext.Provider
+      value={{ owner, setOwner, markerNewItem, setMarkerNewItem }}
+    >
       {children}
     </OwnerContext.Provider>
   );
