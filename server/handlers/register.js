@@ -37,7 +37,7 @@ const register = async (req, res) => {
     await client.connect();
     const db = client.db("RentOutdoorGears");
     const result = await db.collection("owners").findOne({ email });
-    console.log("result", result);
+    // console.log("result", result);
     if (result) {
       res
         .status(400)
@@ -63,10 +63,10 @@ const register = async (req, res) => {
         },
         image:"",
       };
-      console.log("owner", owner);
+      // console.log("owner", owner);
       const NewOwner = Object.assign({ _id: uuidv4() }, owner);
       await db.collection("owners").insertOne(NewOwner);
-      res.status(201).json({ status: 201, message: "New owner added!" });
+      res.status(201).json({ status: 201, data: NewOwner, message: "New owner added!" });
       client.close();
     }
   } catch (err) {
