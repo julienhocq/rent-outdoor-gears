@@ -34,10 +34,14 @@ const SignUp = () => {
       });
       const json = await data.json();
       setSignUpMessage(json.message);
-      setOwner(username);
+      console.log('json', json);
       if (json.status === 201) {
+
+        console.log('json.data', json.data);
+        setOwner([json.data.username, json.data._id, json.data.image]);
         history.push("/");
       }
+
     } catch (error) {
       console.log("ERROR:", error.message);
     }
