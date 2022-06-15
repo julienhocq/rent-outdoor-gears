@@ -9,6 +9,10 @@ const ConfirmationBooking = () => {
   let dateStart = new Date(getNewBooking.date[0]);
   let dateEnd = new Date(getNewBooking.date[1]);
 
+    // Confirmation item booking page
+    // use the session storage to retrieve item's reservation data.
+
+
   return (
     <>
       {/* {error && <ErrorMessage />} */}

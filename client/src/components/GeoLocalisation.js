@@ -11,6 +11,10 @@ const Geocoder = () => {
   const ownerUsername = owner[0];
   const ownerId = owner[1];
 
+//Component part of the 'add item functionnality'
+// Mapbox API - location research 
+// owner context is updated with the location in GeocoderSearch component
+
   return (
     <>
       {ownerId && (
@@ -19,7 +23,7 @@ const Geocoder = () => {
             <p>Hi {ownerUsername}, let's add a new item in 3 quick steps!</p>
           </SectionOne>
 
-          <TitleAction>Step 1: Where is located you item?</TitleAction>
+          <TitleAction>Step 1: Where is your item located?</TitleAction>
           <Map
             initialViewState={{
               longitude: -73.577551,

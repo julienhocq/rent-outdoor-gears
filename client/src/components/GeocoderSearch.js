@@ -28,6 +28,12 @@ const {markerNewItem, setMarkerNewItem} = useContext(OwnerContext)
     });
   });
 
+  // Locations data are stored in the markerNewItem context
+  //
+  // GeolocateControl: Mapbox method to geo tracked the user 
+  // currently display an issue if activated with the marker
+  //Keep it here to implement it later.
+
 
   return (
     <>
@@ -60,6 +66,4 @@ const {markerNewItem, setMarkerNewItem} = useContext(OwnerContext)
 
 export default GeocoderSearch;
 
-// Marker
-// GeolocateControl: Mapbox method to geo tracked the user 
-// currently a issue if activated with the marker
+

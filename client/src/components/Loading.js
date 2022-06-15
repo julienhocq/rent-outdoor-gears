@@ -2,6 +2,9 @@ import { BsPlusCircleDotted } from "react-icons/bs";
 import styled, { keyframes } from "styled-components";
 
 const LoadingPage = () => {
+
+//home made loading component
+
   const loadingAnimation = keyframes`
 
 0% {

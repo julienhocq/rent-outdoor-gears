@@ -19,6 +19,10 @@ const AddItem = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [error, setError] = useState(null);
 
+// Bunch on functions to handle the data in the form
+// which will be sent to Mongo
+// Session storage also set to keep the info for the confirmation page 
+
   const handleCategory = (e) => {
     setCategory(e.target.value);
   };
@@ -42,7 +46,7 @@ const AddItem = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //How to handle multi format form
+    // Handle multi format form
     let image = document.getElementById("image-file").files[0];
     let formData = new FormData();
     formData.append("image", image);

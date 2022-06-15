@@ -31,6 +31,7 @@ const CalendarReservation = ({ owner, item }) => {
   // console.log('date selected', date);
 
 
+// Fetch all reservations for the selected item
   useEffect(() => {
     fetch(`/api/item/${itemById}/reservations`)
         .then((res) => res.json())
@@ -58,6 +59,8 @@ const CalendarReservation = ({ owner, item }) => {
    
   }, [itemById]);
 
+  // Function given by the Calendar API
+  // Will check if the user date selection is already booked
   function tileDisabled({ date, view }) {
     // Add class to tiles in month view only
     if (view === "month") {
@@ -74,10 +77,14 @@ const CalendarReservation = ({ owner, item }) => {
     return ranges.some((range) => isWithinRange(date, range));
   }
 
+  // When item is booked, direct to confirmation page
   const handleAfterBooking = () => {
     if (date)
     history.push("/confirmation-booking");
   };
+
+  // Handle the booking in Mongo Db
+  // create a session storage to give data acess in the confirmation page 
 
   const handleBooking = async (e) => {
     e.preventDefault();
@@ -106,6 +113,8 @@ const CalendarReservation = ({ owner, item }) => {
       console.error("failed to book the item", error);
     }
   };
+
+  // Booking rule: user has to be connected to book
 
   return (
     <div>

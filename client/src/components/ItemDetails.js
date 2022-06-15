@@ -12,7 +12,7 @@ const ItemDetails = () => {
   const [owner, setOwner] = useState([]);
   const { itemById } = useParams();
 
-  // fetching product info by itemId
+  // fetch item data by itemId
   useEffect(() => {
     const fetchProduct = async () => {
       await fetch(`/api/item/${itemById}`)
@@ -28,6 +28,7 @@ const ItemDetails = () => {
     fetchProduct();
   }, [itemById]);
 
+  // fetch item's owner data
   useEffect(() => {
     const FetchOwner = async () => {
       const ownerId = item.OwnerId;
@@ -43,6 +44,9 @@ const ItemDetails = () => {
     };
     FetchOwner();
   }, [item.OwnerId, item._id]);
+
+  // Rules to book: user has to be sign in
+  // More details about the logic in CalendarReservation component
 
   return (
     <>

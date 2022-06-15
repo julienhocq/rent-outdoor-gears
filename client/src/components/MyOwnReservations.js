@@ -9,6 +9,9 @@ const MyOwnReservations = ({ ownerProfile, reservations }) => {
 
   let userId = user[1];
 
+
+  // Rules to only provide user's reservations to him.
+ 
   return (
     <>
       {userId !== ownerProfile._id && !reservations && (

@@ -78,7 +78,7 @@ const OwnerHome = () => {
       });
   }, [profileById]);
 
-  //DELETE the selected item
+  //DELETE the selected item - only for the item'sowner
   useEffect(() => {
     fetch(`/api/item/${selectedItemById}`, { method: "DELETE" })
       .then(() => setStatus(false))
@@ -89,6 +89,12 @@ const OwnerHome = () => {
       });
   }, [selectedItemById]);
 
+  // Set rules for the displayed profil:
+  // Profile 1: only owner's information - name, image, city - and items are visible by everyone.
+  // - don't need to be login
+
+  // profil 2: owner's profile. Only the owner will see its items and deleted them
+  // will also see its reservations made on other user's item.
 
   return (
     <>
@@ -116,7 +122,7 @@ const OwnerHome = () => {
                 <OwnerName>{ownerProfile.username}</OwnerName>
                 <WrapperLocation>
                   <GrMapLocation />
-                  {(ownerProfile.address.city !=="") ? (
+                  {ownerProfile.address.city !== "" ? (
                     <OwnerCity>{ownerProfile.address.city}</OwnerCity>
                   ) : (
                     <p>City is not displayed.</p>

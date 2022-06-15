@@ -36,6 +36,7 @@ const MainMap = () => {
   const [filteredItems, setFilteredItems] = useState(items);
   const [filterParam, setFilterParam] = useState();
 
+  // Fetch all items
   useEffect(() => {
     fetch(
       "/api/items?" +
@@ -54,6 +55,7 @@ const MainMap = () => {
       });
   }, []);
 
+  // close the popup windows on the map
   useEffect(() => {
     const listener = (e) => {
       if (e.key === "Escape") {
@@ -67,6 +69,7 @@ const MainMap = () => {
     };
   }, [setSelectedItem]);
 
+  // Filter the items by category and update the map with filtered items
   useEffect(() => {
     const filterItems = () => {
       let filteredProduct = [];
@@ -83,6 +86,7 @@ const MainMap = () => {
 
   const [loginMessage, setLoginMessage] = useState();
 
+  // Can't add an item if you are not login
   const handleClick = () => {
     setLoginMessage("Please login");
   };

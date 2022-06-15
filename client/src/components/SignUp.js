@@ -15,6 +15,9 @@ const SignUp = () => {
 
   const history = useHistory();
 
+//Sign up form
+//store some owner data to the context
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 

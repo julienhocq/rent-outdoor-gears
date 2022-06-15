@@ -4,6 +4,8 @@ import styled from "styled-components";
 const ConfirmationNewItem = () => {
   const getNewItem = JSON.parse(sessionStorage.getItem("NewItem"));
 
+  // Confirmation item page, use the session storage to retrieve item's data.
+
   return (
     <>
       <WrapperReservation>
