@@ -12,7 +12,7 @@ const ConfirmationNewItem = () => {
           You just added a new item to the {getNewItem.category} collection
         </h2>
 
-        <img src={getNewItem.image} />
+        <img src={getNewItem.image} alt="" />
 
         <p>
           Title: <span>{getNewItem.name}</span>{" "}

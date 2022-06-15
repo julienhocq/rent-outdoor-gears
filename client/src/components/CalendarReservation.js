@@ -29,18 +29,18 @@ const CalendarReservation = ({ owner, item }) => {
 
   // console.log("disabledRanges", disabledRanges);
   // console.log('date selected', date);
-  console.log('date', date);
+
 
   useEffect(() => {
     fetch(`/api/item/${itemById}/reservations`)
         .then((res) => res.json())
         .then((data) => {
           setReservations(data.data);
-          console.log("reservations", data.data);
+          // console.log("reservations", data.data);
           let reservations = data.data;
           let datesReservations = [];
           reservations.filter((e) => datesReservations.push(e.date));
-          console.log("datesReservations is", datesReservations);
+          // console.log("datesReservations is", datesReservations);
 
           for (let i = 0; i < datesReservations.length; i++) {
             let array = datesReservations[i];
@@ -53,7 +53,7 @@ const CalendarReservation = ({ owner, item }) => {
           }
           setDisabledRanges(datesReservations);
 
-          console.log("new array", datesReservations);
+          // console.log("new array", datesReservations);
         });
    
   }, [itemById]);

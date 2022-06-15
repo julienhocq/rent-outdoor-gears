@@ -4,7 +4,6 @@ export const ItemContext = createContext();
 
 export const ItemProvider = ({ children }) => {
   const [selectedItem, setSelectedItem] = useState();
-  console.log("selected in context", selectedItem);
 
   return (
     <ItemContext.Provider

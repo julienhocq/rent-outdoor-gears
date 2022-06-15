@@ -1,8 +1,8 @@
 import MapBoxGeocoder from "@mapbox/mapbox-gl-geocoder";
-import { Marker, useControl, GeolocateControl } from "react-map-gl";
+import { Marker, useControl } from "react-map-gl";
 // import 'mapbox-gl/dist/mapbox-gl.css'
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { OwnerContext } from "./context/Context";
 
 const GeocoderSearch = () => {
@@ -26,11 +26,8 @@ const {markerNewItem, setMarkerNewItem} = useContext(OwnerContext)
       longitude: coordinatesSearch[0],
       latitude: coordinatesSearch[1],
     });
-    // console.log("marker", marker);
   });
 
-  console.log("position object:", markerNewItem);
-  console.log("position updated lgt / lat:", markerNewItem.longitude, markerNewItem.latitude);
 
   return (
     <>
@@ -40,7 +37,6 @@ const {markerNewItem, setMarkerNewItem} = useContext(OwnerContext)
         draggable
         color="red"
         onDragEnd={(e) =>
-          //  console.log('e', e.lngLat.lng)
           setMarkerNewItem({
             longitude: e.lngLat.lng,
             latitude: e.lngLat.lat,
@@ -65,4 +61,5 @@ const {markerNewItem, setMarkerNewItem} = useContext(OwnerContext)
 export default GeocoderSearch;
 
 // Marker
-// GeolocateControl: Mapbox method to geo tracked the user
+// GeolocateControl: Mapbox method to geo tracked the user 
+// currently a issue if activated with the marker

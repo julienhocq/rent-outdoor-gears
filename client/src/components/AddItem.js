@@ -10,7 +10,6 @@ const AddItem = () => {
   const history = useHistory();
   const { markerNewItem } = useContext(OwnerContext);
   const { owner } = useContext(OwnerContext);
-  console.log("userId", owner[1]);
 
   const [category, setCategory] = useState(null);
   const [title, setTitle] = useState(null);

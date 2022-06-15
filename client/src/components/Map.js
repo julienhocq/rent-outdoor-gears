@@ -16,7 +16,7 @@ import { ItemContext, OwnerContext } from "./context/Context";
 import MainGeoControl from "./MainGeocontrol";
 import ErrorMessage from "./Error";
 
-import { GiMountains } from "react-icons/gi";
+// import { GiMountains } from "react-icons/gi";
 
 import LoadingPage from "./Loading";
 
@@ -32,7 +32,6 @@ const MainMap = () => {
   const [items, setItems] = useState([]);
   const { selectedItem, setSelectedItem } = useContext(ItemContext);
   const { owner } = useContext(OwnerContext);
-  console.log("owner", owner);
 
   const [filteredItems, setFilteredItems] = useState(items);
   const [filterParam, setFilterParam] = useState();
@@ -72,7 +71,6 @@ const MainMap = () => {
     const filterItems = () => {
       let filteredProduct = [];
       filteredProduct = items.filter((item) => item.category === filterParam);
-      console.log("filteredProduct IS", filterParam, filteredProduct);
       if (filterParam === undefined || filterParam === "all") {
         setFilteredItems(items);
       } else {
@@ -88,7 +86,6 @@ const MainMap = () => {
   const handleClick = () => {
     setLoginMessage("Please login");
   };
-  console.log("selectedItem", selectedItem);
 
   return (
     <>
@@ -96,7 +93,7 @@ const MainMap = () => {
       {isPending && <LoadingPage />}
       <Main>
         <SectionHeroImage>
-          <img src={heroImageOne} />
+          <img src={heroImageOne} alt="" />
           <HeroText>
             <h2>Ready? </h2>
             <p>Your next adventure is at your fingertips</p>
@@ -250,7 +247,6 @@ const MainMap = () => {
 
 const Main = styled.div`
   /* max-width: 1600px; */
-  /* padding: 20px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -284,10 +280,6 @@ const PopupStyle = styled.div`
     color: blue;
   }
 
-  /* a:focus {
-  color: blue;
-} */
-
   p {
     text-align: right;
     font-style: italic;
@@ -302,16 +294,9 @@ const Img = styled.img`
   min-width: 50px;
   height: 50px;
   border-radius: 50%;
-  /* width: 80px; */
 `;
 const SectionHeroImage = styled.div`
   padding-bottom: 60px;
-  /* height: 600px; */
-  /* width: 100%; */
-  /* position: relative; */
-  /* background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover; */
 `;
 
 const HeroText = styled.div`

@@ -10,7 +10,6 @@ const Geocoder = () => {
   const { owner } = useContext(OwnerContext);
   const ownerUsername = owner[0];
   const ownerId = owner[1];
-  console.log("owner", owner[1]);
 
   return (
     <>
