@@ -20,10 +20,7 @@ const OwnerHome = () => {
   const [selectedItemById, setSelectedItemById] = useState();
 
   const { owner: user } = useContext(OwnerContext);
-  // let userId = owner[1];
-  // console.log("userId", userId);
   const { profileById } = useParams();
-  // console.log('user', user);
 
   // Give informations on the owner - profile
   useEffect(() => {
@@ -92,6 +89,7 @@ const OwnerHome = () => {
       });
   }, [selectedItemById]);
 
+
   return (
     <>
       {error && <ErrorMessage />}
@@ -118,7 +116,7 @@ const OwnerHome = () => {
                 <OwnerName>{ownerProfile.username}</OwnerName>
                 <WrapperLocation>
                   <GrMapLocation />
-                  {ownerProfile.address ? (
+                  {(ownerProfile.address.city !=="") ? (
                     <OwnerCity>{ownerProfile.address.city}</OwnerCity>
                   ) : (
                     <p>City is not displayed.</p>
@@ -136,7 +134,6 @@ const OwnerHome = () => {
                     <ItemImg src={item.image}></ItemImg>
                     <h2>{item.name}</h2>
                   </Link>
-                  <p>{item._id}</p>
                   <Container>
                     <div>
                       Category:<span> {item.category}</span>{" "}
@@ -246,11 +243,13 @@ const OwnerNameCityWrapper = styled.div`
 const OwnerItem = styled.h2`
   padding-left: 40px;
   padding-top: 20px;
+  padding-bottom: 30px;
 `;
 
 const ItemsWrapper = styled.div`
   padding-bottom: 60px;
   max-width: 1200px;
+  padding: 0 40px;
   display: grid;
   align-items: stretch;
   justify-items: center;
@@ -274,11 +273,10 @@ const ItemContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   max-width: 600px;
-  /* align-items: flex-start; */
-
   padding: 30px;
-  margin: 10px;
-  border-radius: 10px;
+  margin: 20px;
+  border: 1px solid pink;
+  border-radius: 2px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 
   h2 {
